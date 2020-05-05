@@ -1,6 +1,6 @@
-# daawn
+##DAAWN
 
-> SLT project
+#DAAWN is an online assessment tool for aphasia, which uses the Comprehensive Aphasia Test (CAT). It has been developed in conjunction with the Fiona Menger in the School of Education, Communication and Language Sciences
 
 ## Build Setup
 
@@ -15,4 +15,3 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
