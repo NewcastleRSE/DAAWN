@@ -21,8 +21,6 @@
           </div>
         </div>
 
-        {{ set }}
-
         <div class="field">
           <div class="form-group">
             <p class="special">Please choose all that apply</p>
@@ -95,7 +93,7 @@
             next() {
               this.submitted = true;
               this.saveData();
-              this.$router.push({ path: './appselect' });
+              this.$router.push({ path: './apppractice' });
             },
             saveData() {
               dataService.saveSettings(this.set, this.settings)

@@ -6,7 +6,7 @@
       <p class="title is-6">Digitised Assessment of Aphasia using typed Word Naming</p>
 
        <div class="info">
-         <span class="special">DAAWN</span> is an online assessment tool for aphasia, which uses the <span class="special">Comprehensive Aphasia Test (CAT)</span>. It has been developed in conjunction with the <span class="special">Fiona Menger</span> in the <span class="special">School of Education, Communication and Language Sciences</span> (HaSS Faculty) and the <span class="special">Digital Institute Research Software Engineering</span> team.
+         <span class="special">DAAWN</span> is an online assessment tool for aphasia, which uses the <span class="special">Comprehensive Aphasia Test (CAT)</span>. It has been developed in conjunction with <span class="special">Dr Fiona Menger</span> in the <span class="special">School of Education, Communication and Language Sciences</span> (HaSS Faculty) and the <span class="special">Digital Institute Research Software Engineering</span> team.
         </div>
 
         <div class="level" >
