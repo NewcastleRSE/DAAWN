@@ -42,7 +42,7 @@
         <div class="level" >
           <div class="level-item">
 
-            <p id="highlight" class="special">Click <strong>Next</strong> to select your options.</p>
+            <p class="highlight special">Click <strong>Next</strong> to select your options.</p>
           </div>
           <div class="level-item">
             <div class="buttons-section form-group">
@@ -93,7 +93,7 @@
             next() {
               this.submitted = true;
               this.saveData();
-              this.$router.push({ path: './apppractice' });
+              this.$router.push({ path: './instructions' });
             },
             saveData() {
               dataService.saveSettings(this.set, this.settings)

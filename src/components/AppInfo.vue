@@ -14,7 +14,7 @@
       <div class="level" >
         <div class="level-item">
 
-          <p id="highlight" class="special">Click <strong>Next</strong> to select your options.</p>
+          <p class="highlight special">Click <strong>Next</strong> to select your options.</p>
         </div>
         <div class="level-item">
           <div class="buttons-section">
@@ -36,7 +36,7 @@
               this.$router.push({ path: './' });
             },
             next() {
-              this.$router.push({ path: './appselect' });
+              this.$router.push({ path: './select' });
             }
         }
     }

@@ -15,7 +15,7 @@ export default {
 
 <style>
 
-  #highlight {
+  .highlight {
     background-color: #EEEEEE;
     padding: 12px;
   }

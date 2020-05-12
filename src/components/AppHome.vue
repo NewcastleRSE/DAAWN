@@ -26,7 +26,7 @@
         name: "AppHome",
         methods: {
           start() {
-            this.$router.push({ path: './appinfo' });
+            this.$router.push({ path: './info' });
           }
       }
     }

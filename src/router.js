@@ -5,6 +5,7 @@ import AppHome from './components/AppHome.vue';
 import AppInfo from './components/AppInfo';
 import AppSelect from "./components/AppSelect";
 import AppPractice from "./components/AppPractice";
+import AppInstructions from "./components/AppInstructions";
 
 Vue.use(Router);
 
@@ -17,15 +18,19 @@ export const router = new Router({
       component: AppHome,
     },
     {
-      path: '/appinfo',
+      path: '/info',
       component: AppInfo
     },
     {
-      path: '/appselect',
+      path: '/select',
       component: AppSelect
     },
     {
-      path: '/apppractice',
+      path: '/instructions',
+      component: AppInstructions
+    },
+    {
+      path: '/practice',
       component: AppPractice
     }
   ]
