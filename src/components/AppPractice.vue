@@ -15,31 +15,38 @@
         <div class="box" >
 
           <div class="level">
-            <div class="level-left">
+            <tooltip label="This will add the first letter of the word to the input box" placement="top-right">
+            <div class="level-left tooltip">
               <span class="icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
               <span class="special">Hint</span>
             </div>
-            <div class="level-right">
+            </tooltip>
+
+            <tooltip label="This will close the picture set" placement="top-right">
+            <div class="level-right tooltip">
                 <span class="icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
                 <span class="special">Exit</span>
             </div>
+            </tooltip>
           </div>
 
           <div class="level">
             <div class="level-item has-text-centered">
 
-            <a href="#"><img v-bind:style="{ display: showPractice1 }"  :src="getImage('boy2.jpg')" @click="nextPractice" ></a>
-            <a href="#"><img v-bind:style="{ display: showPractice2 }"  :src="getImage('tree.jpg')" @click="beginSet" ></a>
+            <img v-bind:style="{ display: showPractice1 }"  :src="getImage('boy2.jpg')">
+            <img v-bind:style="{ display: showPractice2 }"  :src="getImage('tree.jpg')">
             </div>
           </div>
 
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" autofocus>
+                <input ref="text" class="input is-large" type="text" maxlength="10" autofocus v-model="practiceImage">
+                <span id="forward-arrow"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
               </div>
             </div>
           </div>
+
 
         </div>
       </div>
@@ -69,13 +76,19 @@
 
 <script>
 
+  import Tooltip from 'vue-bulma-tooltip'
+
   export default {
         name: "AppPractice",
+        components: {
+          Tooltip
+        },
         data() {
             return {
                 showPractice1 : 'flex',
                 showPractice2: 'none',
-                count: 1
+                count: 1,
+                practiceImage: ''
             }
          },
         methods: {
@@ -83,9 +96,12 @@
                return require(`../assets/practiceSet/${name}`);
             },
             nextPractice() {
+                this.$data.practiceImage = '';
                 this.showPractice1 = 'none';
                 this.showPractice2 = 'flex';
-                this.count++;
+                if(this.count < 2){
+                  this.count++;
+                }
             },
             beginSet() {
 
@@ -141,6 +157,24 @@
   .icon{
     padding-right: 20px;
   }
+
+  #forward-arrow{
+    float: right;
+    margin-right: 6px;
+    margin-top: -54px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .tooltip {
+    position: relative;
+  }
+
+  .tooltip .special {
+   position: absolute;
+   top : 0px;
+ }
+
 
 
 
