@@ -17,15 +17,15 @@
           <div class="level">
             <tooltip label="This will add the first letter of the word to the input box" placement="top-right">
             <div class="level-left tooltip">
-              <span class="icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
-              <span class="special">Hint</span>
+              <span class="hint-icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
+              <span id="hint" class="special">Hint</span>
             </div>
             </tooltip>
 
             <tooltip label="This will close the picture set" placement="top-right">
             <div class="level-right tooltip">
-                <span class="icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
-                <span class="special">Exit</span>
+                <span class="exit-icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
+                <span id="exit" class="special">Exit</span>
             </div>
             </tooltip>
           </div>
@@ -58,7 +58,7 @@
       <div class="level">
         <div class="level-item">
 
-          <p class="highlight special">Click <strong>Start</strong> to begin the assessment section.</p>
+          <p class="highlight special">Click <strong>Start</strong> to begin the ASSESSMENT section.</p>
         </div>
         <div class="level-item">
           <div class="buttons-section form-group">
@@ -104,7 +104,7 @@
                 }
             },
             beginSet() {
-
+              this.$router.push({ path: './assessment' });
             },
             focusInput() {
               this.$refs.text.focus();
@@ -154,8 +154,12 @@
     padding: 30px 0;
   }
 
-  .icon{
-    padding-right: 20px;
+  .hint-icon {
+    padding-right: 10px;
+  }
+
+  .exit-icon {
+    padding-right: 40px;
   }
 
   #forward-arrow{
@@ -170,11 +174,16 @@
     position: relative;
   }
 
-  .tooltip .special {
-   position: absolute;
-   top : 0px;
- }
+  .tooltip #hint{
+    position: absolute;
+    top : 0px;
+  }
 
+  .tooltip #exit {
+    position: absolute;
+    top : 5px;
+    right: 5px;
+  }
 
 
 

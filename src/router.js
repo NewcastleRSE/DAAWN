@@ -6,6 +6,7 @@ import AppInfo from './components/AppInfo';
 import AppSelect from "./components/AppSelect";
 import AppPractice from "./components/AppPractice";
 import AppInstructions from "./components/AppInstructions";
+import AppAssessment from "./components/AppAssessment";
 
 Vue.use(Router);
 
@@ -32,6 +33,10 @@ export const router = new Router({
     {
       path: '/practice',
       component: AppPractice
+    },
+    {
+      path: '/assessment',
+      component: AppAssessment
     }
   ]
 });
