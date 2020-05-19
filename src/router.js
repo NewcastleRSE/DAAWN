@@ -35,7 +35,7 @@ export const router = new Router({
       component: AppPractice
     },
     {
-      path: '/assessment',
+      path: '/assessment/:set',
       component: AppAssessment
     }
   ]

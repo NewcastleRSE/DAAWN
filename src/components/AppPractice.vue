@@ -41,7 +41,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" autofocus v-model="practiceImage">
+                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage">
                 <span id="forward-arrow"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
               </div>
             </div>
@@ -104,7 +104,9 @@
                 }
             },
             beginSet() {
-              this.$router.push({ path: './assessment' });
+
+              let currentSet = localStorage.getItem('set');
+              this.$router.push({ path: './assessment/' + currentSet });
             },
             focusInput() {
               this.$refs.text.focus();

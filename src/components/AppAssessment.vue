@@ -32,8 +32,9 @@
 
               {{ currentSet}}
 
-              <img v-bind:style="{ display: showPredictionSet }"  :src="getImage('predictionSet', index)">
-              <img v-if="currentSet === 'two'" v-bind:style="{ display: showTypingSet }"  :src="getImage('typingSet', index)">
+              <img v-if="currentSet === 'one'" :src="getImage('setOne', index)">
+              <img v-if="currentSet === 'two'"  :src="getImage('setTwo', index)">
+              <img v-if="currentSet === 'three'" :src="getImage('setThree', index)">
 
             </div>
           </div>
@@ -41,7 +42,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="image">
+                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="responseText">
                 <span id="forward-arrow"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextImage"></font-awesome-icon></span>
               </div>
             </div>
@@ -54,7 +55,7 @@
           <p class="title is-5">{{ index+1}} of 30 </p>
         </div>
 
-      <div class="level">
+      <div class="level" v-if="index === 30">
         <div class="level-item">
 
           <p class="highlight special">Click <strong>Next</strong> to move on.</p>
@@ -76,6 +77,8 @@
 <script>
 
 
+  import {dataService} from "../services/data.service";
+
   export default {
         name: "AppPractice",
         components: {
@@ -83,22 +86,28 @@
         data() {
             return {
                 currentSet: '',
-                showPredictionSet : 'flex',
-                showTypingSet : 'none',
                 index : 0,
                 filename: '',
                 name: '',
-                image: '',
+                responseText: '',
                 setOne : ['jar', 'zip', 'egg', 'fly', 'key', 'cow', 'ear', 'pear', 'crab', 'tray', 'frog', 'tyre', 'mask', 'comb', 'train', 'chair', 'sheep', 'horse', 'lemon', 'pencil', 'violin','saddle', 'magnet', 'giraffe','toaster', 'penguin','butterfly', 'cucumber', 'fountain', 'strawberry'],
                 setTwo : ['mop', 'leg', 'fan', 'bed', 'fox', 'pen', 'jug', 'harp', 'sock', 'fork', 'doll', 'hook', 'shoe', 'worm', 'chain', 'plate', 'grass', 'table', 'clock', 'scales', 'wallet', 'slipper', 'candle', 'anchor','feather', 'pumpkin','skeleton', 'kangaroo','telescope','microphone'],
-                wordsCorrect : [],
+                setThree : ['eye', 'cat', 'tie', 'net', 'bat','owl', 'cot', 'tent', 'soap', 'lamp', 'dart','kite', 'cork', 'rake', 'knife', 'apple', 'brain','dress','house', 'coffin', 'grapes', 'teapot', 'cactus', 'battery','lettuce','hammock','necklace','starfish', 'pineapple','wheelchair'],
+                expectedOutcome: [],
+                actualOutcome: [],
+                responseType: [],
+                keyLogData: [],
+                catScore: [],
+                DLScore: [],
                 firstCorrect: [],
-                secondCorrect: []
+                secondCorrect: [],
+                responseTime: [],
+                reactionTime: []
             }
          },
         methods: {
             getImage(set, index){
-              this.currentSet = localStorage.getItem('set');
+
               if(this.currentSet === 'one'){
                 this.filename = this.setOne[index] + '.jpg';
                 this.name = this.setOne[index];
@@ -107,20 +116,53 @@
                 this.filename = this.setTwo[index] + '.jpg';
                 this.name = this.setTwo[index];
               }
+              else {
+                this.filename = this.setThree[index] + '.jpg';
+                this.name = this.setThree[index];
+              }
               return require(`../assets/${set}/${this.filename}`);
             },
             nextImage() {
                 this.collectData();
-                this.$data.image = '';
+                this.$data.responseText = '';
                 if(this.index < 30){
                   this.index++;
                 }
                 this.focusInput();
             },
             collectData() {
-              if(this.name === this.image) {
-                console.log('correct');
-              }
+                let settings = localStorage.getItem('settings');
+
+                console.log('fully correct');
+                this.expectedOutcome.push(this.name);
+                this.actualOutcome.push(this.responseText);
+                if(this.name === this.responseText){
+                  this.responseType.push(1);
+                }
+                else {
+                  this.responseType.push(0);
+                }
+                this.keyLogData.push();
+                this.catScore.push();
+                let lev = dataService.levenshtein(this.name, this.responseText);
+                this.DLScore.push(lev);
+                if(this.responseText.charAt(0) === this.name.charAt(0)) {
+                  this.firstCorrect.push(1);
+                }
+                else {
+                  this.firstCorrect.push(0);
+                }
+                if(this.responseText.charAt(0)+this.responseText.charAt(1)  === this.name.charAt(0)+this.name.charAt(1)) {
+                  this.secondCorrect.push(1);
+                }
+                else {
+                  this.secondCorrect.push(0);
+                }
+
+                this.responseTime.push();
+                this.reactionTime.push();
+                console.log(this.expectedOutcome, this.actualOutcome, this.responseType, this.DLScore, this.firstCorrect, this.secondCorrect );
+
             },
             endSet() {
 
@@ -136,8 +178,8 @@
             }
         },
         mounted() {
-              this.focusInput();
-
+            this.currentSet = this.$route.params.set;
+            this.focusInput();
         }
   }
 </script>
