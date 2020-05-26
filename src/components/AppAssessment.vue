@@ -1,13 +1,14 @@
 <template>
   <div class="container is-widescreen">
     <div id="page">
-      <div id="header">
-        <span id="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Beginning the <strong>assessment</strong> session</p>
+      <div class="header" v-show="index === 0">
+        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <p  class="title is-3">Beginning the <strong>assessment</strong> session</p>
       </div>
 
-      <div class="text">
-          <p>Please ensure the patient understands the page controls.</p>
+      <div class="header" v-show="index > 0">
+        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <p class="title is-3">Assessment {{ status }}</p>
       </div>
 
       <div class="level-item has-text-centered">
@@ -30,7 +31,7 @@
           <div class="level">
             <div class="level-item has-text-centered">
 
-              {{ currentSet}}
+
 
               <img v-if="currentSet === 'one'" :src="getImage('setOne', index)">
               <img v-if="currentSet === 'two'"  :src="getImage('setTwo', index)">
@@ -48,6 +49,8 @@
             </div>
           </div>
 
+          {{ currentSet}} / {{ index }}
+
         </div>
       </div>
 
@@ -55,10 +58,10 @@
           <p class="title is-5">{{ index+1}} of 30 </p>
         </div>
 
-      <div class="level" v-if="index === 30">
+      <div class="level" v-if="index >= 30">
         <div class="level-item">
 
-          <p class="highlight special">Click <strong>Next</strong> to move on.</p>
+          <p class="highlight special">Click <strong>Next</strong> to access the ASSESSMENT REPORT</p>
         </div>
         <div class="level-item">
           <div class="buttons-section form-group">
@@ -87,9 +90,12 @@
             return {
                 currentSet: '',
                 index : 0,
+                setComplete : false,
                 filename: '',
                 name: '',
+                status : 'in progress',
                 responseText: '',
+                response: [],
                 setOne : ['jar', 'zip', 'egg', 'fly', 'key', 'cow', 'ear', 'pear', 'crab', 'tray', 'frog', 'tyre', 'mask', 'comb', 'train', 'chair', 'sheep', 'horse', 'lemon', 'pencil', 'violin','saddle', 'magnet', 'giraffe','toaster', 'penguin','butterfly', 'cucumber', 'fountain', 'strawberry'],
                 setTwo : ['mop', 'leg', 'fan', 'bed', 'fox', 'pen', 'jug', 'harp', 'sock', 'fork', 'doll', 'hook', 'shoe', 'worm', 'chain', 'plate', 'grass', 'table', 'clock', 'scales', 'wallet', 'slipper', 'candle', 'anchor','feather', 'pumpkin','skeleton', 'kangaroo','telescope','microphone'],
                 setThree : ['eye', 'cat', 'tie', 'net', 'bat','owl', 'cot', 'tent', 'soap', 'lamp', 'dart','kite', 'cork', 'rake', 'knife', 'apple', 'brain','dress','house', 'coffin', 'grapes', 'teapot', 'cactus', 'battery','lettuce','hammock','necklace','starfish', 'pineapple','wheelchair'],
@@ -108,32 +114,39 @@
         methods: {
             getImage(set, index){
 
-              if(this.currentSet === 'one'){
-                this.filename = this.setOne[index] + '.jpg';
-                this.name = this.setOne[index];
+              if(index !== 30) {
+                if(this.currentSet === 'one'){
+                  this.filename = this.setOne[index] + '.jpg';
+                  this.name = this.setOne[index];
+                }
+                else if(this.currentSet === 'two') {
+                  this.filename = this.setTwo[index] + '.jpg';
+                  this.name = this.setTwo[index];
+                }
+                else {
+                  this.filename = this.setThree[index] + '.jpg';
+                  this.name = this.setThree[index];
+                }
+                return require(`../assets/${set}/${this.filename}`);
               }
-              else if(this.currentSet === 'two') {
-                this.filename = this.setTwo[index] + '.jpg';
-                this.name = this.setTwo[index];
-              }
-              else {
-                this.filename = this.setThree[index] + '.jpg';
-                this.name = this.setThree[index];
-              }
-              return require(`../assets/${set}/${this.filename}`);
             },
             nextImage() {
-                this.collectData();
-                this.$data.responseText = '';
-                if(this.index < 30){
+                if(this.index < 29){
+                  this.collectData();
                   this.index++;
+                  this.focusInput();
                 }
-                this.focusInput();
+                else {
+                  this.status = 'completed';
+                  this.setComplete = true;
+                  console.log(this.response);
+                  this.saveToFile(this.response);
+                }
+              this.$data.responseText = '';
             },
             collectData() {
                 let settings = localStorage.getItem('settings');
 
-                console.log('fully correct');
                 this.expectedOutcome.push(this.name);
                 this.actualOutcome.push(this.responseText);
                 if(this.name === this.responseText){
@@ -161,8 +174,9 @@
 
                 this.responseTime.push();
                 this.reactionTime.push();
-                console.log(this.expectedOutcome, this.actualOutcome, this.responseType, this.DLScore, this.firstCorrect, this.secondCorrect );
+                //console.log(this.expectedOutcome, this.actualOutcome, this.responseType, this.DLScore, this.firstCorrect, this.secondCorrect );
 
+                this.response = { "expected_outcome" : this.expectedOutcome, "actual_response" : this.actualOutcome, "response_type" : this.responseType, "dla_score" : this.DLScore, "first_correct": this.firstCorrect, "second_correct" : this.secondCorrect };
             },
             endSet() {
 
@@ -170,7 +184,23 @@
             focusInput() {
               this.$refs.text.focus();
             },
-             saveToFile() {
+             saveToFile(mydata) {
+                console.log('saving file!');
+               const data = JSON.stringify(mydata);
+               console.log(data);
+
+               let todayDate = new Date().toISOString().slice(0,10);
+
+               const blob = new Blob([data], {type: 'text/plain'});
+               const e = document.createEvent('MouseEvents'),
+                 a = document.createElement('a');
+
+
+               a.download = "outcomes-" + todayDate + ".txt";
+               a.href = window.URL.createObjectURL(blob);
+               a.dataset.downloadurl = ['text/json', a.download, a.href].join(':');
+               e.initEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+               a.dispatchEvent(e);
 
              },
             exit() {
@@ -194,11 +224,12 @@
     padding: 30px;
   }
 
-  #header {
-    padding-bottom: 20px;
+  .header {
+    padding-bottom: 60px;
   }
 
-  #logo {
+
+  .logo {
     float:right;
   }
 
