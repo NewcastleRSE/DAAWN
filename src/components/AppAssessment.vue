@@ -2,12 +2,12 @@
   <div class="container is-widescreen">
     <div id="page">
       <div class="header" v-show="index === 0">
-        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p  class="title is-3">Beginning the <strong>assessment</strong> session</p>
       </div>
 
       <div class="header" v-show="index > 0">
-        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p class="title is-3">Assessment {{ status }}</p>
       </div>
 
@@ -43,7 +43,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="responseText">
+                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="responseText" v-on:keydown="keyLogger($event)">
                 <span id="forward-arrow"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextImage"></font-awesome-icon></span>
               </div>
             </div>
@@ -96,19 +96,21 @@
                 status : 'in progress',
                 responseText: '',
                 response: [],
+                startTime: 0,
                 setOne : ['jar', 'zip', 'egg', 'fly', 'key', 'cow', 'ear', 'pear', 'crab', 'tray', 'frog', 'tyre', 'mask', 'comb', 'train', 'chair', 'sheep', 'horse', 'lemon', 'pencil', 'violin','saddle', 'magnet', 'giraffe','toaster', 'penguin','butterfly', 'cucumber', 'fountain', 'strawberry'],
                 setTwo : ['mop', 'leg', 'fan', 'bed', 'fox', 'pen', 'jug', 'harp', 'sock', 'fork', 'doll', 'hook', 'shoe', 'worm', 'chain', 'plate', 'grass', 'table', 'clock', 'scales', 'wallet', 'slipper', 'candle', 'anchor','feather', 'pumpkin','skeleton', 'kangaroo','telescope','microphone'],
                 setThree : ['eye', 'cat', 'tie', 'net', 'bat','owl', 'cot', 'tent', 'soap', 'lamp', 'dart','kite', 'cork', 'rake', 'knife', 'apple', 'brain','dress','house', 'coffin', 'grapes', 'teapot', 'cactus', 'battery','lettuce','hammock','necklace','starfish', 'pineapple','wheelchair'],
-                expectedOutcome: [],
-                actualOutcome: [],
-                responseType: [],
-                keyLogData: [],
-                catScore: [],
-                DLScore: [],
-                firstCorrect: [],
-                secondCorrect: [],
-                responseTime: [],
-                reactionTime: []
+                setFour : ['jar', 'zip', 'egg', 'fly', 'key', 'cow', 'ear', 'mop', 'leg', 'fan', 'bed', 'fox', 'pen', 'jug','eye', 'cat', 'tie', 'net', 'bat','owl', 'cot', 'pear', 'crab', 'tray', 'frog', 'tyre', 'mask', 'comb', 'harp', 'sock', 'fork', 'doll', 'hook', 'shoe', 'worm', 'tent', 'soap', 'lamp', 'dart','kite', 'cork', 'rake'],
+                expectedOutcome: '',
+                actualOutcome: '',
+                responseType: '',
+                processResponse: [],
+                catScore: 0,
+                DLScore: 0,
+                firstCorrect: '',
+                secondCorrect: '',
+                responseTime: 0,
+                reactionTime: 0
             }
          },
         methods: {
@@ -116,16 +118,23 @@
 
               if(index !== 30) {
                 if(this.currentSet === 'one'){
+                 // this.shuffle(this.setOne);
                   this.filename = this.setOne[index] + '.jpg';
                   this.name = this.setOne[index];
                 }
                 else if(this.currentSet === 'two') {
+                //  this.shuffle(this.setTwo);
                   this.filename = this.setTwo[index] + '.jpg';
                   this.name = this.setTwo[index];
                 }
-                else {
+                else if(this.currentSet === 'three') {
+                //  this.shuffle(this.setThree);
                   this.filename = this.setThree[index] + '.jpg';
                   this.name = this.setThree[index];
+                }
+                else {
+                  this.filename = this.setFour[index] + '.jpg';
+                  this.name = this.setFour[index];
                 }
                 return require(`../assets/${set}/${this.filename}`);
               }
@@ -133,53 +142,86 @@
             nextImage() {
                 if(this.index < 29){
                   this.collectData();
+                  this.clearData();
                   this.index++;
                   this.focusInput();
                 }
                 else {
                   this.status = 'completed';
                   this.setComplete = true;
+                  let now = Date.now();
+                  this.responseTime =  this.calcTimePassed(now);
+
                   console.log(this.response);
                   this.saveToFile(this.response);
                 }
               this.$data.responseText = '';
             },
             collectData() {
-                let settings = localStorage.getItem('settings');
-
-                this.expectedOutcome.push(this.name);
-                this.actualOutcome.push(this.responseText);
+                this.expectedOutcome = this.name;
+                this.actualOutcome = this.responseText;
                 if(this.name === this.responseText){
-                  this.responseType.push(1);
+                  this.responseType = 1;
                 }
                 else {
-                  this.responseType.push(0);
+                  this.responseType = 0;
                 }
-                this.keyLogData.push();
-                this.catScore.push();
-                let lev = dataService.levenshtein(this.name, this.responseText);
-                this.DLScore.push(lev);
+
+                this.DLScore = dataService.levenshtein(this.name, this.responseText);
+
+                //ensures the score is not negative
+                let imageNameLength=this.name.length;
+                if(imageNameLength-this.DLScore < 0){
+                    this.catScore=imageNameLength-this.DLScore;
+                }
+
                 if(this.responseText.charAt(0) === this.name.charAt(0)) {
-                  this.firstCorrect.push(1);
+                  this.firstCorrect = 1;
                 }
                 else {
-                  this.firstCorrect.push(0);
+                  this.firstCorrect = 0;
                 }
                 if(this.responseText.charAt(0)+this.responseText.charAt(1)  === this.name.charAt(0)+this.name.charAt(1)) {
-                  this.secondCorrect.push(1);
+                  this.secondCorrect = 1;
                 }
                 else {
-                  this.secondCorrect.push(0);
+                  this.secondCorrect = 0;
                 }
 
-                this.responseTime.push();
-                this.reactionTime.push();
-                //console.log(this.expectedOutcome, this.actualOutcome, this.responseType, this.DLScore, this.firstCorrect, this.secondCorrect );
+                let newTime = Date.now();
+                this.reactionTime = this.calcTimePassed(newTime);
 
-                this.response = { "expected_outcome" : this.expectedOutcome, "actual_response" : this.actualOutcome, "response_type" : this.responseType, "dla_score" : this.DLScore, "first_correct": this.firstCorrect, "second_correct" : this.secondCorrect };
+                /*let processObject = { 'processResponse' : this.processResponse };
+                localStorage.setItem(this.name, JSON.stringify(processObject)); */
+
+                this.response = { "expected_outcome" : this.expectedOutcome, "actual_response" : this.actualOutcome, "response_type" : this.responseType, "cat_score" : this.catScore, "dla_score" : this.DLScore, "first_correct": this.firstCorrect, "second_correct" : this.secondCorrect, 'processResponse' : this.processResponse };
+
+                localStorage.setItem(this.name, JSON.stringify(this.response));
+
+            },
+            clearData() {
+               this.processResponse = [];
+               this.expectedOutcome = '';
+               this.actualOutcome = '';
+               this.responseType = '';
+               this.catScore = 0;
+               this.DLScore = 0;
+               this.firstCorrect = '';
+               this.secondCorrect = '';
             },
             endSet() {
 
+            },
+            keyLogger: function($event) {
+              console.log($event.key);
+              this.processResponse.push($event.key);
+            },
+            calcTimePassed(newTime){
+              let diff=(newTime-this.startTime)/1000;
+              // rounds length of time down and expresses it in seconds
+              let timePassed=Math.floor(diff);
+              console.log(timePassed);
+              return timePassed;
             },
             focusInput() {
               this.$refs.text.focus();
@@ -203,13 +245,22 @@
                a.dispatchEvent(e);
 
              },
-            exit() {
-              this.$router.push({ path: './' });
-            }
+             shuffle(a) {
+              for (let i = a.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [a[i], a[j]] = [a[j], a[i]];
+              }
+              return a;
+             },
+             exit() {
+                this.$router.push({ path: './' });
+             }
         },
         mounted() {
             this.currentSet = this.$route.params.set;
             this.focusInput();
+            this.startTime = Date.now();
+            console.log('Start time ' + this.startTime);
         }
   }
 </script>
@@ -233,7 +284,7 @@
     float:right;
   }
 
-  #daawn-logo {
+  .daawn-logo {
     height: 40px;
   }
 

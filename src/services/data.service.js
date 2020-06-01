@@ -5,9 +5,8 @@ export const dataService = {
   download
 };
 
-function saveSettings(set, settings) {
+function saveSettings(set) {
   localStorage.setItem('set', set);
-  localStorage.setItem('settings', settings);
 }
 
 //algorithm to find levenshtein distance score
