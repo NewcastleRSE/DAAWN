@@ -18,7 +18,7 @@
             <div><input type="radio" name="question" v-model="set" value="one"> <label class="radio">Set One</label></div>
             <div><input type="radio" name="question" v-model="set" value="two"> <label class="radio">Set Two</label></div>
             <div><input type="radio" name="question" v-model="set" value="three"> <label class="radio">Set Three</label></div>
-            <div><input type="radio" name="question" v-model="set" value="three"> <label class="radio">Set Four</label></div>
+            <div><input type="radio" name="question" v-model="set" value="four"> <label class="radio">Set Four</label></div>
               <span>{{ errors[0] }}</span>
             </validation-provider>
           </div>
