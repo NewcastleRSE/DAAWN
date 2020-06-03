@@ -226,7 +226,7 @@
                      let timePassed = this.calcTimePassed(this.startTime, keystrokeTime);
 
                      if(timePassed-lastKeystrokeTime > 1){
-                       this.processResponse.push(timePassed-lastKeystrokeTime + " sec");
+                       this.processResponse.push("(" + timePassed-lastKeystrokeTime + " sec)");
                      }
                 }
                 this.keystrokeTimes.push(this.calcTimePassed(this.startTime, keystrokeTime));
