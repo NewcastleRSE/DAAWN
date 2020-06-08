@@ -16,13 +16,13 @@
 
           <div class="level">
             <tooltip label="This will add the first letter of the word to the input box" placement="top-right">
-            <div class="level-left tooltip">
+            <div class="level-left tooltip" @click="hint">
               <span class="hint-icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
               <span id="hint" class="special">Hint</span>
             </div>
             </tooltip>
 
-            <tooltip label="This will close the picture set" placement="top-right">
+            <tooltip label="This will close the assessement (assessment section only)" placement="top-right">
             <div class="level-right tooltip">
                 <span class="exit-icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
                 <span id="exit" class="special">Exit</span>
@@ -42,7 +42,7 @@
             <div class="field">
               <div class="control">
                 <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage">
-                <span id="forward-arrow"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
+                <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
               </div>
             </div>
           </div>
@@ -88,7 +88,10 @@
                 showPractice1 : 'flex',
                 showPractice2: 'none',
                 count: 1,
-                practiceImage: ''
+                practiceImage: '',
+                status : 'in progress',
+                name : '',
+                hintClicked : false
             }
          },
         methods: {
@@ -97,26 +100,39 @@
             },
             nextPractice() {
                 this.$data.practiceImage = '';
+                this.hintClicked = false;
+                this.name = "tree";
                 this.showPractice1 = 'none';
                 this.showPractice2 = 'flex';
                 if(this.count < 2){
                   this.count++;
+                  this.focusInput();
+                }
+                else {
+                  this.status = 'completed';
                 }
             },
             beginSet() {
-
-              let currentSet = localStorage.getItem('set');
-              this.$router.push({ path: './assessment/' + currentSet });
+                let currentSet = localStorage.getItem('set');
+                this.$router.push({ path: './assessment/' + currentSet });
+            },
+            hint() {
+                if(!this.hintClicked){
+                    this.practiceImage = this.name.slice(0,1);
+                    this.hintClicked = true;
+                    this.focusInput();
+                }
             },
             focusInput() {
               this.$refs.text.focus();
             },
             exit() {
-              this.$router.push({ path: './' });
+                this.$router.push({ path: './' });
             }
         },
         mounted() {
               this.focusInput();
+              this.name = "boy";
         }
   }
 </script>

@@ -40,13 +40,9 @@
 
       <div class="level" >
         <div class="level-item">
-
-          <p class="highlight special">Click <strong>Download</strong> to save a PDF.</p>
-        </div>
-        <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=createPDF()>Download</button>
+            <button class="button next-btn" @click=createPDF()>Download PDF</button>
           </div>
 
         </div>
@@ -62,7 +58,6 @@
 
     import {settings} from "../settings";
     import jsPDF from 'jspdf';
-    import html2canvas from "html2canvas";
 
     export default {
         name: "AppReport",
@@ -76,10 +71,12 @@
             fillCatTable(){
                 for(let index in this.currentSet){
                     if(this.currentSet.hasOwnProperty(index)){
-                      this.activeSet.push(JSON.parse(localStorage.getItem(this.currentSet[index])));
+                      if(localStorage.getItem(this.currentSet[index]) !== null){
+                        this.activeSet.push(JSON.parse(localStorage.getItem(this.currentSet[index])));
+                      }
                     }
                 }
-                this.filter(this.activeSet);
+               this.filter(this.activeSet);
             },
             filter(set){
               for(let item in set){
@@ -89,18 +86,32 @@
                 }
               }
             },
-          createPDF () {
-            let pdfName = 'test';
-            let canvasElement = document.createElement('canvas');
-            const doc = new jsPDF('p', 'mm', "a4");
+            createPDF() {
 
-            html2canvas(this.$refs.content, { canvas: canvasElement
-            }).then(function (canvas) {
-              const img = canvas.toDataURL("image/jpeg", 1.0);
-              doc.addImage(img, 'JPG', 10, 10);
-              doc.save(pdfName);
-            });
-          }
+              /*
+              let pdfName = 'test';
+              let canvasElement = document.createElement('canvas');
+              const doc = new jsPDF('p', 'mm', "a4");
+
+              html2canvas(this.$refs.content, { canvas: canvasElement
+              }).then(function (canvas) {
+                const img = canvas.toDataURL("image/jpeg", 1.0);
+                doc.addImage(img, 'JPG', 10, 10);
+                doc.save(pdfName);
+              }); */
+
+              const doc = new jsPDF();
+              doc.setFontSize(22);
+              doc.text(20,20, 'Assessment Report');
+            //  doc.setFontSize(14);
+            //  doc.text('Name');
+             // doc.rect(20, 20, 50, 10);
+              doc.save('report.pdf');
+
+            },
+            exit() {
+              this.$router.push({ path: './' });
+            }
         },
         created() {
             let mySet = localStorage.getItem('set');

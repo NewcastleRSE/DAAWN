@@ -12,15 +12,14 @@
       </div>
 
       <div class="level-item has-text-centered">
-
         <div class="box" >
 
           <div class="level">
-            <div class="level-left icons" >
-              <span class="hint-icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
+            <div class="level-left icons" @click="hint">
+              <span class="hint-icon" ><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
               <span id="hint" class="special">Hint</span>
             </div>
-            <div class="level-right icons">
+            <div class="level-right icons" @click="endSet">
                 <span class="exit-icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
                 <span id="exit" class="special">Exit</span>
             </div>
@@ -56,12 +55,12 @@
       <div class="level" v-if="status === 'completed'">
         <div class="level-item">
 
-          <p class="highlight special">Click <strong>Next</strong> to access the ASSESSMENT REPORT</p>
+          <p class="highlight special">Click <strong>Finish</strong> to END the assessment</p>
         </div>
         <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=endSet()>Next</button>
+            <button class="button next-btn" @click=endSet()>Finish</button>
           </div>
 
         </div>
@@ -89,6 +88,7 @@
                 index : 0,
                 filename: '',
                 name: '',
+                hintClicked : false,
                 status : 'in progress',
                 responseText: '',
                 setOne : settings.setOne,
@@ -146,12 +146,20 @@
                   this.status = 'completed';
                 }
                 else {
+                  this.hintClicked = false;
                   this.collectData();
                   this.clearData();
                   this.index++;
                   this.focusInput();
                 }
                 this.$data.responseText = '';
+            },
+            hint() {
+              if(!this.hintClicked){
+                this.responseText = this.name.slice(0,1);
+                this.hintClicked = true;
+                this.focusInput();
+              }
             },
             collectData() {
                 this.expectedOutcome = this.name;
@@ -212,7 +220,7 @@
                 this.moveOnTime = 0;
             },
             endSet() {
-                this.$router.push({ path: '../report' });
+                this.$router.push({ path: '../assessmentComplete' });
             },
             keyLogger: function($event) {
                 this.processResponse.push($event.key);
@@ -226,7 +234,7 @@
                      let timePassed = this.calcTimePassed(this.startTime, keystrokeTime);
 
                      if(timePassed-lastKeystrokeTime > 1){
-                       this.processResponse.push("(" + timePassed-lastKeystrokeTime + " sec)");
+                       this.processResponse.push(timePassed-lastKeystrokeTime + ' sec');
                      }
                 }
                 this.keystrokeTimes.push(this.calcTimePassed(this.startTime, keystrokeTime));

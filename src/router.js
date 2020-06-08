@@ -8,6 +8,7 @@ import AppPractice from "./components/AppPractice";
 import AppInstructions from "./components/AppInstructions";
 import AppAssessment from "./components/AppAssessment";
 import AppReport from "./components/AppReport";
+import AppAssessmentComplete from "./components/AssessmentComplete";
 
 Vue.use(Router);
 
@@ -42,6 +43,10 @@ export const router = new Router({
     {
       path: '/report',
       component: AppReport
+    },
+    {
+      path: '/assessmentComplete',
+      component: AppAssessmentComplete
     }
   ]
 });

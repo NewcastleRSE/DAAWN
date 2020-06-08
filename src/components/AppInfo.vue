@@ -7,7 +7,7 @@
       </div>
       <p class="text">This tool is designed for use by <span class="special">Speech and Language Therapists (SLT)</span> and their patients.</p>
 
-      <p class="text">The SLT will be able to choose from a set of output options, such as timings and corrected errors.</p>
+      <p class="text">The SLT will be able to view data from the assessment, such as timings and corrected errors.</p>
 
       <p class="text">Once a patient has completed an assessment, the results will be made available in a downloadable PDF format.</p>
 
