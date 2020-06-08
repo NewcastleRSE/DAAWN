@@ -234,7 +234,8 @@
                      let timePassed = this.calcTimePassed(this.startTime, keystrokeTime);
 
                      if(timePassed-lastKeystrokeTime > 1){
-                       this.processResponse.push(timePassed-lastKeystrokeTime + ' sec');
+                       let formattedTime = (timePassed-lastKeystrokeTime).toFixed(2);
+                       this.processResponse.push(formattedTime + ' sec');
                      }
                 }
                 this.keystrokeTimes.push(this.calcTimePassed(this.startTime, keystrokeTime));
@@ -242,8 +243,9 @@
             // compares 2 timestamps, returns an integer
             calcTimePassed(startTime, newTime){
               let diff=(newTime-startTime)/1000;
-              // rounds length of time down and expresses it in seconds
-              let timePassed=Math.floor(diff);
+              // truncates to 2 decimal places
+              let timePassed=diff.toFixed(2);
+              console.log(timePassed);
               return timePassed;
             },
             focusInput() {

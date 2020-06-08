@@ -13,7 +13,7 @@
         <tbody>
         <tr v-for="item in activeSet">
           <td>{{ item.expected_outcome }}</td>
-          <td>{{ item.response_type }}</td>
+          <td>{{ item.response_type }} <img src="../assets/green-tick.png" alt="tick" id="tick-image"><img src="../assets/cross.png" alt="tick" id="cross-image"></td>
           <td>{{ item.actual_response }}</td>
           <td>{{ item.cat_score }}</td>
           <td>{{ item.dla_score }}</td>
@@ -87,25 +87,12 @@
               }
             },
             createPDF() {
-
-              /*
-              let pdfName = 'test';
-              let canvasElement = document.createElement('canvas');
-              const doc = new jsPDF('p', 'mm', "a4");
-
-              html2canvas(this.$refs.content, { canvas: canvasElement
-              }).then(function (canvas) {
-                const img = canvas.toDataURL("image/jpeg", 1.0);
-                doc.addImage(img, 'JPG', 10, 10);
-                doc.save(pdfName);
-              }); */
-
               const doc = new jsPDF();
               doc.setFontSize(22);
               doc.text(20,20, 'Assessment Report');
-            //  doc.setFontSize(14);
-            //  doc.text('Name');
-             // doc.rect(20, 20, 50, 10);
+              doc.setFontSize(14);
+              doc.text(20,35, 'Name');
+              doc.rect(20, 40, 50, 10);
               doc.save('report.pdf');
 
             },
@@ -142,10 +129,21 @@
     padding: 30px;
   }
 
+  #tick-image {
+    height: 20px;
+  }
+
+  #cross-image {
+    height: 18px;
+  }
+
   .header {
     padding-bottom: 60px;
   }
 
+  .next-btn {
+    width: 150px;
+  }
 
   .logo {
     float:right;
