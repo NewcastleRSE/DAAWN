@@ -42,9 +42,6 @@
               </div>
             </div>
           </div>
-
-          {{ currentSet }} / {{ index }} / {{ status }}
-
         </div>
       </div>
 
@@ -118,17 +115,14 @@
             getImage(set, index){
               if(index !== this.numInSet) {
                 if(this.currentSet === 'one'){
-                 // this.shuffle(this.setOne);
                   this.filename = this.setOne[index] + '.jpg';
                   this.name = this.setOne[index];
                 }
                 else if(this.currentSet === 'two') {
-                //  this.shuffle(this.setTwo);
                   this.filename = this.setTwo[index] + '.jpg';
                   this.name = this.setTwo[index];
                 }
                 else if(this.currentSet === 'three') {
-                //  this.shuffle(this.setThree);
                   this.filename = this.setThree[index] + '.jpg';
                   this.name = this.setThree[index];
                 }
@@ -235,7 +229,7 @@
 
                      if(timePassed-lastKeystrokeTime > 1){
                        let formattedTime = (timePassed-lastKeystrokeTime).toFixed(2);
-                       this.processResponse.push(formattedTime + ' sec');
+                       this.processResponse.push('\(' + formattedTime + ' sec\)');
                      }
                 }
                 this.keystrokeTimes.push(this.calcTimePassed(this.startTime, keystrokeTime));
@@ -269,6 +263,15 @@
             }
             else {
               this.numInSet = settings.numInSet;
+              if(this.currentSet === 'one'){
+                this.shuffle(this.setOne);
+              }
+              else if(this.currentSet === 'two'){
+                this.shuffle(this.setTwo);
+              }
+              else if(this.currentSet === 'three'){
+                this.shuffle(this.setThree);
+              }
             }
             this.focusInput();
             this.startTime = Date.now();

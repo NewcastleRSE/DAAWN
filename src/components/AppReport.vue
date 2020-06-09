@@ -17,7 +17,7 @@
           <td>{{ item.actual_response }}</td>
           <td>{{ item.cat_score }}</td>
           <td>{{ item.dla_score }}</td>
-          <td>{{ item.reaction_time }}</td>
+          <td><span v-bind:style="item.reaction_time > 5 ? 'color: red;' : 'color: black;' ">{{ item.reaction_time }}</span></td>
           <td>{{ item.response_time }}</td>
         </tr>
         </tbody>
@@ -52,8 +52,6 @@
 
         </div>
       </div>
-
-
       </div>
     </div>
 
@@ -62,7 +60,7 @@
 <script>
 
     import {settings} from "../settings";
-    import jsPDF from 'jspdf';
+    import {pdfService} from "../services/pdf.service";
 
     export default {
         name: "AppReport",
@@ -118,14 +116,16 @@
               }
             },
             createPDF() {
-              const doc = new jsPDF();
-              doc.setFontSize(22);
-              doc.text(20,20, 'Assessment Report');
-              doc.setFontSize(14);
-              doc.text(20,35, 'Name');
-              doc.rect(20, 40, 50, 10);
-              doc.save('report.pdf');
-
+                let tableOneData = [];
+                let tableTwoData = [];
+                for(let index in this.activeSet){
+                    if(this.activeSet.hasOwnProperty(index)){
+                      tableOneData[index] = [this.activeSet[index].expected_outcome, this.activeSet[index].response_type, this.activeSet[index].actual_response, this.activeSet[index].cat_score, this.activeSet[index].dla_score, this.activeSet[index].reaction_time, this.activeSet[index].response_time];
+                      tableTwoData[index] = [this.activeSet[index].expected_outcome, '[ ' + this.activeSet[index].processResponse + ' ]', this.activeSet[index].num_letters, this.activeSet[index].keystrokes, this.activeSet[index].num_deletions];
+                    }
+                }
+                console.log(tableTwoData);
+                pdfService.createPDF(tableOneData, tableTwoData, this.responseTimeMean, this.reactionTimeMean);
             },
             exit() {
               this.$router.push({ path: './' });

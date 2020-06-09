@@ -6,23 +6,27 @@
         <p class="title is-3">Selecting your output options</p>
       </div>
 
+      <p class="title is-4">Please select an appropriate image set</p>
+
+      <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains only 3 and 4 letter words, presented in respective groups.</p>
+
+
       <form id="options-form">
 
         <div class="field">
           <div class="form-group">
-            <p class="special">Please select an appropriate image set</p>
-
-            <p>Sets 'One', 'Two' and 'Three' present 30 images of different word length in a random order. Set 'Four' contains only 3 and 4 letter words, presented in respective groups.</p>
 
             <validation-provider rules="required" v-slot="{ errors }">
-            <div><input type="radio" name="question" v-model="set" value="one"> <label class="radio">Set One</label></div>
-            <div><input type="radio" name="question" v-model="set" value="two"> <label class="radio">Set Two</label></div>
-            <div><input type="radio" name="question" v-model="set" value="three"> <label class="radio">Set Three</label></div>
-            <div><input type="radio" name="question" v-model="set" value="four"> <label class="radio">Set Four</label></div>
+            <div><input type="radio" name="question" v-model="set" value="one"> <label class="radio">One</label></div>
+            <div><input type="radio" name="question" v-model="set" value="two"> <label class="radio">Two</label></div>
+            <div><input type="radio" name="question" v-model="set" value="three"> <label class="radio">Three</label></div>
+            <div><input type="radio" name="question" v-model="set" value="four"> <label class="radio">Four</label></div>
               <span>{{ errors[0] }}</span>
             </validation-provider>
           </div>
         </div>
+
+      </form>
 
         <div class="content">
 
@@ -70,7 +74,7 @@
 
           </div>
         </div>
-      </form>
+
     </div>
   </div>
 
@@ -129,11 +133,11 @@
     padding: 30px;
   }
 
-  #page p {
-    padding: 10px 0;
+  #header {
+    padding-bottom: 20px;
   }
 
-  #header {
+  #options-form {
     padding-bottom: 20px;
   }
 
