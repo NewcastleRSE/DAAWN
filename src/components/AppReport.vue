@@ -13,7 +13,7 @@
         <tbody>
         <tr v-for="item in activeSet">
           <td>{{ item.expected_outcome }}</td>
-          <td>{{ item.response_type }} <img src="../assets/green-tick.png" alt="tick" id="tick-image"><img src="../assets/cross.png" alt="tick" id="cross-image"></td>
+          <td><img v-show="item.response_type ===1" src="../assets/green-tick.png" alt="tick" id="tick-image"><img v-show="item.response_type===0" src="../assets/cross.png" alt="tick" id="cross-image"></td>
           <td>{{ item.actual_response }}</td>
           <td>{{ item.cat_score }}</td>
           <td>{{ item.dla_score }}</td>
@@ -23,6 +23,11 @@
         </tbody>
       </table>
 
+      <table class="table">
+        <tr><th>Mean Reaction Time</th><td>{{ reactionTimeMean }}</td></tr>
+        <tr><th>Mean Response Time</th><td>{{ responseTimeMean }}</td></tr>
+      </table>
+
       <table class="table table-striped">
         <thead>
         <tr><th>Item</th><th>Process Response</th><th>No. Letters</th><th>Keystrokes</th><th>No. Deletions</th></tr>
@@ -30,7 +35,7 @@
         <tbody>
         <tr  v-for="item in activeSet">
           <td>{{ item.expected_outcome }}</td>
-          <td>[ {{ item.processResponse }} ]</td>
+          <td>[ {{  item.processResponse }} ]</td>
           <td>{{ item.num_letters }}</td>
           <td>{{ item.keystrokes }}</td>
           <td>{{ item.num_deletions }}</td>
@@ -64,7 +69,27 @@
         data() {
             return {
               currentSet: [],
-              activeSet: []
+              activeSet: [],
+              allResponseTimes: [],
+              allReactionTimes: []
+            }
+        },
+        computed : {
+           responseTimeMean : function () {
+             let sum = 0;
+             let numResponseTimes = this.allResponseTimes.length;
+             for(let index in this.allResponseTimes){
+                 sum += parseFloat(this.allResponseTimes[index]);
+             }
+             return (sum/numResponseTimes).toFixed(2);
+           },
+            reactionTimeMean : function () {
+              let sum = 0;
+              let numReactionTimes = this.allReactionTimes.length;
+              for(let index in this.allReactionTimes){
+                sum += parseFloat(this.allReactionTimes[index]);
+              }
+              return (sum/numReactionTimes).toFixed(2);
             }
         },
         methods : {
@@ -77,6 +102,12 @@
                     }
                 }
                this.filter(this.activeSet);
+                for(let index in this.activeSet){
+                  if(this.activeSet.hasOwnProperty(index)){
+                     this.allReactionTimes.push(this.activeSet[index].reaction_time);
+                     this.allResponseTimes.push(this.activeSet[index].response_time)
+                  }
+                }
             },
             filter(set){
               for(let item in set){
