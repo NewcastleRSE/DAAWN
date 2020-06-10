@@ -37,7 +37,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="responseText" v-on:keydown="keyLogger($event)">
+                <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)">
                 <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextImage(index)"></font-awesome-icon></span>
               </div>
             </div>
@@ -239,7 +239,6 @@
               let diff=(newTime-startTime)/1000;
               // truncates to 2 decimal places
               let timePassed=diff.toFixed(2);
-              console.log(timePassed);
               return timePassed;
             },
             focusInput() {

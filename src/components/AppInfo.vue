@@ -7,12 +7,17 @@
       </div>
       <p class="text">This tool is designed for use by <span class="special">Speech and Language Therapists (SLT)</span> and their patients.</p>
 
-      <p class="text">The SLT will be able to view data from the assessment, such as timings and corrected errors.</p>
+      <p class="text">The SLT will be able to view data from the assessment, such as timings and corrected errors. The application also calculates the CAT score and Levenstein distance (LD). Click for more information about <a href="#" @click="showAboutModal = true">Levenstein distance</a>.</p>
+
+      <p>The SLT will make an appropriate choice from defined word sets for the patients to complete. They can exit the assessment at any time. Click for information about  <a href="#" @click="showSetsModal = true">word sets</a>.</p>
 
       <p class="text">Once a patient has completed an assessment, the results will be made available in a downloadable PDF format.</p>
 
       <div class="level" >
         <div class="level-item">
+
+          <AboutModal v-if="showAboutModal"  @close="showAboutModal = false"  />
+          <SetsModal v-if="showSetsModal"  @close="showSetsModal = false"  />
 
           <p class="highlight special">Click <strong>Next</strong> to select your options.</p>
         </div>
@@ -29,8 +34,22 @@
 </template>
 
 <script>
+
+  import AboutModal from './AboutModal';
+  import SetsModal from "./SetsModal";
+
     export default {
         name: "AppInfo",
+        components: {
+          AboutModal,
+          SetsModal
+        },
+        data() {
+            return {
+              showAboutModal : false,
+              showSetsModal : false
+            }
+        },
         methods: {
             exit() {
               this.$router.push({ path: './' });

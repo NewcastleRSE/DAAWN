@@ -18,22 +18,27 @@ function createPDF(tableOneData, tableTwoData, responseTimeMean, reactionTimeMea
     doc.text(20, 45, 'Assessment Report');
     doc.setFontSize(14);
     doc.text(20, 60, 'Name');
-    doc.rect(20, 63, 60, 10);
     doc.text(20, 83, 'DOB');
-    doc.rect(20, 88, 60, 10);
     doc.text(20, 108, 'Clinician Name');
-    doc.rect(20, 111, 60, 10);
     doc.text(20, 135, 'Participant ID : 1');
     doc.text(20, 142, 'Mean Reaction Time : ' + reactionTimeMean);
     doc.text(20, 149, 'Mean Response Time : ' + responseTimeMean);
     doc.text(20, 160, 'Notes');
-    doc.rect(20, 163, 160, 80);
+
     doc.addPage()
 
 
     doc.autoTable({
       head: [['Item', 'Correct/Incorrect', 'End Response', 'CAT', 'LD', 'Reaction Time', 'Response Time']],
       body: tableOneData
+    });
+
+    doc.addPage()
+
+   // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
+    doc.autoTable({
+      head: [['Breakdown', 'No. Items', 'No. Correct', 'Percentage Correct' ]],
+      body: []
     });
 
     doc.addPage()
