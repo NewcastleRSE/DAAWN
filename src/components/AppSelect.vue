@@ -8,7 +8,7 @@
 
       <p class="title is-4">Please select an appropriate image set</p>
 
-      <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains only 3 and 4 letter words, presented in respective groups.</p>
+      <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains 42 images of only 3 and 4 letter words, presented in respective groups.</p>
 
 
       <form id="options-form">

@@ -1,13 +1,21 @@
 <template>
   <div class="container is-widescreen">
     <div id="page">
-      <img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo">
-      <p class="title is-4"> Welcome to the DAAWN project.<p>
-      <p class="title is-6">Digitised Assessment of Aphasia using typed Word Naming</p>
+      <div class="level" >
+        <div class="level-item">
+
+          <img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo">
+        </div>
+      </div>
+
+      <p class="title is-3"> Welcome to DAAWN<p>
+      <p>DAAWN is a <strong>D</strong>igitised <strong>A</strong>ssessment for <strong>A</strong>phasia of <strong>W</strong>ritten <strong>N</strong>aming</p>
 
        <div class="info">
-         <span class="special">DAAWN</span> is an online assessment tool for aphasia, which uses the <span class="special">Comprehensive Aphasia Test (CAT)</span>. It has been developed in conjunction with <span class="special">Dr Fiona Menger</span> in the <span class="special">School of Education, Communication and Language Sciences</span> (HaSS Faculty) and the <span class="special">Digital Institute Research Software Engineering</span> team.
-        </div>
+         <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as part of a Newcastle University MSc Computing Science dissertation by <span class="special">Alex Smith</span>, supervised by <span class="special">Dr Matthew Forshaw</span> (Computing Science) with support from <span class="special">Dr Fiona Menger</span> (Speech and Language Sciences). The software has been further developed and deployed by the <span class="special">Newcastle University Research Software Engineering</span> Team.</p>
+         <p>What you will see here is not intended to be a final version of an assessment tool. Instead, it aims to demonstrate the type of information that could be available to a Speech and Language Therapist as part of a digitised assessment of typed written language. Our aim is to gather feedback and work with SLTs and people with aphasia to develop DAAWN further so it can be used in clinical practice and for research.</p>
+         <p>For further information or if you have any questions on DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span></p>
+       </div>
 
         <div class="level" >
           <div class="level-item">
@@ -49,6 +57,7 @@
 
   #daawn-logo {
     height: 80px;
+    margin: auto 0;
   }
 
   #di-logo {
@@ -58,7 +67,11 @@
   }
 
   .info {
-    margin: 50px;
+    margin: 40px 0;
+  }
+
+  .info p {
+    margin: 25px 0;
   }
 
   .buttons {
@@ -76,6 +89,7 @@
     width: 120px;
     height: 48px;
     margin-left: 0;
+    margin-top: 40px;
   }
 
 

@@ -3,22 +3,15 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="src/assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Completing a practice session</p>
+        <p class="title is-3">Assessment page example</p>
       </div>
+
+      <p class="text">Please ensure the patients are introduced to the assessment through the practice session. The image below shows an example of the image presented to the user.</p>
+
+      <p class="title is-4">Instructions</p>
 
       <div class="level">
         <div class="level-left">
-          <p>Please ensure the patients are introduced to the assessment through the practice session.</p>
-        </div>
-      </div>
-      <div class="level">
-        <div class="level-left">
-          <p class="title is-4">Instructions</p>
-        </div>
-      </div>
-      <div class="level">
-        <div class="level-left">
-
           <p class="large"><strong>Write</strong> the <strong>name</strong> of the <strong>picture</strong> on the screen. </p>
         </div>
       </div>
@@ -94,6 +87,10 @@
 
   .large {
     font-size: 1.2em;
+  }
+
+  .text {
+    margin-bottom: 20px;
   }
 
 

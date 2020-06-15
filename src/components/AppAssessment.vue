@@ -37,7 +37,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)">
+                <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false">
                 <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextImage(index)"></font-awesome-icon></span>
               </div>
             </div>
@@ -140,16 +140,16 @@
                   this.status = 'completed';
                 }
                 else {
-                  this.hintClicked = false;
                   this.collectData();
                   this.clearData();
                   this.index++;
+                  this.hintClicked = false;
                   this.focusInput();
                 }
                 this.$data.responseText = '';
             },
             hint() {
-              if(!this.hintClicked){
+              if(this.responseText === ""){
                 this.responseText = this.name.slice(0,1);
                 this.hintClicked = true;
                 this.focusInput();
@@ -190,7 +190,9 @@
                                   "num_letters" : this.numLetters,
                                   "keystrokes" : this.keystrokes,
                                   "num_deletions" : this.numDeletions,
-                                  "processResponse" : this.processResponse };
+                                  "processResponse" : this.processResponse,
+                                  "hint_clicked" : this.hintClicked
+                };
 
                 localStorage.setItem(this.name, JSON.stringify(this.response));
 

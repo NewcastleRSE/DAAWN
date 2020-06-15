@@ -38,7 +38,7 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
 
    // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
     doc.autoTable({
-      head: [['Breakdown', 'No. Items', 'No. Correct', 'Percentage Correct' ]],
+      head: [['Breakdown', 'No. Items', 'No. Correct', 'Correct without cue', 'Percentage Correct'  ]],
       body: tableSummaryData
     });
 

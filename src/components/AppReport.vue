@@ -6,6 +6,8 @@
         <p class="title is-3">Assessment Report</p>
       </div>
 
+      <p class="text">Reaction times over 5 seconds are shown in red text.</p>
+
       <table class="table table-striped" >
         <thead>
         <tr><th>Item</th><th>Correct/Incorrect</th><th>End Response</th><th>CAT</th><th>LD</th><th>Reaction Time</th><th>Response Time</th></tr>
@@ -137,6 +139,7 @@
             },
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
+                let totalCorrectWithoutCue = 0;
                 let count3letters = 0;
                 let count4letters = 0;
                 let count5letters = 0;
@@ -145,6 +148,14 @@
                 let count8letters = 0;
                 let count9letters = 0;
                 let count10letters = 0;
+                let count3lettersCorrectWithoutCue = 0;
+                let count4lettersCorrectWithoutCue = 0;
+                let count5lettersCorrectWithoutCue = 0;
+                let count6lettersCorrectWithoutCue = 0;
+                let count7lettersCorrectWithoutCue = 0;
+                let count8lettersCorrectWithoutCue = 0;
+                let count9lettersCorrectWithoutCue = 0;
+                let count10lettersCorrectWithoutCue = 0;
 
                 let tableSummaryData = [];
                 for(let index in this.activeSet){
@@ -152,7 +163,10 @@
 
                         // add all the correct responses
                         if(this.activeSet[index].response_type === 1){
-                          totalCorrect++
+                          totalCorrect++;
+                          if(!this.activeSet[index].hint_clicked){
+                            totalCorrectWithoutCue++;
+                          }
                         }
 
                         // add correct reponses by letter count
@@ -183,20 +197,20 @@
                     }
                 }
                 if(this.mySet === 'four'){
-                  tableSummaryData[0] = [ 'All items', 42, totalCorrect, this.calcPerCategory(totalCorrect, 42)];
-                  tableSummaryData[1] = [ '3 letters', 21, count3letters, this.calcPerCategory(count3letters, 21) ];
-                  tableSummaryData[2] = [ '4 letters', 21, count4letters, this.calcPerCategory(count4letters, 21) ];
+                  tableSummaryData[0] = [ 'All items', 42, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 42)];
+                  tableSummaryData[1] = [ '3 letters', 21, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 21) ];
+                  tableSummaryData[2] = [ '4 letters', 21, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 21) ];
                 }
                 else {
-                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, this.calcPerCategory(totalCorrect, 30)];
-                  tableSummaryData[1] = [ '3 letters', 7, count3letters, this.calcPerCategory(count3letters, 7) ];
-                  tableSummaryData[2] = [ '4 letters', 7, count4letters, this.calcPerCategory(count4letters, 7) ];
-                  tableSummaryData[3] = [ '5 letters', 5, count5letters, this.calcPerCategory(count5letters, 5) ];
-                  tableSummaryData[4] = [ '6 letters', 4, count6letters, this.calcPerCategory(count6letters, 6) ];
-                  tableSummaryData[5] = [ '7 letters', 3, count7letters, this.calcPerCategory(count7letters, 3) ];
-                  tableSummaryData[6] = [ '8 letters', 2, count8letters, this.calcPerCategory(count8letters, 2) ];
-                  tableSummaryData[7] = [ '9 letters', 1, count9letters, this.calcPerCategory(count9letters, 1) ];
-                  tableSummaryData[8] = [ '10 letters', 1, count10letters, this.calcPerCategory(count10letters, 1) ];
+                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 30) ];
+                  tableSummaryData[1] = [ '3 letters', 7, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 7) ];
+                  tableSummaryData[2] = [ '4 letters', 7, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 7) ];
+                  tableSummaryData[3] = [ '5 letters', 5, count5letters, count5lettersCorrectWithoutCue, this.calcPerCategory(count5letters, 5),'' ];
+                  tableSummaryData[4] = [ '6 letters', 4, count6letters, count6lettersCorrectWithoutCue, this.calcPerCategory(count6letters, 6), '' ];
+                  tableSummaryData[5] = [ '7 letters', 3, count7letters, count7lettersCorrectWithoutCue, this.calcPerCategory(count7letters, 3), '' ];
+                  tableSummaryData[6] = [ '8 letters', 2, count8letters, count8lettersCorrectWithoutCue, this.calcPerCategory(count8letters, 2), '' ];
+                  tableSummaryData[7] = [ '9 letters', 1, count9letters, count9lettersCorrectWithoutCue, this.calcPerCategory(count9letters, 1), '' ];
+                  tableSummaryData[8] = [ '10 letters', 1, count10letters, count10lettersCorrectWithoutCue, this.calcPerCategory(count10letters, 1), '' ];
                 }
                 return tableSummaryData;
             },
@@ -262,6 +276,10 @@
   .daawn-logo {
     height: 40px;
 
+  }
+
+  .text {
+    margin: 0 0 20px 0;
   }
 
 </style>

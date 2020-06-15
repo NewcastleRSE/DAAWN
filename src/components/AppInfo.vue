@@ -5,13 +5,19 @@
         <span id="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
         <p class="title is-3">Using the DAAWN tool</p>
       </div>
-      <p class="text">This tool is designed for use by <span class="special">Speech and Language Therapists (SLT)</span> and their patients.</p>
 
-      <p class="text">The SLT will be able to view data from the assessment, such as timings and corrected errors. The application also calculates the CAT score and Levenstein distance (LD). Click for more information about <a href="#" @click="showAboutModal = true">Levenstein distance</a>.</p>
+      <p class="text">DAAWN is designed for use by <span class="special">Speech and Language Therapists</span> with people with acquired aphasia. At present, it is an assessment of single word naming for use with keyboard input via a web browser on any computer or mobile device. The assessment does not currently require any registration on the part of the user and does not collect or keep any of the assessment data. DAAWN will automatically calculate the number of items correctly named and will provide you with a range of other information you may find relevant as part of your assessment, e.g. timings, automated scoring, and a record of the process by which a person reaches their final response. When your assessment is complete, DAAWN generates an anonymised report, which will be a PDF download. We advise that you do not use the tool on devices that do not belong you to you or to your employer as you would then need to transfer the document to your own device.</p>
+
+      <p class="text">The <span class="special">process response</span> records the keys pressed by the client when typing the word. This allows the SLT to see whether errors have been self-corrected during the typing process. It will also
+
+        record any pause longer than one second. For example, the word ‘anchor’ could be typed as follows:
+
+        [a, n, k, BACKSPACE, c, 2.3secs, o, r] with the end result ‘ancor’.</p>
+
+      <p class="text">The application also calculates the CAT score and Levenstein distance (LD). Click for more information about <a href="#" @click="showAboutModal = true">Levenstein distance</a>.</p>
 
       <p>The SLT will make an appropriate choice from defined word sets for the patients to complete. They can exit the assessment at any time. Click for information about  <a href="#" @click="showSetsModal = true">word sets</a>.</p>
 
-      <p class="text">Once a patient has completed an assessment, the results will be made available in a downloadable PDF format.</p>
 
       <div class="level" >
         <div class="level-item">

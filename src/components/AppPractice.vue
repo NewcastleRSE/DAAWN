@@ -41,7 +41,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage">
+                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage" spellcheck="false">
                 <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
               </div>
             </div>
@@ -117,7 +117,7 @@
                 this.$router.push({ path: './assessment/' + currentSet });
             },
             hint() {
-                if(!this.hintClicked){
+                if(this.responseText === ""){
                     this.practiceImage = this.name.slice(0,1);
                     this.hintClicked = true;
                     this.focusInput();
