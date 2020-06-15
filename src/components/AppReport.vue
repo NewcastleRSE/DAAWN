@@ -42,9 +42,15 @@
         </tr>
         </tbody>
       </table>
+      <div class="level">
+        <div class="level-item">
+          <p class="text">Please wait a few seconds after clicking the download button, your PDF is being generated.</p>
+        </div>
+      </div>
 
       <div class="level" >
         <div class="level-item">
+
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
             <button class="button next-btn" @click=createPDF()>Download PDF</button>
@@ -68,6 +74,7 @@
             return {
               currentSet: [],
               activeSet: [],
+              mySet: [],
               allResponseTimes: [],
               allReactionTimes: []
             }
@@ -116,33 +123,105 @@
               }
             },
             createPDF() {
-                let tableOneData = [];
-                let tableTwoData = [];
+                let tableReactionData = [];
+                let tableProcessData = [];
                 for(let index in this.activeSet){
                     if(this.activeSet.hasOwnProperty(index)){
-                      tableOneData[index] = [this.activeSet[index].expected_outcome, this.activeSet[index].response_type, this.activeSet[index].actual_response, this.activeSet[index].cat_score, this.activeSet[index].dla_score, this.activeSet[index].reaction_time, this.activeSet[index].response_time];
-                      tableTwoData[index] = [this.activeSet[index].expected_outcome, '[ ' + this.activeSet[index].processResponse + ' ]', this.activeSet[index].num_letters, this.activeSet[index].keystrokes, this.activeSet[index].num_deletions];
+                      tableReactionData[index] = [this.activeSet[index].expected_outcome, this.activeSet[index].response_type, this.activeSet[index].actual_response, this.activeSet[index].cat_score, this.activeSet[index].dla_score, this.activeSet[index].reaction_time, this.activeSet[index].response_time];
+                      tableProcessData[index] = [this.activeSet[index].expected_outcome, '[ ' + this.activeSet[index].processResponse + ' ]', this.activeSet[index].num_letters, this.activeSet[index].keystrokes, this.activeSet[index].num_deletions];
                     }
                 }
-                console.log(tableTwoData);
-                pdfService.createPDF(tableOneData, tableTwoData, this.responseTimeMean, this.reactionTimeMean);
+                let tableSummaryData = this.createSummaryData(this.activeSet);
+                console.log(tableSummaryData);
+                pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean);
+            },
+            createSummaryData(activeSet) {
+                let totalCorrect = 0;
+                let count3letters = 0;
+                let count4letters = 0;
+                let count5letters = 0;
+                let count6letters = 0;
+                let count7letters = 0;
+                let count8letters = 0;
+                let count9letters = 0;
+                let count10letters = 0;
+
+                let tableSummaryData = [];
+                for(let index in this.activeSet){
+                    if(this.activeSet.hasOwnProperty(index)){
+
+                        // add all the correct responses
+                        if(this.activeSet[index].response_type === 1){
+                          totalCorrect++
+                        }
+
+                        // add correct reponses by letter count
+                        if(this.activeSet[index].num_letters === 3 && this.activeSet[index].response_type === 1){
+                          count3letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 4 && this.activeSet[index].response_type === 1){
+                          count4letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 5 && this.activeSet[index].response_type === 1){
+                          count5letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 6 && this.activeSet[index].response_type === 1){
+                          count6letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 7 && this.activeSet[index].response_type === 1){
+                          count7letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 8 && this.activeSet[index].response_type === 1){
+                          count8letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 9 && this.activeSet[index].response_type === 1){
+                          count9letters++;
+                        }
+                        else if(this.activeSet[index].num_letters === 10 && this.activeSet[index].response_type === 1){
+                          count10letters++;
+                        }
+                    }
+                }
+                if(this.mySet === 'four'){
+                  tableSummaryData[0] = [ 'All items', 42, totalCorrect, this.calcPerCategory(totalCorrect, 42)];
+                  tableSummaryData[1] = [ '3 letters', 21, count3letters, this.calcPerCategory(count3letters, 21) ];
+                  tableSummaryData[2] = [ '4 letters', 21, count4letters, this.calcPerCategory(count4letters, 21) ];
+                }
+                else {
+                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, this.calcPerCategory(totalCorrect, 30)];
+                  tableSummaryData[1] = [ '3 letters', 7, count3letters, this.calcPerCategory(count3letters, 7) ];
+                  tableSummaryData[2] = [ '4 letters', 7, count4letters, this.calcPerCategory(count4letters, 7) ];
+                  tableSummaryData[3] = [ '5 letters', 5, count5letters, this.calcPerCategory(count5letters, 5) ];
+                  tableSummaryData[4] = [ '6 letters', 4, count6letters, this.calcPerCategory(count6letters, 6) ];
+                  tableSummaryData[5] = [ '7 letters', 3, count7letters, this.calcPerCategory(count7letters, 3) ];
+                  tableSummaryData[6] = [ '8 letters', 2, count8letters, this.calcPerCategory(count8letters, 2) ];
+                  tableSummaryData[7] = [ '9 letters', 1, count9letters, this.calcPerCategory(count9letters, 1) ];
+                  tableSummaryData[8] = [ '10 letters', 1, count10letters, this.calcPerCategory(count10letters, 1) ];
+                }
+                return tableSummaryData;
+            },
+            calcPerCategory(num, total){
+              if(total !== 0) {
+                return ((num/total) *100).toFixed(1);
+              }
+              return 0;
             },
             exit() {
               this.$router.push({ path: './' });
             }
         },
         created() {
-            let mySet = localStorage.getItem('set');
-            if(mySet === 'one'){
+            this.mySet = localStorage.getItem('set');
+            if(this.mySet === 'one'){
               this.currentSet = settings.setOne;
             }
-            else if(mySet === 'two'){
+            else if(this.mySet === 'two'){
               this.currentSet = settings.setTwo;
             }
-            else if(mySet === 'three'){
+            else if(this.mySet === 'three'){
               this.currentSet = settings.setThree;
             }
-            else if(mySet === 'four'){
+            else if(this.mySet === 'four'){
               this.currentSet = settings.setFour;
             }
             this.fillCatTable();

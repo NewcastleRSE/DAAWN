@@ -28,6 +28,9 @@
           start() {
             this.$router.push({ path: './info' });
           }
+      },
+      created(){
+          localStorage.clear();
       }
     }
 </script>
