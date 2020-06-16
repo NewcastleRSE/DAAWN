@@ -33,8 +33,8 @@
           <div class="level">
             <div class="level-item has-text-centered">
 
-            <img v-bind:style="{ display: showPractice1 }"  :src="getImage('boy2.jpg')">
-            <img v-bind:style="{ display: showPractice2 }"  :src="getImage('tree.jpg')">
+            <img v-bind:style="{ display: showPractice1 }"  :src="getImage('bell.jpg')">
+            <img v-bind:style="{ display: showPractice2 }"  :src="getImage('baby.jpg')">
             </div>
           </div>
 
@@ -101,7 +101,7 @@
             nextPractice() {
                 this.$data.practiceImage = '';
                 this.hintClicked = false;
-                this.name = "tree";
+                this.name = "bell";
                 this.showPractice1 = 'none';
                 this.showPractice2 = 'flex';
                 if(this.count < 2){
@@ -117,7 +117,7 @@
                 this.$router.push({ path: './assessment/' + currentSet });
             },
             hint() {
-                if(this.responseText === ""){
+                if(this.practiceImage === ""){
                     this.practiceImage = this.name.slice(0,1);
                     this.hintClicked = true;
                     this.focusInput();

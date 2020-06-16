@@ -28,6 +28,8 @@
       <table class="table">
         <tr><th>Mean Reaction Time</th><td>{{ reactionTimeMean }}</td></tr>
         <tr><th>Mean Response Time</th><td>{{ responseTimeMean }}</td></tr>
+        <tr><th>Median Reaction Time</th><td>{{ reactionTimeMedian }}</td></tr>
+        <tr><th>Median Response Time</th><td>{{ responseTimeMedian }}</td></tr>
       </table>
 
       <table class="table table-striped">
@@ -82,21 +84,17 @@
             }
         },
         computed : {
-           responseTimeMean : function () {
-             let sum = 0;
-             let numResponseTimes = this.allResponseTimes.length;
-             for(let index in this.allResponseTimes){
-                 sum += parseFloat(this.allResponseTimes[index]);
-             }
-             return (sum/numResponseTimes).toFixed(2);
-           },
+            responseTimeMean : function () {
+                return this.returnMean(this.allResponseTimes);
+            },
             reactionTimeMean : function () {
-              let sum = 0;
-              let numReactionTimes = this.allReactionTimes.length;
-              for(let index in this.allReactionTimes){
-                sum += parseFloat(this.allReactionTimes[index]);
-              }
-              return (sum/numReactionTimes).toFixed(2);
+                return this.returnMean(this.allReactionTimes);
+            },
+            responseTimeMedian : function () {
+                return this.returnMedian(this.allResponseTimes);
+            },
+            reactionTimeMedian : function () {
+                return this.returnMedian(this.allReactionTimes);
             }
         },
         methods : {
@@ -135,27 +133,15 @@
                 }
                 let tableSummaryData = this.createSummaryData(this.activeSet);
                 console.log(tableSummaryData);
-                pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean);
+                pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian);
             },
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
                 let totalCorrectWithoutCue = 0;
-                let count3letters = 0;
-                let count4letters = 0;
-                let count5letters = 0;
-                let count6letters = 0;
-                let count7letters = 0;
-                let count8letters = 0;
-                let count9letters = 0;
-                let count10letters = 0;
-                let count3lettersCorrectWithoutCue = 0;
-                let count4lettersCorrectWithoutCue = 0;
-                let count5lettersCorrectWithoutCue = 0;
-                let count6lettersCorrectWithoutCue = 0;
-                let count7lettersCorrectWithoutCue = 0;
-                let count8lettersCorrectWithoutCue = 0;
-                let count9lettersCorrectWithoutCue = 0;
-                let count10lettersCorrectWithoutCue = 0;
+                let count = 0;
+                let countWithoutCue = 0;
+                const letterCounts = {};
+                const letterCountsWithoutCue = {};
 
                 let tableSummaryData = [];
                 for(let index in this.activeSet){
@@ -169,48 +155,33 @@
                           }
                         }
 
-                        // add correct reponses by letter count
-                        if(this.activeSet[index].num_letters === 3 && this.activeSet[index].response_type === 1){
-                          count3letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 4 && this.activeSet[index].response_type === 1){
-                          count4letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 5 && this.activeSet[index].response_type === 1){
-                          count5letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 6 && this.activeSet[index].response_type === 1){
-                          count6letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 7 && this.activeSet[index].response_type === 1){
-                          count7letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 8 && this.activeSet[index].response_type === 1){
-                          count8letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 9 && this.activeSet[index].response_type === 1){
-                          count9letters++;
-                        }
-                        else if(this.activeSet[index].num_letters === 10 && this.activeSet[index].response_type === 1){
-                          count10letters++;
+                        for(let i = 3; i < 10; i++){
+                          if(this.activeSet[index].num_letters === i && this.activeSet[index].response_type === 1){
+                            count++;
+                            letterCounts['count'+ i+ 'letters'] = count;
+                            if(!this.activeSet[index].hint_clicked){
+                              countWithoutCue++;
+                              letterCountsWithoutCue['count' + i + 'lettersCorrectWithoutCue'] = countWithoutCue;
+                            }
+                          }
                         }
                     }
                 }
                 if(this.mySet === 'four'){
                   tableSummaryData[0] = [ 'All items', 42, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 42)];
-                  tableSummaryData[1] = [ '3 letters', 21, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 21) ];
-                  tableSummaryData[2] = [ '4 letters', 21, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 21) ];
+                  tableSummaryData[1] = [ '3 letters', 21, letterCounts['count3letters'], letterCountsWithoutCue['count3lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count3letters'], 21) ];
+                  tableSummaryData[2] = [ '4 letters', 21, letterCounts['count4letters'], letterCountsWithoutCue['count4lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count4letters'], 21) ];
                 }
                 else {
                   tableSummaryData[0] = [ 'All items', 30, totalCorrect, totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 30) ];
-                  tableSummaryData[1] = [ '3 letters', 7, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 7) ];
-                  tableSummaryData[2] = [ '4 letters', 7, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 7) ];
-                  tableSummaryData[3] = [ '5 letters', 5, count5letters, count5lettersCorrectWithoutCue, this.calcPerCategory(count5letters, 5),'' ];
-                  tableSummaryData[4] = [ '6 letters', 4, count6letters, count6lettersCorrectWithoutCue, this.calcPerCategory(count6letters, 6), '' ];
-                  tableSummaryData[5] = [ '7 letters', 3, count7letters, count7lettersCorrectWithoutCue, this.calcPerCategory(count7letters, 3), '' ];
-                  tableSummaryData[6] = [ '8 letters', 2, count8letters, count8lettersCorrectWithoutCue, this.calcPerCategory(count8letters, 2), '' ];
-                  tableSummaryData[7] = [ '9 letters', 1, count9letters, count9lettersCorrectWithoutCue, this.calcPerCategory(count9letters, 1), '' ];
-                  tableSummaryData[8] = [ '10 letters', 1, count10letters, count10lettersCorrectWithoutCue, this.calcPerCategory(count10letters, 1), '' ];
+                  tableSummaryData[1] = [ '3 letters', 7, letterCounts['count3letters'], letterCountsWithoutCue['count3lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count3letters'], 7) ];
+                  tableSummaryData[2] = [ '4 letters', 7, letterCounts['count4letters'], letterCountsWithoutCue['count4lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count4letters'], 7) ];
+                  tableSummaryData[3] = [ '5 letters', 5, letterCounts['count5letters'], letterCountsWithoutCue['count5lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count5letters'], 5) ];
+                  tableSummaryData[4] = [ '6 letters', 4, letterCounts['count6letters'], letterCountsWithoutCue['count6lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count6letters'], 6) ];
+                  tableSummaryData[5] = [ '7 letters', 3, letterCounts['count7letters'], letterCountsWithoutCue['count7lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count7letters'], 3) ];
+                  tableSummaryData[6] = [ '8 letters', 2, letterCounts['count8letters'], letterCountsWithoutCue['count8lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count8letters'], 2) ];
+                  tableSummaryData[7] = [ '9 letters', 1, letterCounts['count9letters'], letterCountsWithoutCue['count9lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count9letters'], 1) ];
+                  tableSummaryData[8] = [ '10 letters', 1, letterCounts['count10letters'], letterCountsWithoutCue['count10lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count10letters'], 1) ];
                 }
                 return tableSummaryData;
             },
@@ -219,6 +190,28 @@
                 return ((num/total) *100).toFixed(1);
               }
               return 0;
+            },
+            returnMean(times){
+              let sum = 0;
+              let numTimes = times.length;
+              for(let index in times){
+                sum += parseFloat(times[index]);
+              }
+              return (sum/numTimes).toFixed(2);
+            },
+            returnMedian(times) {
+              let median = 0;
+              let numTimes = times.length;
+              times.sort();
+
+              if(numTimes % 2 === 0){
+                // average of two middle numbers
+                median = (times[numTimes / 2 - 1] + times[numTimes / 2]) / 2;
+              }
+              else {
+                median = times[(numTimes - 1) / 2];
+              }
+              return median;
             },
             exit() {
               this.$router.push({ path: './' });

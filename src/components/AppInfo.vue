@@ -14,7 +14,7 @@
 
         [a, n, k, BACKSPACE, c, 2.3secs, o, r] with the end result ‘ancor’.</p>
 
-      <p class="text">The application also calculates the CAT score and Levenstein distance (LD). Click for more information about <a href="#" @click="showAboutModal = true">Levenstein distance</a>.</p>
+      <p class="text">The application also calculates the CAT score and Levenshtein distance (LD). Click for more information about <a href="#" @click="showAboutModal = true">Levenshtein distance</a>.</p>
 
       <p>The SLT will make an appropriate choice from defined word sets for the patients to complete. They can exit the assessment at any time. Click for information about  <a href="#" @click="showSetsModal = true">word sets</a>.</p>
 

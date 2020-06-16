@@ -24,10 +24,9 @@
 
       <div class="level">
         <div class="level-item has-text-centered">
-            <img src="../assets/example.png" alt="picture of boy and text input box below">
+            <img src="../assets/example.png" alt="picture of shark and text input box below">
         </div>
       </div>
-
 
       <div class="level">
         <div class="level-item">
@@ -52,7 +51,6 @@
         name: "AppInstructions",
 
         methods: {
-
             next() {
               this.$router.push({ path: './practice' });
             },
