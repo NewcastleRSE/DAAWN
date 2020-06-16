@@ -6,7 +6,7 @@
         <p class="title is-3">Assessment Report</p>
       </div>
 
-      <p class="text">Reaction times over 5 seconds are shown in red text.</p>
+      <p class="toptext">Reaction times over 5 seconds are shown in <span id="red">red text</span>.</p>
 
       <table class="table table-striped" >
         <thead>
@@ -138,10 +138,22 @@
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
                 let totalCorrectWithoutCue = 0;
-                let count = 0;
-                let countWithoutCue = 0;
-                const letterCounts = {};
-                const letterCountsWithoutCue = {};
+                let count3letters = 0;
+                let count4letters = 0;
+                let count5letters = 0;
+                let count6letters = 0;
+                let count7letters = 0;
+                let count8letters = 0;
+                let count9letters = 0;
+                let count10letters = 0;
+                let count3lettersCorrectWithoutCue = 0;
+                let count4lettersCorrectWithoutCue = 0;
+                let count5lettersCorrectWithoutCue = 0;
+                let count6lettersCorrectWithoutCue = 0;
+                let count7lettersCorrectWithoutCue = 0;
+                let count8lettersCorrectWithoutCue = 0;
+                let count9lettersCorrectWithoutCue = 0;
+                let count10lettersCorrectWithoutCue = 0;
 
                 let tableSummaryData = [];
                 for(let index in this.activeSet){
@@ -155,33 +167,72 @@
                           }
                         }
 
-                        for(let i = 3; i < 10; i++){
-                          if(this.activeSet[index].num_letters === i && this.activeSet[index].response_type === 1){
-                            count++;
-                            letterCounts['count'+ i+ 'letters'] = count;
-                            if(!this.activeSet[index].hint_clicked){
-                              countWithoutCue++;
-                              letterCountsWithoutCue['count' + i + 'lettersCorrectWithoutCue'] = countWithoutCue;
-                            }
+                        // add correct reponses by letter count
+                        if(this.activeSet[index].num_letters === 3 && this.activeSet[index].response_type === 1){
+                          count3letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count3lettersCorrectWithoutCue++;
                           }
                         }
-                    }
+                        else if(this.activeSet[index].num_letters === 4 && this.activeSet[index].response_type === 1){
+                          count4letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count4lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 5 && this.activeSet[index].response_type === 1){
+                          count5letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count5lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 6 && this.activeSet[index].response_type === 1){
+                          count6letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count6lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 7 && this.activeSet[index].response_type === 1){
+                          count7letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count7lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 8 && this.activeSet[index].response_type === 1){
+                          count8letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count8lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 9 && this.activeSet[index].response_type === 1){
+                          count9letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count9lettersCorrectWithoutCue++;
+                          }
+                        }
+                        else if(this.activeSet[index].num_letters === 10 && this.activeSet[index].response_type === 1){
+                          count10letters++;
+                          if(!this.activeSet[index].hint_clicked){
+                            count10lettersCorrectWithoutCue++;
+                          }
+                      }
+                   }
                 }
                 if(this.mySet === 'four'){
                   tableSummaryData[0] = [ 'All items', 42, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 42)];
-                  tableSummaryData[1] = [ '3 letters', 21, letterCounts['count3letters'], letterCountsWithoutCue['count3lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count3letters'], 21) ];
-                  tableSummaryData[2] = [ '4 letters', 21, letterCounts['count4letters'], letterCountsWithoutCue['count4lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count4letters'], 21) ];
+                  tableSummaryData[1] = [ '3 letters', 21, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 21) ];
+                  tableSummaryData[2] = [ '4 letters', 21, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 21) ];
                 }
                 else {
-                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 30) ];
-                  tableSummaryData[1] = [ '3 letters', 7, letterCounts['count3letters'], letterCountsWithoutCue['count3lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count3letters'], 7) ];
-                  tableSummaryData[2] = [ '4 letters', 7, letterCounts['count4letters'], letterCountsWithoutCue['count4lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count4letters'], 7) ];
-                  tableSummaryData[3] = [ '5 letters', 5, letterCounts['count5letters'], letterCountsWithoutCue['count5lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count5letters'], 5) ];
-                  tableSummaryData[4] = [ '6 letters', 4, letterCounts['count6letters'], letterCountsWithoutCue['count6lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count6letters'], 6) ];
-                  tableSummaryData[5] = [ '7 letters', 3, letterCounts['count7letters'], letterCountsWithoutCue['count7lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count7letters'], 3) ];
-                  tableSummaryData[6] = [ '8 letters', 2, letterCounts['count8letters'], letterCountsWithoutCue['count8lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count8letters'], 2) ];
-                  tableSummaryData[7] = [ '9 letters', 1, letterCounts['count9letters'], letterCountsWithoutCue['count9lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count9letters'], 1) ];
-                  tableSummaryData[8] = [ '10 letters', 1, letterCounts['count10letters'], letterCountsWithoutCue['count10lettersCorrectWithoutCue'], this.calcPerCategory(letterCounts['count10letters'], 1) ];
+                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, this.calcPerCategory(totalCorrect, 30), totalCorrectWithoutCue ];
+                  tableSummaryData[1] = [ '3 letters', 7, count3letters, this.calcPerCategory(count3letters, 7),  count3lettersCorrectWithoutCue ];
+                  tableSummaryData[2] = [ '4 letters', 7, count4letters, this.calcPerCategory(count4letters, 7),  count4lettersCorrectWithoutCue ];
+                  tableSummaryData[3] = [ '5 letters', 5, count5letters, this.calcPerCategory(count5letters, 5), count5lettersCorrectWithoutCue ];
+                  tableSummaryData[4] = [ '6 letters', 4, count6letters, this.calcPerCategory(count6letters, 6), count6lettersCorrectWithoutCue ];
+                  tableSummaryData[5] = [ '7 letters', 3, count7letters, this.calcPerCategory(count7letters, 3), count7lettersCorrectWithoutCue ];
+                  tableSummaryData[6] = [ '8 letters', 2, count8letters, this.calcPerCategory(count8letters, 2), count8lettersCorrectWithoutCue, ];
+                  tableSummaryData[7] = [ '9 letters', 1, count9letters, this.calcPerCategory(count9letters, 1), count9lettersCorrectWithoutCue  ];
+                  tableSummaryData[8] = [ '10 letters', 1, count10letters, this.calcPerCategory(count10letters, 1), count10lettersCorrectWithoutCue ];
                 }
                 return tableSummaryData;
             },
@@ -200,16 +251,17 @@
               return (sum/numTimes).toFixed(2);
             },
             returnMedian(times) {
+
               let median = 0;
               let numTimes = times.length;
               times.sort();
 
               if(numTimes % 2 === 0){
                 // average of two middle numbers
-                median = (times[numTimes / 2 - 1] + times[numTimes / 2]) / 2;
+                median = ( parseFloat(times[numTimes / 2 - 1]) + parseFloat(times[numTimes / 2]) / 2).toFixed(2);
               }
               else {
-                median = times[(numTimes - 1) / 2];
+                median = parseFloat(times[(numTimes - 1) / 2]);
               }
               return median;
             },
@@ -272,7 +324,15 @@
   }
 
   .text {
-    margin: 0 0 20px 0;
+    margin: 30px 0 0 0;
+  }
+
+  .toptext {
+    margin-bottom: 40px;
+  }
+
+  .toptext #red {
+    color: red;
   }
 
 </style>
