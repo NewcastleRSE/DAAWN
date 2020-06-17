@@ -132,7 +132,6 @@
                     }
                 }
                 let tableSummaryData = this.createSummaryData(this.activeSet);
-                console.log(tableSummaryData);
                 pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian);
             },
             createSummaryData(activeSet) {
