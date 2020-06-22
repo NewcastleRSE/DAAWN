@@ -74,6 +74,7 @@
 
           </div>
         </div>
+        <ExitModal v-if="showExitModal" @close="showExitModal = false" />
 
     </div>
   </div>
@@ -84,17 +85,20 @@
 
   import { dataService } from '../services/data.service';
   import { ValidationProvider } from 'vee-validate';
+  import ExitModal from "./ExitModal";
 
 
   export default {
         name: "AppSelect",
         components: {
-          ValidationProvider
+          ValidationProvider,
+          ExitModal
         },
         data() {
             return  {
               set : null,
               submitted: false,
+              showExitModal: false
           }
         },
         computed : {
@@ -109,7 +113,7 @@
         },
         methods: {
             exit() {
-              this.$router.push({ path: './' });
+                this.showExitModal = true;
             },
             next() {
               this.submitted = true;

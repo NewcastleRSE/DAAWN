@@ -35,6 +35,8 @@
 
         </div>
       </div>
+
+      <ExitModal v-if="showExitModal" @close="showExitModal = false" />
     </div>
   </div>
 </template>
@@ -43,22 +45,25 @@
 
   import AboutModal from './AboutModal';
   import SetsModal from "./SetsModal";
+  import ExitModal from "./ExitModal";
 
     export default {
         name: "AppInfo",
         components: {
           AboutModal,
-          SetsModal
+          SetsModal,
+          ExitModal
         },
         data() {
             return {
               showAboutModal : false,
-              showSetsModal : false
+              showSetsModal : false,
+              showExitModal : false
             }
         },
         methods: {
             exit() {
-              this.$router.push({ path: './' });
+                this.showExitModal = true;
             },
             next() {
               this.$router.push({ path: './select' });

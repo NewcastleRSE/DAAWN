@@ -32,13 +32,15 @@
         <tr><th>Median Response Time</th><td>{{ responseTimeMedian }}</td></tr>
       </table>
 
+      <p class="midtext">Items that were completed using the <span class="special">Hint</span> facility are shown in <span id="amber">amber text.</span> A star in the process response indicates where the first letter was substituted.</p>
+
       <table class="table table-striped">
         <thead>
         <tr><th>Item</th><th>Process Response</th><th>No. Letters</th><th>Keystrokes</th><th>No. Deletions</th></tr>
         </thead>
         <tbody>
         <tr  v-for="item in activeSet">
-          <td>{{ item.expected_outcome }}</td>
+          <td><span v-bind:style="item.hint_clicked ? 'color: #eb9b34' : 'color: black' ">{{ item.expected_outcome }}</span></td>
           <td>[ {{  item.processResponse }} ]</td>
           <td>{{ item.num_letters }}</td>
           <td>{{ item.keystrokes }}</td>
@@ -145,6 +147,14 @@
                 let count8letters = 0;
                 let count9letters = 0;
                 let count10letters = 0;
+                let count3lettersCorrect = 0;
+                let count4lettersCorrect = 0;
+                let count5lettersCorrect = 0;
+                let count6lettersCorrect = 0;
+                let count7lettersCorrect = 0;
+                let count8lettersCorrect = 0;
+                let count9lettersCorrect = 0;
+                let count10lettersCorrect = 0;
                 let count3lettersCorrectWithoutCue = 0;
                 let count4lettersCorrectWithoutCue = 0;
                 let count5lettersCorrectWithoutCue = 0;
@@ -166,72 +176,102 @@
                           }
                         }
 
-                        // add correct reponses by letter count
-                        if(this.activeSet[index].num_letters === 3 && this.activeSet[index].response_type === 1){
-                          count3letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count3lettersCorrectWithoutCue++;
-                          }
+                        switch(this.activeSet[index].num_letters){
+                            case 3:
+                                count3letters++;
+                                  if(this.activeSet[index].response_type === 1){
+                                    count3lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count3lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 4:
+                                count4letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count4lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count4lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 5:
+                                count5letters++;
+                                if( this.activeSet[index].response_type === 1){
+                                    count5lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count5lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 6:
+                                count6letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count6lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count6lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 7:
+                                count7letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count7lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count7lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 8:
+                                count8letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count8lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count8lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 9:
+                                count9letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count9lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count9lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
+                            case 10:
+                                count10letters++;
+                                if(this.activeSet[index].response_type === 1){
+                                    count10lettersCorrect++;
+                                    if(!this.activeSet[index].hint_clicked){
+                                      count10lettersCorrectWithoutCue++;
+                                    }
+                                }
+                                break;
                         }
-                        else if(this.activeSet[index].num_letters === 4 && this.activeSet[index].response_type === 1){
-                          count4letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count4lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 5 && this.activeSet[index].response_type === 1){
-                          count5letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count5lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 6 && this.activeSet[index].response_type === 1){
-                          count6letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count6lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 7 && this.activeSet[index].response_type === 1){
-                          count7letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count7lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 8 && this.activeSet[index].response_type === 1){
-                          count8letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count8lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 9 && this.activeSet[index].response_type === 1){
-                          count9letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count9lettersCorrectWithoutCue++;
-                          }
-                        }
-                        else if(this.activeSet[index].num_letters === 10 && this.activeSet[index].response_type === 1){
-                          count10letters++;
-                          if(!this.activeSet[index].hint_clicked){
-                            count10lettersCorrectWithoutCue++;
-                          }
-                      }
+
                    }
                 }
                 if(this.mySet === 'four'){
-                  tableSummaryData[0] = [ 'All items', 42, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, 42)];
-                  tableSummaryData[1] = [ '3 letters', 21, count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3letters, 21) ];
-                  tableSummaryData[2] = [ '4 letters', 21, count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4letters, 21) ];
+
+                  let allItems = count3letters + count4letters;
+                  tableSummaryData[0] = [ 'All items', allItems, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, allItems)];
+                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, count3lettersCorrectWithoutCue, this.calcPerCategory(count3lettersCorrect, count3letters) ];
+                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, count4lettersCorrectWithoutCue, this.calcPerCategory(count4lettersCorrect, count4letters) ];
                 }
                 else {
-                  tableSummaryData[0] = [ 'All items', 30, totalCorrect, this.calcPerCategory(totalCorrect, 30), totalCorrectWithoutCue ];
-                  tableSummaryData[1] = [ '3 letters', 7, count3letters, this.calcPerCategory(count3letters, 7),  count3lettersCorrectWithoutCue ];
-                  tableSummaryData[2] = [ '4 letters', 7, count4letters, this.calcPerCategory(count4letters, 7),  count4lettersCorrectWithoutCue ];
-                  tableSummaryData[3] = [ '5 letters', 5, count5letters, this.calcPerCategory(count5letters, 5), count5lettersCorrectWithoutCue ];
-                  tableSummaryData[4] = [ '6 letters', 4, count6letters, this.calcPerCategory(count6letters, 6), count6lettersCorrectWithoutCue ];
-                  tableSummaryData[5] = [ '7 letters', 3, count7letters, this.calcPerCategory(count7letters, 3), count7lettersCorrectWithoutCue ];
-                  tableSummaryData[6] = [ '8 letters', 2, count8letters, this.calcPerCategory(count8letters, 2), count8lettersCorrectWithoutCue, ];
-                  tableSummaryData[7] = [ '9 letters', 1, count9letters, this.calcPerCategory(count9letters, 1), count9lettersCorrectWithoutCue  ];
-                  tableSummaryData[8] = [ '10 letters', 1, count10letters, this.calcPerCategory(count10letters, 1), count10lettersCorrectWithoutCue ];
+
+                  let allItems = count3letters + count4letters + count5letters + count6letters + count7letters + count8letters + count9letters + count10letters;
+                  tableSummaryData[0] = [ 'All items', allItems, totalCorrect, this.calcPerCategory(totalCorrect, allItems), totalCorrectWithoutCue ];
+                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, this.calcPerCategory(count3lettersCorrect, count3letters),  count3lettersCorrectWithoutCue ];
+                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, this.calcPerCategory(count4lettersCorrect, count4letters),  count4lettersCorrectWithoutCue ];
+                  tableSummaryData[3] = [ '5 letters', count5letters, count5lettersCorrect, this.calcPerCategory(count5lettersCorrect, count5letters), count5lettersCorrectWithoutCue ];
+                  tableSummaryData[4] = [ '6 letters', count6letters, count6lettersCorrect, this.calcPerCategory(count6lettersCorrect, count6letters), count6lettersCorrectWithoutCue ];
+                  tableSummaryData[5] = [ '7 letters', count7letters, count7lettersCorrect, this.calcPerCategory(count7lettersCorrect, count7letters), count7lettersCorrectWithoutCue ];
+                  tableSummaryData[6] = [ '8 letters', count8letters, count8lettersCorrect, this.calcPerCategory(count8lettersCorrect, count8letters), count8lettersCorrectWithoutCue, ];
+                  tableSummaryData[7] = [ '9 letters', count9letters, count9lettersCorrect, this.calcPerCategory(count9lettersCorrect, count9letters), count9lettersCorrectWithoutCue  ];
+                  tableSummaryData[8] = [ '10 letters', count10letters, count10lettersCorrect, this.calcPerCategory(count10lettersCorrect, count10letters), count10lettersCorrectWithoutCue ];
                 }
                 return tableSummaryData;
             },
@@ -332,6 +372,14 @@
 
   .toptext #red {
     color: red;
+  }
+
+  .midtext {
+    margin: 45px 0;
+  }
+
+  #amber {
+    color: #eb9b34;
   }
 
 </style>

@@ -153,6 +153,7 @@
                 this.responseText = this.name.slice(0,1);
                 this.hintClicked = true;
                 this.focusInput();
+                this.processResponse.push('*');
               }
             },
             collectData() {

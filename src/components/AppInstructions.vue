@@ -41,21 +41,32 @@
         </div>
       </div>
 
+      <ExitModal v-if="showExitModal" @close="showExitModal = false" />
+
     </div>
   </div>
 </template>
 
 <script>
 
+  import ExitModal from "./ExitModal";
+
   export default {
         name: "AppInstructions",
-
+        components: {
+          ExitModal
+        },
+        data() {
+            return {
+               showExitModal: false
+            }
+        },
         methods: {
             next() {
               this.$router.push({ path: './practice' });
             },
             exit() {
-              this.$router.push({ path: './' });
+              this.showExitModal = true;
             }
         }
     }

@@ -24,15 +24,29 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
     doc.text(20, 50, 'Assessment Report');
     doc.setFontSize(14);
     doc.text(20, 60, 'DAAWN v.1.0');
-    doc.text(20, 80, 'Name');
-    doc.text(20, 95, 'DOB');
-    doc.text(20, 110, 'Clinician Name');
+    doc.text(20, 80, 'Name :');
+    doc.text(20, 95, 'DOB :');
+    doc.text(20, 110, 'Clinician Name :');
     doc.text(20, 125, 'Participant ID : ' + id);
-    doc.text(20, 140, 'Notes');
+    doc.text(20, 140, 'Notes :');
 
-    doc.addPage()
+    doc.addPage();
 
-    doc.text(20, 20, 'Reaction data');
+    doc.text(15, 20, 'Summary data');
+
+    // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
+    doc.autoTable({
+       head: [['Breakdown', 'Items Attempted', 'No. Correct (no hint)', 'Percentage Correct', 'Correct with hint'  ]],
+       body: tableSummaryData,
+       startY: 30
+    });
+
+    doc.addPage();
+
+    doc.text(15, 20, 'Reaction data');
+
+    doc.setFontSize(12);
+    doc.text(15, 30, 'Reaction times over 5 seconds are shown in red.');
 
     doc.autoTable({
         head: [['Item', 'Correct/Incorrect', 'End Response', 'CAT', 'LD', 'Reaction Time', 'Response Time']],
@@ -69,44 +83,48 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
                    doc.addImage(cross, textPos.x,  textPos.y, dim, dim);
                }
             }
-          }
+        },
+        startY: 40
     });
 
     doc.addPage()
 
-    doc.text(20, 20, 'Mean and median responses');
+    doc.setFontSize(14);
+    doc.text(15, 20, 'Process response');
 
-    doc.text(20, 40, 'Mean Reaction Time : ' + reactionTimeMean);
-    doc.text(20, 50, 'Mean Response Time : ' + responseTimeMean);
-    doc.text(20, 60, 'Median Reaction Time : ' + reactionTimeMedian);
-    doc.text(20, 70, 'Median Response Time : ' + responseTimeMedian);
-
-    doc.addPage()
-
-    doc.text(20, 20, 'Summary data');
-
-   // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
-    doc.autoTable({
-      head: [['Breakdown', 'No. Items', 'No. Correct', 'Percentage Correct', 'Correct without cue'  ]],
-      body: tableSummaryData
-    });
-
-    doc.addPage()
-
-    doc.text(20, 20, 'Process response');
+    doc.setFontSize(12);
+    doc.text(15, 30, 'A star in the process response indicates where the first letter was supplied by a Hint.');
 
     const headrow = [['Item', 'Process Response', 'No. Letters', 'Keystrokes', 'No. Deletions']];
 
-     doc.autoTable({
-            head: headrow,
-            body: tableProcessData,
-            startY: 20
-          });
+    doc.autoTable({
+        head: headrow,
+        body: tableProcessData,
+        startY: 40
+    });
 
+    doc.addPage()
+
+    doc.setFontSize(14);
+    doc.text(15, 20, 'Mean and median responses');
+
+    doc.setFontSize(12);
+    doc.text(15, 30, 'The median response time has been added to take into account any extended pause');
+    doc.text(15, 38,  'during the assessment e.g. discussion about an item or a rest break.');
+
+    doc.autoTable({
+        head:  [['Mean Reaction Time', 'Median Reaction Time', 'Mean Response Time', 'Median Response Time']],
+        body: [[ reactionTimeMean, reactionTimeMedian, responseTimeMean, responseTimeMedian ]],
+        startY: 48
+
+    });
+
+   /* doc.text(20, 58, 'Mean Reaction Time : ' + reactionTimeMean);
+    doc.text(20, 63, 'Mean Response Time : ' + responseTimeMean);
+    doc.text(20, 73, 'Median Reaction Time : ' + reactionTimeMedian);
+    doc.text(20, 83, 'Median Response Time : ' + responseTimeMedian); */
 
     doc.save('report.pdf');
-
-
 }
 
 function returnID() {

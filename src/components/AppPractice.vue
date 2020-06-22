@@ -15,7 +15,7 @@
         <div class="box" >
 
           <div class="level">
-            <tooltip label="This will add the first letter of the word to the input box" placement="top-right">
+            <tooltip label="A participant can only obtain one hint, the first letter of the word. This will only appear if the text box is blank (before anything is typed or after the person deletes an attempt). The assessment feedback will record whether a hint was provided for each item" placement="top-right">
             <div class="level-left tooltip" @click="hint">
               <span class="hint-icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
               <span id="hint" class="special">Hint</span>
@@ -68,20 +68,22 @@
 
         </div>
       </div>
+      <ExitModal v-if="showExitModal" @close="showExitModal = false" />
 
     </div>
   </div>
-
 </template>
 
 <script>
 
-  import Tooltip from 'vue-bulma-tooltip'
+  import Tooltip from 'vue-bulma-tooltip';
+  import ExitModal from "./ExitModal";
 
   export default {
         name: "AppPractice",
         components: {
-          Tooltip
+          Tooltip,
+          ExitModal
         },
         data() {
             return {
@@ -91,7 +93,8 @@
                 practiceImage: '',
                 status : 'in progress',
                 name : '',
-                hintClicked : false
+                hintClicked : false,
+                showExitModal : false
             }
          },
         methods: {
@@ -127,7 +130,7 @@
               this.$refs.text.focus();
             },
             exit() {
-                this.$router.push({ path: './' });
+              this.showExitModal = true;
             }
         },
         mounted() {
