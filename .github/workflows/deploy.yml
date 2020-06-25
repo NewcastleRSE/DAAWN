@@ -34,8 +34,6 @@ jobs:
         uses: actions/download-artifact@v1
         with:
           name: daawn
-      - name: Check Directory
-        run: ls
       - uses: lauchacarro/Azure-Storage-Action@master
         with:
           enabled-static-website: 'true'
