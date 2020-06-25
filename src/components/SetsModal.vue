@@ -7,7 +7,7 @@
         <div class='modal-body'>
 
           <p id="text-header" class="title is-4">Word sets</p>
-          <p>DAAWN has four word sets. Sets 1-3 contain:</p>
+          <p>DAAWN has four word sets. <strong>Sets 1-3</strong> contain:</p>
           <ul>
             <li>7 x 3-letter words</li>
             <li>7 x 4-letter words</li>
@@ -22,7 +22,7 @@
           <p>The sets are matched for frequency and concreteness. Data on spelling regularity is not currently available for this set as the images were obtained from a study on spoken naming. However, we have attempted to include a mix of regular and irregular orthographic forms. The items within the sets will be presented in random order.
           </p>
 
-          <p>Set four only contains three and four-letter words (42 items in total). We have offered this set as an option for assessment with people with severe writing difficulties who may struggle beyond this level. The items will appear in order with three-letter words first.</p>
+          <p><strong>Set four</strong> only contains three and four-letter words (42 items in total). We have offered this set as an option for assessment with people with severe writing difficulties who may struggle beyond this level. The items will appear in order with three-letter words first.</p>
 
           <p>Clinicians could use a combination of two or three sets to test up to 90-items, use one set for treatment and another for control items in therapy, or use different sets to test typed naming in different conditions, e.g., use of a mobile phone, use of a keyboard, tablet with word prediction. </p>
 

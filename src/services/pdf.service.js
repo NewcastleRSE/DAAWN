@@ -24,6 +24,7 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
     doc.text(20, 50, 'Assessment Report');
     doc.setFontSize(14);
     doc.text(20, 60, 'DAAWN v.1.0');
+    doc.text(20, 70, 'Date :' );
     doc.text(20, 80, 'Name :');
     doc.text(20, 95, 'DOB :');
     doc.text(20, 110, 'Clinician Name :');
@@ -43,10 +44,11 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
 
     doc.addPage();
 
-    doc.text(15, 20, 'Reaction data');
+    doc.text(15, 20, 'Scores and Timings');
 
     doc.setFontSize(12);
     doc.text(15, 30, 'Reaction times over 5 seconds are shown in red.');
+
 
     doc.autoTable({
         head: [['Item', 'Correct/Incorrect', 'End Response', 'CAT', 'LD', 'Reaction Time', 'Response Time']],

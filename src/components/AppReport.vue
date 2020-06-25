@@ -32,7 +32,7 @@
         <tr><th>Median Response Time</th><td>{{ responseTimeMedian }}</td></tr>
       </table>
 
-      <p class="midtext">Items that were completed using the <span class="special">Hint</span> facility are shown in <span id="amber">amber text.</span> A star in the process response indicates where the first letter was substituted.</p>
+      <p class="midtext">Items that were completed using the <span class="special">Hint</span> facility are shown in <span id="amber">amber text.</span> A star in the process response indicates where the first letter was provided.</p>
 
       <table class="table table-striped">
         <thead>
