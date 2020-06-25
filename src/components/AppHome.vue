@@ -13,8 +13,8 @@
 
        <div class="info">
          <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as part of a Newcastle University MSc Computing Science dissertation by <span class="special">Alex Smith</span>, supervised by <span class="special">Dr Matthew Forshaw</span> (Computing Science) with support from <span class="special">Dr Fiona Menger</span> (Speech and Language Sciences). The software has been further developed and deployed by the <span class="special">Newcastle University Research Software Engineering</span> Team.</p>
-         <p>What you will see here is not intended to be a final version of an assessment tool. Instead, it aims to demonstrate the type of information that could be available to a Speech and Language Therapist as part of a digitised assessment of typed written language. Our aim is to gather feedback and work with SLTs and people with aphasia to develop DAAWN further so it can be used in clinical practice and for research.  You can help us to improve DAAWN by completing the feedback survey linked at the end of the assessment.</p>
-         <p>For further information or if you have any questions on DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span></p>
+         <p>What you will see here is not intended to be a final version of an assessment tool. Instead, it is a pilot tool that aims to demonstrate the type of information that could be available to a Speech and Language Therapist as part of a digitised assessment. Our longer-term aim is to gather feedback and work with SLTs and people with aphasia to develop DAAWN further so it can be used in clinical practice and for research.</p>
+         <p>Please feel free to use DAAWN as much as you like. There will be an opportunity to provide initial feedback as part of a Newcastle University Speech and Language Sciences dissertation research project later in the year. For further information or if you have any questions on DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span></p>
        </div>
 
         <div class="level" >

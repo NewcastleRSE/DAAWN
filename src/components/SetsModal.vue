@@ -24,7 +24,7 @@
 
           <p><strong>Set four</strong> only contains three and four-letter words (42 items in total). We have offered this set as an option for assessment with people with severe writing difficulties who may struggle beyond this level. The items will appear in order with three-letter words first.</p>
 
-          <p>Clinicians could use a combination of two or three sets to test up to 90-items, use one set for treatment and another for control items in therapy, or use different sets to test typed naming in different conditions, e.g., use of a mobile phone, use of a keyboard, tablet with word prediction. </p>
+          <p>The word sets could be used to compare performance using different types of text entry, e.g., mobile phone vs keyboard. They might also be used to provide control and treatment sets for therapy (alongside personally selected vocabulary). If you would like to assess more than 30 items, you would currently need to repeat the test using a different set each time. </p>
 
         </div>
         <div class='modal-footer'>
