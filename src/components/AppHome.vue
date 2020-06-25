@@ -4,7 +4,7 @@
       <div class="level" >
         <div class="level-item">
 
-          <img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo">
+          <img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo">
         </div>
       </div>
 
@@ -24,7 +24,7 @@
         </div>
 
       </div>
-      <img src="../assets/di-logo.jpg" alt="Digital Institute" id="di-logo">
+      <img src="dist/di-logo.jpg" alt="Digital Institute" id="di-logo">
     </div>
 
 </template>

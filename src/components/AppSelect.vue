@@ -2,7 +2,7 @@
   <div class="container is-widescreen">
     <div id="page">
       <div id="header">
-        <span id="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
         <p class="title is-3">Selecting your output options</p>
       </div>
 

@@ -2,7 +2,7 @@
   <div class="container is-widescreen">
     <div id="page">
       <div id="header">
-        <span id="logo"><img src="src/assets/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
+        <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
         <p class="title is-3">Assessment page example</p>
       </div>
 
@@ -24,7 +24,7 @@
 
       <div class="level">
         <div class="level-item has-text-centered">
-            <img src="../assets/example.png" alt="picture of shark and text input box below">
+            <img src="dist/example.png" alt="picture of shark and text input box below">
         </div>
       </div>
 

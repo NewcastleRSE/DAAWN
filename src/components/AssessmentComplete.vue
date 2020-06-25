@@ -2,14 +2,14 @@
   <div class="container is-widescreen">
     <div id="page" ref="content">
       <div class="header">
-        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
+        <span class="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p class="title is-3">Assessment Complete</p>
       </div>
 
       <div id="main" class="level">
         <div class="level-item">
             <h4 class="title">Thank you for completing the assessment</h4>
-            <span><img src="../assets/orange-tick.png" alt="tick" id="tick-image"></span>
+            <span><img src="dist/orange-tick.png" alt="tick" id="tick-image"></span>
         </div>
       </div>
 

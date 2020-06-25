@@ -2,7 +2,7 @@
   <div class="container is-widescreen">
     <div id="page" ref="content">
       <div class="header">
-        <span class="logo"><img src="../assets/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
+        <span class="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p class="title is-3">Assessment Report</p>
       </div>
 
@@ -15,7 +15,7 @@
         <tbody>
         <tr v-for="item in activeSet">
           <td>{{ item.expected_outcome }}</td>
-          <td><img v-show="item.response_type ===1" src="../assets/green-tick.png" alt="tick" id="tick-image"><img v-show="item.response_type===0" src="../assets/cross.png" alt="tick" id="cross-image"></td>
+          <td><img v-show="item.response_type ===1" src="dist/green-tick.png" alt="tick" id="tick-image"><img v-show="item.response_type===0" src="dist/cross.png" alt="tick" id="cross-image"></td>
           <td>{{ item.actual_response }}</td>
           <td>{{ item.cat_score }}</td>
           <td>{{ item.dla_score }}</td>
