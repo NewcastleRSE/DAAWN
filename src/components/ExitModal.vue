@@ -61,7 +61,7 @@
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width: 25%;
-    height: 25%;
+    height: 200px;
     background: #FFF;
     border-radius: 25px;
   }
@@ -71,24 +71,30 @@
   }
 
   .modal-body p {
-    padding: 0;
+    padding-bottom: 10px;
+    margin: 10px;
     font-size: 1.2em;
   }
 
   .modal-footer{
     position: fixed;
     width: 100%;
-    bottom: 50px;
+    bottom: 10px;
   }
+
   button {
     height: 40px;
-    width: 80px;
+    width: 45px;
     font-size: 1.2em;
+    margin: 30px;
   }
 
   #yes {
     float:left;
-    margin-right: 100px;
+  }
+
+  #no {
+    float:right;
   }
 
 
