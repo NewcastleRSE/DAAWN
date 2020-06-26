@@ -346,12 +346,15 @@
      left: 30px;
    }
 
-     #exit {
-      position: absolute;
-      top : 5px;
-      right: 5px;
-    }
+   #exit {
+    position: absolute;
+    top : 5px;
+    right: 5px;
+  }
 
+  input::-ms-clear {
+    display: none;
+  }
 
 
 
