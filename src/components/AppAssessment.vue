@@ -2,12 +2,12 @@
   <div class="container is-widescreen">
     <div id="page">
       <div class="header" v-show="index === 0">
-        <span class="logo"><img src="../dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
+        <span class="logo"><img src="/dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p  class="title is-3">Beginning the <strong>assessment</strong> session</p>
       </div>
 
       <div class="header" v-show="index > 0">
-        <span class="logo"><img src="../dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
+        <span class="logo"><img src="/dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p class="title is-3">Assessment {{ status }}</p>
       </div>
 
