@@ -24,7 +24,7 @@
 
       <div class="level">
         <div class="level-item has-text-centered">
-            <img src="dist/example.png" alt="picture of shark and text input box below">
+            <img src="dist/shark-example.png" alt="picture of shark and text input box below">
         </div>
       </div>
 
