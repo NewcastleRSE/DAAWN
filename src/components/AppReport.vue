@@ -87,7 +87,7 @@
         },
         computed : {
             responseTimeMean : function () {
-                return this.returnMean(this.allResponseTimes);
+                 return this.returnMean(this.allResponseTimes);
             },
             reactionTimeMean : function () {
                 return this.returnMean(this.allReactionTimes);
@@ -110,10 +110,14 @@
                 }
                this.filter(this.activeSet);
                 for(let index in this.activeSet){
-                  if(this.activeSet.hasOwnProperty(index)){
-                     this.allReactionTimes.push(this.activeSet[index].reaction_time);
-                     this.allResponseTimes.push(this.activeSet[index].response_time)
-                  }
+                    if(this.activeSet.hasOwnProperty(index)){
+                        if(this.activeSet[index].reaction_time !== undefined) {
+                          this.allReactionTimes.push(this.activeSet[index].reaction_time);
+                        }
+                        if(this.activeSet[index].response_time !== undefined){
+                          this.allResponseTimes.push(this.activeSet[index].response_time);
+                        }
+                    }
                 }
             },
             filter(set){

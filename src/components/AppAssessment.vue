@@ -168,11 +168,14 @@
                   this.responseType = 0;
                 }
 
-                this.DLScore = dataService.levenshtein(this.name, this.responseText);
+                if(this.responseText !== ''){
+                  this.DLScore = dataService.levenshtein(this.name, this.responseText);
+                }
+
                 this.numLetters = this.name.length;
 
                 let imageNameLength=this.name.length;
-                if(imageNameLength-this.DLScore > 0){
+                if(imageNameLength-this.DLScore > 0 && this.responseText !== ''){
                     this.catScore=imageNameLength-this.DLScore;
                 }
 

@@ -3,7 +3,7 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Selecting your output options</p>
+        <p class="title is-3">DAAWN Assessment</p>
       </div>
 
       <p class="title is-4">Please select an appropriate image set</p>
@@ -30,7 +30,7 @@
 
         <div class="content">
 
-            <p class="special">These are the data categories that will be recorded</p>
+            <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
 
             <ul>
               <li>Correct or incorrect response</li>

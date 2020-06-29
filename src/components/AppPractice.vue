@@ -3,31 +3,25 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Beginning the practice session</p>
+        <p class="title is-3">Practice</p>
       </div>
 
-      <div class="text">
-          <p>Please ensure the patient understands the page controls.</p>
-      </div>
+      <p class="text">After completing the practice items, the client will be taken straight to the assessment. To <strong>skip</strong> the practice items, click the <span class="special">Start</span> button below the image.</p>
 
       <div class="level-item has-text-centered">
 
         <div class="box" >
 
           <div class="level">
-            <tooltip label="A participant can only obtain one hint, the first letter of the word. This will only appear if the text box is blank (before anything is typed or after the person deletes an attempt). The assessment feedback will record whether a hint was provided for each item" placement="top-right">
-            <div class="level-left tooltip" @click="hint">
+            <div class="level-left" @click="hint">
               <span class="hint-icon"><font-awesome-icon icon="lightbulb" size="2x"></font-awesome-icon></span>
               <span id="hint" class="special">Hint</span>
             </div>
-            </tooltip>
 
-            <tooltip label="This will close the assessement (assessment section only)" placement="top-right">
-            <div class="level-right tooltip">
+            <div class="level-right">
                 <span class="exit-icon"><font-awesome-icon icon="times-circle" size="2x"></font-awesome-icon></span>
                 <span id="exit" class="special">Exit</span>
             </div>
-            </tooltip>
           </div>
 
           <div class="level">
@@ -94,7 +88,8 @@
                 status : 'in progress',
                 name : '',
                 hintClicked : false,
-                showExitModal : false
+                showExitModal : false,
+                currentSet : ''
             }
          },
         methods: {
@@ -113,11 +108,11 @@
                 }
                 else {
                   this.status = 'completed';
+                  this.$router.push({ path: './assessment/' + this.currentSet });
                 }
             },
             beginSet() {
-                let currentSet = localStorage.getItem('set');
-                this.$router.push({ path: './assessment/' + currentSet });
+                this.$router.push({ path: './assessment/' + this.currentSet });
             },
             hint() {
                 if(this.practiceImage === ""){
@@ -134,6 +129,7 @@
             }
         },
         mounted() {
+              this.currentSet = localStorage.getItem('set');
               this.focusInput();
               this.name = "boy";
         }
@@ -168,7 +164,7 @@
   }
 
   .text {
-    margin-bottom: 25px;
+    margin-bottom: 40px;
   }
 
   .counter {
@@ -180,7 +176,7 @@
   }
 
   .exit-icon {
-    padding-right: 40px;
+    padding-right: 12px;
   }
 
   #forward-arrow{
@@ -189,21 +185,6 @@
     margin-top: -54px;
     position: relative;
     z-index: 2;
-  }
-
-  .tooltip {
-    position: relative;
-  }
-
-  .tooltip #hint{
-    position: absolute;
-    top : 0px;
-  }
-
-  .tooltip #exit {
-    position: absolute;
-    top : 5px;
-    right: 5px;
   }
 
 

@@ -6,7 +6,7 @@
         <p class="title is-3">Assessment page example</p>
       </div>
 
-      <p class="text">Please ensure the patients are introduced to the assessment through the practice session. The image below shows an example of the image presented to the user.</p>
+      <p class="text">Please ensure the client is introduced to the assessment through the practice session. The image below shows an example of the image presented to the user.</p>
 
       <p class="title is-4">Instructions</p>
 
