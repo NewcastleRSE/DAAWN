@@ -261,8 +261,8 @@
 
                   let allItems = count3letters + count4letters;
                   tableSummaryData[0] = [ 'All items', allItems, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, allItems)];
-                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, count3lettersCorrectWithoutCue, this.calcPerCategory(count3lettersCorrect, count3letters) ];
-                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, count4lettersCorrectWithoutCue, this.calcPerCategory(count4lettersCorrect, count4letters) ];
+                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, this.calcPerCategory(count3lettersCorrect, count3letters),  count3lettersCorrectWithoutCue ];
+                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, this.calcPerCategory(count4lettersCorrect, count4letters), count4lettersCorrectWithoutCue ];
                 }
                 else {
 
