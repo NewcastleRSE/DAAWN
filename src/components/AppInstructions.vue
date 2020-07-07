@@ -6,9 +6,9 @@
         <p class="title is-3">Assessment page example</p>
       </div>
 
-      <p class="text">Please ensure the client is introduced to the assessment through the practice session. The image below shows an example of the image presented to the user.</p>
+      <p class="text">The image is an example of each item in the test.</p>
 
-      <p class="title is-4">Instructions</p>
+
 
       <div class="level">
         <div class="level-left">

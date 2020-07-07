@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 library.add(faArrowCircleRight, faLightbulb, faTimesCircle);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
+
 // Add the required rule
 extend('required', {
   ...required,

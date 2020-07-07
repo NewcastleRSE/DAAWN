@@ -1,7 +1,8 @@
 
 export const dataService = {
   saveSettings,
-  levenshtein
+  levenshtein,
+  download
 };
 
 function saveSettings(set) {
@@ -101,6 +102,31 @@ function levenshtein( a, b )
 
   return d[ a.length ][ b.length ];
 }
+
+//function to create a txt file which JSON object can be sent to
+function download(content, fileName, contentType) {
+
+  console.log(content);
+
+  let file = new Blob([content], { type: contentType });
+
+   window.BlobBuilder = window.BlobBuilder ||
+            window.WebKitBlobBuilder ||
+            window.MozBlobBuilder ||
+            window.MSBlobBuilder;
+   if (window.BlobBuilder) {
+     var bb = new BlobBuilder();
+     bb.append(content);
+     file = bb.getBlob(contentType);
+    }
+
+   const a = document.createElement("a");
+
+  	a.href = URL.createObjectURL(file);
+    a.download = fileName;
+    a.click();
+}
+
 
 
 

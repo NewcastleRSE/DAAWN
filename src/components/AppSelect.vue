@@ -6,6 +6,24 @@
         <p class="title is-3">DAAWN Assessment</p>
       </div>
 
+      <div class="content">
+
+        <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
+
+        <ul>
+          <li>Correct or incorrect response</li>
+          <li>End response</li>
+          <li>Automatically scored results using the CAT system</li>
+          <li>Automatically scored results using the Damerau-Levenshtein algorithm</li>
+          <li>Reaction time (time taken to type first letter from seeing the image)</li>
+          <li>Response time (time taken to write the entire response)</li>
+          <li>Process response (all letters, pauses over 1 second and deletions)</li>
+          <li>Number of letters</li>
+          <li>Number of keystrokes</li>
+          <li>Number of deletions</li>
+        </ul>
+      </div>
+
       <p class="title is-4">Please select an appropriate image set</p>
 
       <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains 42 images of only 3 and 4 letter words, presented in respective groups.</p>
@@ -28,38 +46,7 @@
 
       </form>
 
-        <div class="content">
 
-            <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
-
-            <ul>
-              <li>Correct or incorrect response</li>
-              <li>End response</li>
-              <li>Automatically scored results using the CAT system</li>
-              <li>Automatically scored results using the Damerau-Levenshtein algorithm</li>
-              <li>Reaction time (time taken to type first letter from seeing the image)</li>
-              <li>Response time (time taken to write the entire response)</li>
-              <li>Process response (all letters, pauses over 1 second and deletions)</li>
-              <li>Number of letters</li>
-              <li>Number of keystrokes</li>
-              <li>Number of deletions</li>
-            </ul>
-
-
-          <!--  <validation-provider rules="required" v-slot="{ errors }">
-            <input type="checkbox" name="CAT" id="CAT"  value="CAT" v-model="settings" > <label for="CAT">Automatically scored results using the CAT system</label><br />
-            <input type="checkbox" name="DL" id="DL" value="DL" v-model="settings" > <label for="DL">Automatically scored results using the Damerau-Levenshtein alrgorithm</label><br />
-            <input type="checkbox" name="reaction" id="reaction" value="reaction" v-model="settings"> <label for="reaction">Reaction time (time taken to type first letter)</label><br />
-            <input type="checkbox" name="responseTime" id="responseTime" value="responseTime" v-model="settings"> <label for="responseTime">Response time (time taken to write entire response)</label><br />
-            <input type="checkbox" name="process" id="process" value="process" v-model="settings"> <label for="process">Process response (letters, pauses and deletions)</label><br />
-            <input type="checkbox" name="end" id="end" value="end"  v-model="settings"> <label for="end">End response</label><br />
-            <input type="checkbox" name="firstLetter" id="firstLetter" value="firstLetter" v-model="settings"> <label for="firstLetter">% of items with the first letter correct</label><br />
-            <input type="checkbox" name="secondLetter" id="secondLetter" value="secondLetter" v-model="settings"> <label for="secondLetter">% of items with the first and second letter correct</label><br />
-            <input type="checkbox" name="correct" id="correct" value="correct" v-model="settings"> <label for="correct">% of items correct</label>
-              <span>{{ errors[0] }}</span>
-            </validation-provider> -->
-
-        </div>
 
         <div class="level" >
           <div class="level-item">
@@ -156,6 +143,10 @@
  .field {
    padding: 10px;
  }
+
+  .content {
+    padding: 20px 0;
+  }
 
 
 

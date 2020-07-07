@@ -266,23 +266,28 @@
         mounted() {
             this.currentSet = this.$route.params.set;
             if(this.currentSet === 'four'){
-              this.numInSet = settings.numInSetFour;
+                this.numInSet = settings.numInSetFour;
             }
             else {
-              this.numInSet = settings.numInSet;
-              if(this.currentSet === 'one'){
-                this.shuffle(this.setOne);
-              }
-              else if(this.currentSet === 'two'){
-                this.shuffle(this.setTwo);
-              }
-              else if(this.currentSet === 'three'){
-                this.shuffle(this.setThree);
-              }
+                this.numInSet = settings.numInSet;
+                if(this.currentSet === 'one'){
+                  this.shuffle(this.setOne);
+                }
+                else if(this.currentSet === 'two'){
+                  this.shuffle(this.setTwo);
+                }
+                else if(this.currentSet === 'three'){
+                  this.shuffle(this.setThree);
+                }
             }
             this.focusInput();
             this.startTime = Date.now();
-        }
+        },
+    beforeRouteLeave(to, from, next) {
+      if (confirm('You may lose saved work. Do you want to continue?')) {
+        return next()
+      }
+    }
   }
 </script>
 

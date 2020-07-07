@@ -49,6 +49,11 @@
           <p class="title is-5">Practice set {{ count}} of 2</p>
         </div>
 
+        <div v-if="status==='completed'" class="start-text">
+          <p class="title is-4">You are now ready to start the assessment!</p>
+        </div>
+
+
       <div class="level">
         <div class="level-item">
 
@@ -108,7 +113,7 @@
                 }
                 else {
                   this.status = 'completed';
-                  this.$router.push({ path: './assessment/' + this.currentSet });
+                 // this.$router.push({ path: './assessment/' + this.currentSet });
                 }
             },
             beginSet() {
@@ -133,6 +138,7 @@
               this.focusInput();
               this.name = "boy";
         }
+
   }
 </script>
 
@@ -185,6 +191,10 @@
     margin-top: -54px;
     position: relative;
     z-index: 2;
+  }
+
+  .start-text{
+    text-align: center;
   }
 
 

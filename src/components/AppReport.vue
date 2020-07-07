@@ -59,6 +59,7 @@
 
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
+            <button class="button data-btn" @click=createJSON()>Download Raw Data</button>
             <button class="button next-btn" @click=createPDF()>Download PDF</button>
           </div>
 
@@ -71,8 +72,9 @@
 
 <script>
 
-    import {settings} from "../settings";
-    import {pdfService} from "../services/pdf.service";
+    import { settings } from "../settings";
+    import { pdfService } from "../services/pdf.service";
+    import { dataService } from "../services/data.service"
 
     export default {
         name: "AppReport",
@@ -139,6 +141,10 @@
                 }
                 let tableSummaryData = this.createSummaryData(this.activeSet);
                 pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian);
+            },
+            createJSON() {
+              let data = JSON.stringify(this.activeSet);
+              dataService.download(data, "DAAWN JSON DATA", "text/plain");
             },
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
@@ -355,6 +361,10 @@
 
   .next-btn {
     width: 150px;
+  }
+
+  .data-btn {
+    width: 220px;
   }
 
   .logo {
