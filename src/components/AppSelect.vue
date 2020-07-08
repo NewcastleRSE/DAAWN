@@ -7,7 +7,6 @@
       </div>
 
       <div class="content">
-
         <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
 
         <ul>
@@ -22,15 +21,16 @@
           <li>Number of keystrokes</li>
           <li>Number of deletions</li>
         </ul>
+
+        <p class="text">You can also download this information in a machine-readable JSON format</p>
       </div>
 
-      <p class="title is-4">Please select an appropriate image set</p>
+      <p class="text title is-4">Please select an appropriate image set</p>
 
       <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains 42 images of only 3 and 4 letter words, presented in respective groups.</p>
 
 
       <form id="options-form">
-
         <div class="field">
           <div class="form-group">
 
@@ -45,8 +45,6 @@
         </div>
 
       </form>
-
-
 
         <div class="level" >
           <div class="level-item">

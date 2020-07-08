@@ -106,8 +106,6 @@ function levenshtein( a, b )
 //function to create a txt file which JSON object can be sent to
 function download(content, fileName, contentType) {
 
-  console.log(content);
-
   let file = new Blob([content], { type: contentType });
 
    window.BlobBuilder = window.BlobBuilder ||

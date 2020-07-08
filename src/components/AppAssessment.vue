@@ -51,20 +51,6 @@
           <p class="title is-5">{{ index+1 }} of {{ numInSet }} </p>
         </div>
 
-      <div class="level" v-if="status === 'completed'">
-        <div class="level-item">
-
-          <p class="highlight special">Click <strong>Finish</strong> to END the assessment</p>
-        </div>
-        <div class="level-item">
-          <div class="buttons-section form-group">
-            <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=endSet()>Finish</button>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </div>
 
@@ -140,6 +126,7 @@
                   this.collectData();
                   this.clearData();
                   this.status = 'completed';
+                  this.endSet();
                 }
                 else {
                   this.collectData();
@@ -282,12 +269,8 @@
             }
             this.focusInput();
             this.startTime = Date.now();
-        },
-    beforeRouteLeave(to, from, next) {
-      if (confirm('You may lose saved work. Do you want to continue?')) {
-        return next()
-      }
-    }
+        }
+
   }
 </script>
 

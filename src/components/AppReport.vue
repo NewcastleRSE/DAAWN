@@ -5,8 +5,11 @@
         <span class="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
         <p class="title is-3">Assessment Report</p>
       </div>
+     <div class="toptext">
+         <p class="text"><span class="special">Reaction time</span> is the time taken from when the image appears to when the person either enters a letter response or uses the hint button. Reaction times over five seconds are shown in <span id="red">red</span>.</p>
+         <p class="text"><span class="special">Response time</span> is the time taken to type the word from the first letter or hint key to the last letter typed. This does not include any hesitation before clicking on the arrow button to move on to the next item.</p>
+     </div>
 
-      <p class="toptext">Reaction times over 5 seconds are shown in <span id="red">red text</span>.</p>
 
       <table class="table table-striped" >
         <thead>
@@ -50,7 +53,7 @@
       </table>
       <div class="level">
         <div class="level-item">
-          <p class="text">Please wait a few seconds after clicking the download button, your PDF is being generated.</p>
+          <p class="btn-text">Please wait a few seconds after clicking either of the download buttons, your file is being generated.</p>
         </div>
       </div>
 
@@ -376,7 +379,7 @@
 
   }
 
-  .text {
+  .btn-text {
     margin: 30px 0 0 0;
   }
 
