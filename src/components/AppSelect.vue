@@ -22,7 +22,7 @@
           <li>Number of deletions</li>
         </ul>
 
-        <p class="text">You can also download this information in a machine-readable JSON format</p>
+        <p class="text">You can also download this information in a machine-readable JSON format.</p>
       </div>
 
       <p class="text title is-4">Please select an appropriate image set</p>
