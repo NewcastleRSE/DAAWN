@@ -83,6 +83,7 @@
         name: "AppReport",
         data() {
             return {
+              id: '',
               currentSet: [],
               activeSet: [],
               mySet: [],
@@ -105,6 +106,11 @@
             }
         },
         methods : {
+            returnID() {
+              // Math.random should be unique because of its seeding algorithm.
+              // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
+                this.id = Math.random().toString(36).substr(2, 9);
+            },
             fillCatTable(){
                 for(let index in this.currentSet){
                     if(this.currentSet.hasOwnProperty(index)){
@@ -143,11 +149,12 @@
                     }
                 }
                 let tableSummaryData = this.createSummaryData(this.activeSet);
-                pdfService.createPDF(tableReactionData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian);
+                let tableCatSummaryData = this.createCatSummaryData(this.activeSet);
+                pdfService.createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian, this.id);
             },
             createJSON() {
               let data = JSON.stringify(this.activeSet);
-              dataService.download(data, "DAAWN JSON DATA", "text/plain");
+              dataService.download(data, "JSON-DATA-ID-" + this.id, "text/plain");
             },
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
@@ -288,6 +295,176 @@
                 }
                 return tableSummaryData;
             },
+            createCatSummaryData(activeSet) {
+                let totalPossibleCatScore = 0;
+                let totalCatScoreWithCue = 0;
+                let totalCatScoreWithoutCue = 0;
+
+                let totalPossibleCatScore3letters = 0;
+                let totalPossibleCatScore4letters = 0;
+                let totalPossibleCatScore5letters = 0;
+                let totalPossibleCatScore6letters = 0;
+                let totalPossibleCatScore7letters = 0;
+                let totalPossibleCatScore8letters = 0;
+                let totalPossibleCatScore9letters = 0;
+                let totalPossibleCatScore10letters = 0;
+
+                let totalCatScore3lettersWithCue = 0;
+                let totalCatScore3lettersWithoutCue = 0;
+                let totalCatScore4lettersWithCue = 0;
+                let totalCatScore4lettersWithoutCue = 0;
+                let totalCatScore5lettersWithCue = 0;
+                let totalCatScore5lettersWithoutCue = 0;
+                let totalCatScore6lettersWithCue = 0;
+                let totalCatScore6lettersWithoutCue = 0;
+                let totalCatScore7lettersWithCue = 0;
+                let totalCatScore7lettersWithoutCue = 0;
+                let totalCatScore8lettersWithCue = 0;
+                let totalCatScore8lettersWithoutCue = 0;
+                let totalCatScore9lettersWithCue = 0;
+                let totalCatScore9lettersWithoutCue = 0;
+                let totalCatScore10lettersWithCue = 0;
+                let totalCatScore10lettersWithoutCue = 0;
+
+                let allCatScores = 0;
+                let all3letterCatScores = 0;
+                let all4letterCatScores = 0;
+                let all5letterCatScores = 0;
+                let all6letterCatScores = 0;
+                let all7letterCatScores = 0;
+                let all8letterCatScores = 0;
+                let all9letterCatScores = 0;
+                let all10letterCatScores = 0;
+
+
+                let tableCatSummaryData = [];
+                for(let index in this.activeSet){
+                    if(this.activeSet.hasOwnProperty(index)){
+
+                        if(this.activeSet[index].num_letters){
+
+                            totalPossibleCatScore += this.activeSet[index].num_letters;
+                            if(this.activeSet[index].hint_clicked){
+                              totalCatScoreWithCue += this.activeSet[index].cat_score;
+                            }
+                            else {
+                              totalCatScoreWithoutCue += this.activeSet[index].cat_score;
+                            }
+
+                            // get scores for each letter count
+                            switch(this.activeSet[index].num_letters){
+                                case 3:
+                                    totalPossibleCatScore3letters += 3;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore3lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore3lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 4:
+                                    totalPossibleCatScore4letters += 4;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore4lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore4lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 5:
+                                   totalPossibleCatScore5letters += 5;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore5lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore5lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 6:
+                                    totalPossibleCatScore6letters += 6;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore6lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore6lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 7:
+                                    totalPossibleCatScore7letters += 7;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore7lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore7lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 8:
+                                    totalPossibleCatScore8letters += 8;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore8lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore8lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 9:
+                                    totalPossibleCatScore9letters += 9;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore9lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore9lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                case 10:
+                                    totalPossibleCatScore10letters += 10;
+                                    if(this.activeSet[index].hint_clicked){
+                                      totalCatScore10lettersWithCue += this.activeSet[index].cat_score;
+                                    }
+                                    else {
+                                      totalCatScore10lettersWithoutCue += this.activeSet[index].cat_score;
+                                    }
+                                    break;
+                                }
+                        }
+                    }
+                    allCatScores = totalCatScoreWithoutCue + totalCatScoreWithCue;
+                    all3letterCatScores = totalCatScore3lettersWithoutCue + totalCatScore3lettersWithCue;
+                    all4letterCatScores = totalCatScore4lettersWithoutCue + totalCatScore4lettersWithCue;
+                }
+
+                // create the first few rows
+                tableCatSummaryData[0] = [ 'All items', totalPossibleCatScore, totalCatScoreWithoutCue, this.calcPerCategory(totalCatScoreWithoutCue, allCatScores), totalCatScoreWithCue, this.calcPerCategory(totalCatScoreWithCue, allCatScores)];
+
+                tableCatSummaryData[1] = [ '3 letters', totalPossibleCatScore3letters, totalCatScore3lettersWithoutCue, this.calcPerCategory(totalCatScore3lettersWithoutCue, all3letterCatScores), totalCatScore3lettersWithCue, this.calcPerCategory(totalCatScore3lettersWithCue, all3letterCatScores) ];
+
+                tableCatSummaryData[2] = [ '4 letters', totalPossibleCatScore4letters, totalCatScore4lettersWithoutCue, this.calcPerCategory(totalCatScore4lettersWithoutCue, all4letterCatScores), totalCatScore4lettersWithCue, this.calcPerCategory(totalCatScore4lettersWithCue, all4letterCatScores) ];
+
+                // if not using set four, then create the extra rows
+                if(this.mySet !== 'four'){
+
+                  all5letterCatScores = totalCatScore5lettersWithoutCue + totalCatScore5lettersWithCue;
+                  all6letterCatScores = totalCatScore6lettersWithoutCue + totalCatScore6lettersWithCue;
+                  all7letterCatScores = totalCatScore7lettersWithoutCue + totalCatScore7lettersWithCue;
+                  all8letterCatScores = totalCatScore8lettersWithoutCue + totalCatScore8lettersWithCue;
+                  all9letterCatScores = totalCatScore9lettersWithoutCue + totalCatScore9lettersWithCue;
+                  all10letterCatScores = totalCatScore10lettersWithoutCue + totalCatScore10lettersWithCue;
+
+                  tableCatSummaryData[3] = [ '5 letters', totalPossibleCatScore5letters, totalCatScore5lettersWithoutCue, this.calcPerCategory(totalCatScore5lettersWithoutCue, all5letterCatScores), totalCatScore5lettersWithCue, this.calcPerCategory(totalCatScore5lettersWithCue, all5letterCatScores) ];
+
+                  tableCatSummaryData[4] = [ '6 letters', totalPossibleCatScore6letters, totalCatScore6lettersWithoutCue, this.calcPerCategory(totalCatScore6lettersWithoutCue, all6letterCatScores), totalCatScore6lettersWithCue, this.calcPerCategory(totalCatScore6lettersWithCue, all6letterCatScores) ];
+
+                  tableCatSummaryData[5] = [ '7 letters', totalPossibleCatScore7letters, totalCatScore7lettersWithoutCue, this.calcPerCategory(totalCatScore7lettersWithoutCue, all7letterCatScores), totalCatScore7lettersWithCue, this.calcPerCategory(totalCatScore7lettersWithCue, all7letterCatScores) ];
+
+                  tableCatSummaryData[6] = [ '8 letters', totalPossibleCatScore8letters, totalCatScore8lettersWithoutCue, this.calcPerCategory(totalCatScore8lettersWithoutCue, all8letterCatScores), totalCatScore8lettersWithCue, this.calcPerCategory(totalCatScore8lettersWithCue, all8letterCatScores) ];
+
+                  tableCatSummaryData[7] = [ '9 letters', totalPossibleCatScore9letters, totalCatScore9lettersWithoutCue, this.calcPerCategory(totalCatScore9lettersWithoutCue, all9letterCatScores), totalCatScore9lettersWithCue, this.calcPerCategory(totalCatScore9lettersWithCue, all9letterCatScores) ];
+
+                  tableCatSummaryData[8] = [ '10 letters', totalPossibleCatScore10letters, totalCatScore10lettersWithoutCue, this.calcPerCategory(totalCatScore10lettersWithoutCue, all10letterCatScores), totalCatScore10lettersWithCue, this.calcPerCategory(totalCatScore10lettersWithCue, all10letterCatScores) ];
+
+                }
+                return tableCatSummaryData;
+            },
             calcPerCategory(num, total){
               if(total !== 0) {
                 return ((num/total) *100).toFixed(1);
@@ -335,7 +512,9 @@
             else if(this.mySet === 'four'){
               this.currentSet = settings.setFour;
             }
+            this.returnID();
             this.fillCatTable();
+
         }
     }
 </script>

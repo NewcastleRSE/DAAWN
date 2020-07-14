@@ -6,9 +6,8 @@ export const pdfService = {
 
 };
 
-function createPDF(tableReactionData, tableSummaryData, tableProcessData, responseTimeMean, reactionTimeMean, responseTimeMedian, reactionTimeMedian){
+function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tableProcessData, responseTimeMean, reactionTimeMean, responseTimeMedian, reactionTimeMedian, id){
 
-    const id = returnID();
     let today = new Date();
     let year = today.getFullYear();
     year = year.toString();
@@ -24,37 +23,71 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
     const logo = 'data:image/png;base64,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';
     const doc = new jsPDF();
 
+    // header page
     doc.addImage(ncl_logo, 'PNG', 20, 20, 30, 12);
     doc.addImage(logo, 'PNG', 150, 20, 30, 12);
     doc.setFontSize(22);
     doc.text(20, 50, 'Assessment Report');
     doc.setFontSize(14);
     doc.text(20, 60, 'DAAWN v.1.0');
-    doc.text(20, 70, 'Date : ' + date + '/' + month + '/' + shortyear );
-    doc.text(20, 80, 'Name :');
-    doc.text(20, 95, 'DOB :');
-    doc.text(20, 110, 'Clinician Name :');
-    doc.text(20, 125, 'Participant ID : ' + id);
-    doc.text(20, 140, 'Notes :');
-    doc.setFontSize(12);
-    doc.text(20, 150, 'Please record here any information that may be relevant. For example:');
-    doc.text(20, 160, 'Device used for text entry');
-    doc.text(20, 165, 'Handedness/whether using single hand typing');
-    doc.text(20, 170, 'Previous experience of computer/keyboard use');
-    doc.text(20, 175, 'Education/any previous difficulties with writing/spelling');
+    doc.text(20, 75, 'Date : ' + date + '/' + month + '/' + shortyear );
+    doc.text(20, 90, 'Name :');
+    doc.text(20, 105, 'DOB :');
+    doc.text(20, 120, 'Clinician Name :');
+    doc.text(20, 135, 'Participant ID : ' + id);
+    doc.text(20, 150, 'Data collected:');
 
+    doc.setFontSize(12);
+    doc.text(20, 160, '- Correct or incorrect response');
+    doc.text(20, 165, '- End response');
+    doc.text(20, 170, '- Automatically scored results using the CAT system');
+    doc.text(20, 175, '- Automatically scored results using the Damerau-Levenshtein algorithm');
+    doc.text(20, 180, '- Reaction time (time taken to type first letter from seeing the image)');
+    doc.text(20, 185, '- Response time (time taken to write the entire response)');
+    doc.text(20, 190, '- Process response (all letters, pauses over 1 second and deletions');
+    doc.text(20, 195, '- Number of letters');
+    doc.text(20, 200, '- Number of keystroke');
+    doc.text(20, 205, '- Number of deletions');
+
+    // notes page
     doc.addPage();
 
     doc.setFontSize(14);
-    doc.text(15, 20, 'Summary data');
+    doc.text(20, 20, 'Notes :');
+    doc.setFontSize(12);
+    doc.text(20, 30, 'Please record here any information that may be relevant. For example:');
+    doc.text(20, 40, '- Device used for text entry');
+    doc.text(20, 45, '- Handedness/whether using single hand typing');
+    doc.text(20, 50, '- Previous experience of computer/keyboard use');
+    doc.text(20, 55, '- Education/any previous difficulties with writing/spelling');
+
+    // summary data page
+    doc.addPage();
+
+    doc.setFontSize(14);
+    doc.text(15, 20, 'Cat Scores Summary');
 
     // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
     doc.autoTable({
-       head: [['Breakdown', 'Items Attempted', 'No. Correct (no hint)', 'Percentage Correct', 'Correct with hint'  ]],
+       head: [['Breakdown', 'Total possible CAT score', 'Score (no hint)', 'Percentage', 'Score (with hint)', 'Percentage'  ]],
+       body: tableCatSummaryData,
+       startY: 30
+    });
+
+    // CAT summary data page
+    doc.addPage();
+
+    doc.setFontSize(14);
+    doc.text(15, 20, 'Summary');
+
+    // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
+    doc.autoTable({
+       head: [['Breakdown', 'Items Attempted', 'No. Correct (no hint)', 'Percentage Correct', 'Correct (with hint)'  ]],
        body: tableSummaryData,
        startY: 30
     });
 
+    // timings page
     doc.addPage();
 
     doc.text(15, 20, 'Scores and Timings');
@@ -137,10 +170,3 @@ function createPDF(tableReactionData, tableSummaryData, tableProcessData, respon
 
     doc.save('report.pdf');
 }
-
-function returnID() {
-  // Math.random should be unique because of its seeding algorithm.
-  // Convert it to base 36 (numbers + letters), and grab the first 9 characters
-  // after the decimal.
-  return Math.random().toString(36).substr(2, 9);
-};

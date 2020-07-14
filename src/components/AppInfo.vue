@@ -3,7 +3,7 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Using the DAAWN tool</p>
+        <p class="title is-3">Digitised Assessment for Aphasia of Written Naming (DAAWN) - Using the tool</p>
       </div>
 
       <p class="text">DAAWN is designed for use by <span class="special">Speech and Language Therapists</span> with people with acquired aphasia. At present, it is an assessment of single word naming for use with keyboard input via a web browser on any computer or mobile device. The assessment does not currently require any registration on the part of the user and does not collect or keep any of the assessment data. DAAWN will automatically calculate the number of items correctly named and will provide you with a range of other information you may find relevant as part of your assessment, e.g. timings, automated scoring, and a record of the process by which a person reaches their final response. When your assessment is complete, DAAWN generates an anonymised report, which will be a PDF download. We advise that you do not use the tool on devices that do not belong you to you or to your employer as you would then need to transfer the document to your own device.</p>

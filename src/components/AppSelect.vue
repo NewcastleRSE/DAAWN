@@ -25,7 +25,9 @@
         <p class="text">You can also download this information in a machine-readable JSON format.</p>
       </div>
 
-      <p class="text title is-4">Please select an appropriate image set</p>
+      <p class="title is-4">Please select an appropriate image set</p>
+
+      <p class="text">Before starting DAAWN, you will see an example of an assessment page followed by two practice items.</p>
 
       <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains 42 images of only 3 and 4 letter words, presented in respective groups.</p>
 
@@ -142,9 +144,6 @@
    padding: 10px;
  }
 
-  .content {
-    padding: 20px 0;
-  }
 
 
 
