@@ -154,6 +154,7 @@
             },
             createJSON() {
               let data = JSON.stringify(this.activeSet);
+              data = dataService.formatData(data);
               dataService.download(data, "JSON-DATA-ID-" + this.id, "text/plain");
             },
             createSummaryData(activeSet) {

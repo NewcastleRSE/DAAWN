@@ -2,7 +2,8 @@
 export const dataService = {
   saveSettings,
   levenshtein,
-  download
+  download,
+  formatData
 };
 
 function saveSettings(set) {
@@ -101,6 +102,75 @@ function levenshtein( a, b )
   }
 
   return d[ a.length ][ b.length ];
+}
+
+function formatData(data){
+
+console.log(data);
+
+/*
+[
+  {
+    "participantID": "5f0d70c69d9b8e10cfbdbd6c",
+    "date": "2020-07-14T09:45:58 -01:00",
+    "expected_outcome": "leg",
+    "actual_response": "leg",
+    "response_type": 0,
+    "cat_score": 0,
+    "dla_score": 0,
+    "reaction_time": 2.39,
+    "response_time": 3.1,
+    "move_on_time": 4.13,
+    "num_letters": 3,
+    "keystrokes": 4,
+    "num_deletions": 0,
+    "processResponse": "Enter, Enter, Enter, Enter",
+    "response": [
+      {
+        "timestamp": [nanotime],
+        "keystroke": "PAGELOAD",
+        "interimresponse": ""
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "r",
+        "interimresponse": "r"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "HINT",
+        "interimresponse": "l"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "e",
+        "interimresponse": "le"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "g",
+        "interimresponse": "leg"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "BACKSPACE",
+        "interimresponse": "le"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "g",
+        "interimresponse": "leg"
+      },
+      {
+        "timestamp": [nanotime],
+        "keystroke": "SUBMIT",
+        "interimresponse": "leg"
+      }
+    ],
+    "hint_clicked": false
+  }
+] */
+
 }
 
 //function to create a txt file which JSON object can be sent to
