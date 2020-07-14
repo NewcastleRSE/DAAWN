@@ -61,7 +61,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
     doc.text(20, 50, '- Previous experience of computer/keyboard use');
     doc.text(20, 55, '- Education/any previous difficulties with writing/spelling');
 
-    // summary data page
+    // CAT summary data page
     doc.addPage();
 
     doc.setFontSize(14);
@@ -74,17 +74,14 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
        startY: 30
     });
 
-    // CAT summary data page
-    doc.addPage();
-
     doc.setFontSize(14);
-    doc.text(15, 20, 'Summary');
+    doc.text(15, 120, 'Summary');
 
     // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
     doc.autoTable({
        head: [['Breakdown', 'Items Attempted', 'No. Correct (no hint)', 'Percentage Correct', 'Correct (with hint)'  ]],
        body: tableSummaryData,
-       startY: 30
+       startY: 130
     });
 
     // timings page
