@@ -84,7 +84,10 @@
                 expectedOutcome: '',
                 actualOutcome: '',
                 responseType: '',
+                interimResponse: '',
+                keystroke : '',
                 processResponse: [],
+                jsonProcessResponse: [],
                 keystrokeTimes: [],
                 catScore: 0,
                 DLScore: 0,
@@ -122,6 +125,7 @@
               }
             },
             nextImage(index) {
+
                 if(index === this.numInSet-1){
                   this.collectData();
                   this.clearData();
@@ -136,14 +140,25 @@
                   this.focusInput();
                 }
                 this.$data.responseText = '';
+                this.interimResponse = '';
             },
             hint() {
-              if(this.responseText === ""){
-                this.responseText = this.name.slice(0,1);
-                this.hintClicked = true;
-                this.focusInput();
-                this.processResponse.push('*');
-              }
+                if(this.responseText === ""){
+                    this.responseText = this.name.slice(0,1);
+                    this.hintClicked = true;
+                    this.focusInput();
+                    this.processResponse.push('*');
+
+                    // record the actual letter provided by the hint
+                    this.interimResponse = this.responseText;
+
+                    let response = {
+                      "timestamp" : this.startTime,
+                      "keystroke" : "HINT",
+                      "interimResponse" : this.interimResponse
+                    }
+                    this.jsonProcessResponse.push(response);
+                }
             },
             collectData() {
                 this.expectedOutcome = this.name;
@@ -172,6 +187,13 @@
                 this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
                 this.numDeletions =  this.processResponse.filter(function(item){ return item === "Backspace"; }).length;
 
+                let response = {
+                  "timestamp" : newTime,
+                  "keystroke" : "SUBMIT",
+                  "interimResponse" : this.interimResponse
+                }
+                this.jsonProcessResponse.push(response);
+
                 this.response = { "expected_outcome" : this.expectedOutcome,
                                   "actual_response" : this.actualOutcome,
                                   "response_type" : this.responseType,
@@ -184,6 +206,7 @@
                                   "keystrokes" : this.keystrokes,
                                   "num_deletions" : this.numDeletions,
                                   "processResponse" : this.processResponse,
+                                  "json_process_response" : this.jsonProcessResponse,
                                   "hint_clicked" : this.hintClicked
                 };
 
@@ -191,6 +214,7 @@
 
             },
             clearData() {
+                this.jsonProcessResponse = [];
                 this.processResponse = [];
                 this.keystrokeTimes = [];
                 this.expectedOutcome = '';
@@ -212,9 +236,30 @@
                 this.$router.push({ path: '../assessmentComplete' });
             },
             keyLogger: function($event) {
+
                 this.processResponse.push($event.key);
                 this.keystrokes++;
                 let keystrokeTime = Date.now();
+
+                // if key is backspace remove previous char
+                if($event.key === 'Backspace'){
+                  this.interimResponse = this.interimResponse.slice(0, -1);
+                  this.keystroke = "BACKSPACE";
+                }
+
+                // if its a single letter only, add it, ignore other keys
+                if($event.key.length === 1){
+                  this.interimResponse = this.interimResponse.concat($event.key);
+                  this.keystroke = $event.key;
+                }
+
+                let response = {
+                  "timestamp" : keystrokeTime,
+                  "keystroke" : this.keystroke,
+                  "interimResponse" : this.interimResponse
+                }
+
+                this.jsonProcessResponse.push(response);
 
                 if(this.keystrokeTimes.length > 0){
                       // get the last array entry
@@ -269,6 +314,13 @@
             }
             this.focusInput();
             this.startTime = Date.now();
+
+            let response = {
+               "timestamp" : this.startTime,
+               "keystroke" : "IMAGELOAD",
+               "interimResponse" : ""
+            }
+            this.jsonProcessResponse.push(response);
         }
 
   }

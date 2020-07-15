@@ -154,8 +154,8 @@
             },
             createJSON() {
               let data = JSON.stringify(this.activeSet);
-              data = dataService.formatData(data);
-              dataService.download(data, "JSON-DATA-ID-" + this.id, "text/plain");
+              let datestr = this.getDate();
+              dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
             },
             createSummaryData(activeSet) {
                 let totalCorrect = 0;
@@ -494,6 +494,14 @@
                 median = parseFloat(times[(numTimes - 1) / 2]);
               }
               return median;
+            },
+            getDate() {
+              let today = new Date();
+              let year = today.getFullYear();
+              let month = today.getMonth();
+              month = parseInt(month)+ 1;
+              let date = today.getDate();
+              return date + '-' + month + '-' + year;
             },
             exit() {
               this.$router.push({ path: './' });
