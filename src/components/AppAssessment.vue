@@ -99,7 +99,9 @@
                 moveOnTime: 0,
                 numLetters : 0,
                 numDeletions : 0,
-                keystrokes: 0
+                keystrokes: 0,
+                participantId: '',
+                dateStr: ''
             }
          },
         methods: {
@@ -125,7 +127,6 @@
               }
             },
             nextImage(index) {
-
                 if(index === this.numInSet-1){
                   this.collectData();
                   this.clearData();
@@ -141,6 +142,14 @@
                 }
                 this.$data.responseText = '';
                 this.interimResponse = '';
+
+                let response = {
+                  "timestamp" : Date.now(),
+                  "keystroke" : "IMAGELOAD",
+                  "interimResponse" : this.interimResponse
+                }
+                this.jsonProcessResponse.push(response);
+
             },
             hint() {
                 if(this.responseText === ""){
@@ -153,7 +162,7 @@
                     this.interimResponse = this.responseText;
 
                     let response = {
-                      "timestamp" : this.startTime,
+                      "timestamp" : Date.now(),
                       "keystroke" : "HINT",
                       "interimResponse" : this.interimResponse
                     }
@@ -194,7 +203,10 @@
                 }
                 this.jsonProcessResponse.push(response);
 
-                this.response = { "expected_outcome" : this.expectedOutcome,
+                this.response = {
+                                  "participant_id" : this.participantId,
+                                  "date" : this.dateStr,
+                                  "expected_outcome" : this.expectedOutcome,
                                   "actual_response" : this.actualOutcome,
                                   "response_type" : this.responseType,
                                   "cat_score" : this.catScore,
@@ -237,11 +249,17 @@
             },
             keyLogger: function($event) {
 
-                this.processResponse.push($event.key);
-                this.keystrokes++;
                 let keystrokeTime = Date.now();
 
-                // if key is backspace remove previous char
+                // ignore Delete key
+                if($event.key !== 'Delete'){
+                  this.processResponse.push($event.key);
+                  this.keystrokes++;
+                  this.interimResponse = this.interimResponse.concat($event.key);
+                  this.keystroke = $event.key;
+                }
+
+              // if key is backspace remove previous char
                 if($event.key === 'Backspace'){
                   this.interimResponse = this.interimResponse.slice(0, -1);
                   this.keystroke = "BACKSPACE";
@@ -249,17 +267,14 @@
 
                 // if its a single letter only, add it, ignore other keys
                 if($event.key.length === 1){
-                  this.interimResponse = this.interimResponse.concat($event.key);
-                  this.keystroke = $event.key;
-                }
 
-                let response = {
-                  "timestamp" : keystrokeTime,
-                  "keystroke" : this.keystroke,
-                  "interimResponse" : this.interimResponse
+                    let response = {
+                        "timestamp" : keystrokeTime,
+                        "keystroke" : this.keystroke,
+                        "interimResponse" : this.interimResponse
+                    }
+                    this.jsonProcessResponse.push(response);
                 }
-
-                this.jsonProcessResponse.push(response);
 
                 if(this.keystrokeTimes.length > 0){
                       // get the last array entry
@@ -276,21 +291,26 @@
             },
             // compares 2 timestamps, returns an integer
             calcTimePassed(startTime, newTime){
-              let diff=(newTime-startTime)/1000;
-              // truncates to 2 decimal places
-              let timePassed=diff.toFixed(2);
-              return timePassed;
+                let diff=(newTime-startTime)/1000;
+                // truncates to 2 decimal places
+                let timePassed=diff.toFixed(2);
+                return timePassed;
             },
             focusInput() {
-              this.$refs.text.focus();
+                this.$refs.text.focus();
             },
             shuffle(a) {
                 for (let i = a.length - 1; i > 0; i--) {
                   const j = Math.floor(Math.random() * (i + 1));
                   [a[i], a[j]] = [a[j], a[i]];
                 }
-            return a;
-           },
+                return a;
+            },
+            returnID() {
+              // Math.random should be unique because of its seeding algorithm.
+              // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
+              return Math.random().toString(36).substr(2, 9);
+            },
            exit() {
               this.$router.push({ path: '../' });
            }
@@ -314,6 +334,9 @@
             }
             this.focusInput();
             this.startTime = Date.now();
+            this.dateStr = new Date;
+            this.participantId = this.returnID();
+            localStorage.setItem('ID', this.participantId);
 
             let response = {
                "timestamp" : this.startTime,

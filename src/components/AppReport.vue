@@ -107,9 +107,7 @@
         },
         methods : {
             returnID() {
-              // Math.random should be unique because of its seeding algorithm.
-              // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
-                this.id = Math.random().toString(36).substr(2, 9);
+                this.id = localStorage.getItem('ID');
             },
             fillCatTable(){
                 for(let index in this.currentSet){
@@ -158,7 +156,7 @@
               dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
             },
             createSummaryData(activeSet) {
-                let totalCorrect = 0;
+                let totalCorrectWithCue = 0;
                 let totalCorrectWithoutCue = 0;
                 let count3letters = 0;
                 let count4letters = 0;
@@ -184,6 +182,14 @@
                 let count8lettersCorrectWithoutCue = 0;
                 let count9lettersCorrectWithoutCue = 0;
                 let count10lettersCorrectWithoutCue = 0;
+                let count3lettersCorrectWithCue = 0;
+                let count4lettersCorrectWithCue = 0;
+                let count5lettersCorrectWithCue = 0;
+                let count6lettersCorrectWithCue = 0;
+                let count7lettersCorrectWithCue = 0;
+                let count8lettersCorrectWithCue = 0;
+                let count9lettersCorrectWithCue = 0;
+                let count10lettersCorrectWithCue = 0;
 
                 let tableSummaryData = [];
                 for(let index in this.activeSet){
@@ -191,9 +197,12 @@
 
                         // add all the correct responses
                         if(this.activeSet[index].response_type === 1){
-                          totalCorrect++;
+
                           if(!this.activeSet[index].hint_clicked){
                             totalCorrectWithoutCue++;
+                          }
+                          else {
+                            totalCorrectWithCue++;
                           }
                         }
 
@@ -205,6 +214,9 @@
                                     if(!this.activeSet[index].hint_clicked){
                                       count3lettersCorrectWithoutCue++;
                                     }
+                                    else {
+                                      count3lettersCorrectWithCue++;
+                                    }
                                 }
                                 break;
                             case 4:
@@ -213,6 +225,9 @@
                                     count4lettersCorrect++;
                                     if(!this.activeSet[index].hint_clicked){
                                       count4lettersCorrectWithoutCue++;
+                                    }
+                                    else {
+                                      count4lettersCorrectWithCue++;
                                     }
                                 }
                                 break;
@@ -223,6 +238,9 @@
                                     if(!this.activeSet[index].hint_clicked){
                                       count5lettersCorrectWithoutCue++;
                                     }
+                                    else {
+                                      count5lettersCorrectWithCue++;
+                                    }
                                 }
                                 break;
                             case 6:
@@ -230,7 +248,11 @@
                                 if(this.activeSet[index].response_type === 1){
                                     count6lettersCorrect++;
                                     if(!this.activeSet[index].hint_clicked){
+                                      console.log('count me!');
                                       count6lettersCorrectWithoutCue++;
+                                    }
+                                    else {
+                                      count6lettersCorrectWithCue++;
                                     }
                                 }
                                 break;
@@ -241,6 +263,9 @@
                                     if(!this.activeSet[index].hint_clicked){
                                       count7lettersCorrectWithoutCue++;
                                     }
+                                    else {
+                                      count7lettersCorrectWithCue++;
+                                    }
                                 }
                                 break;
                             case 8:
@@ -249,6 +274,9 @@
                                     count8lettersCorrect++;
                                     if(!this.activeSet[index].hint_clicked){
                                       count8lettersCorrectWithoutCue++;
+                                    }
+                                    else {
+                                      count8lettersCorrectWithCue++;
                                     }
                                 }
                                 break;
@@ -259,6 +287,9 @@
                                     if(!this.activeSet[index].hint_clicked){
                                       count9lettersCorrectWithoutCue++;
                                     }
+                                    else {
+                                      count9lettersCorrectWithCue++;
+                                    }
                                 }
                                 break;
                             case 10:
@@ -267,6 +298,9 @@
                                     count10lettersCorrect++;
                                     if(!this.activeSet[index].hint_clicked){
                                       count10lettersCorrectWithoutCue++;
+                                    }
+                                    else {
+                                      count10lettersCorrectWithCue++;
                                     }
                                 }
                                 break;
@@ -277,22 +311,22 @@
                 if(this.mySet === 'four'){
 
                   let allItems = count3letters + count4letters;
-                  tableSummaryData[0] = [ 'All items', allItems, totalCorrect,  totalCorrectWithoutCue, this.calcPerCategory(totalCorrect, allItems)];
-                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, this.calcPerCategory(count3lettersCorrect, count3letters),  count3lettersCorrectWithoutCue ];
-                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, this.calcPerCategory(count4lettersCorrect, count4letters), count4lettersCorrectWithoutCue ];
+                  tableSummaryData[0] = [ 'All items', allItems, totalCorrectWithoutCue, this.calcPerCategory(totalCorrectWithoutCue, allItems),  totalCorrectWithCue ];
+                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3lettersCorrectWithoutCue, count3letters),  count3lettersCorrectWithCue ];
+                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4lettersCorrectWithoutCue, count4letters), count4lettersCorrectWithCue ];
                 }
                 else {
 
                   let allItems = count3letters + count4letters + count5letters + count6letters + count7letters + count8letters + count9letters + count10letters;
-                  tableSummaryData[0] = [ 'All items', allItems, totalCorrect, this.calcPerCategory(totalCorrect, allItems), totalCorrectWithoutCue ];
-                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrect, this.calcPerCategory(count3lettersCorrect, count3letters),  count3lettersCorrectWithoutCue ];
-                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrect, this.calcPerCategory(count4lettersCorrect, count4letters),  count4lettersCorrectWithoutCue ];
-                  tableSummaryData[3] = [ '5 letters', count5letters, count5lettersCorrect, this.calcPerCategory(count5lettersCorrect, count5letters), count5lettersCorrectWithoutCue ];
-                  tableSummaryData[4] = [ '6 letters', count6letters, count6lettersCorrect, this.calcPerCategory(count6lettersCorrect, count6letters), count6lettersCorrectWithoutCue ];
-                  tableSummaryData[5] = [ '7 letters', count7letters, count7lettersCorrect, this.calcPerCategory(count7lettersCorrect, count7letters), count7lettersCorrectWithoutCue ];
-                  tableSummaryData[6] = [ '8 letters', count8letters, count8lettersCorrect, this.calcPerCategory(count8lettersCorrect, count8letters), count8lettersCorrectWithoutCue, ];
-                  tableSummaryData[7] = [ '9 letters', count9letters, count9lettersCorrect, this.calcPerCategory(count9lettersCorrect, count9letters), count9lettersCorrectWithoutCue  ];
-                  tableSummaryData[8] = [ '10 letters', count10letters, count10lettersCorrect, this.calcPerCategory(count10lettersCorrect, count10letters), count10lettersCorrectWithoutCue ];
+                  tableSummaryData[0] = [ 'All items', allItems, totalCorrectWithoutCue, this.calcPerCategory(totalCorrectWithoutCue, allItems), totalCorrectWithCue ];
+                  tableSummaryData[1] = [ '3 letters', count3letters, count3lettersCorrectWithoutCue, this.calcPerCategory(count3lettersCorrectWithoutCue, count3letters),  count3lettersCorrectWithCue ];
+                  tableSummaryData[2] = [ '4 letters', count4letters, count4lettersCorrectWithoutCue, this.calcPerCategory(count4lettersCorrectWithoutCue, count4letters), count4lettersCorrectWithCue ];
+                  tableSummaryData[3] = [ '5 letters', count5letters, count5lettersCorrectWithoutCue, this.calcPerCategory(count5lettersCorrectWithoutCue, count5letters), count5lettersCorrectWithCue ];
+                  tableSummaryData[4] = [ '6 letters', count6letters, count6lettersCorrectWithoutCue, this.calcPerCategory(count6lettersCorrectWithoutCue, count6letters), count6lettersCorrectWithCue ];
+                  tableSummaryData[5] = [ '7 letters', count7letters, count7lettersCorrectWithoutCue, this.calcPerCategory(count7lettersCorrectWithoutCue, count7letters), count7lettersCorrectWithCue ];
+                  tableSummaryData[6] = [ '8 letters', count8letters, count8lettersCorrectWithoutCue, this.calcPerCategory(count8lettersCorrectWithoutCue, count8letters), count8lettersCorrectWithCue, ];
+                  tableSummaryData[7] = [ '9 letters', count9letters, count9lettersCorrectWithoutCue, this.calcPerCategory(count9lettersCorrectWithoutCue, count9letters), count9lettersCorrectWithCue  ];
+                  tableSummaryData[8] = [ '10 letters', count10letters, count10lettersCorrectWithoutCue, this.calcPerCategory(count10lettersCorrectWithoutCue, count10letters), count10lettersCorrectWithCue ];
                 }
                 return tableSummaryData;
             },
@@ -326,17 +360,6 @@
                 let totalCatScore9lettersWithoutCue = 0;
                 let totalCatScore10lettersWithCue = 0;
                 let totalCatScore10lettersWithoutCue = 0;
-
-                let allCatScores = 0;
-                let all3letterCatScores = 0;
-                let all4letterCatScores = 0;
-                let all5letterCatScores = 0;
-                let all6letterCatScores = 0;
-                let all7letterCatScores = 0;
-                let all8letterCatScores = 0;
-                let all9letterCatScores = 0;
-                let all10letterCatScores = 0;
-
 
                 let tableCatSummaryData = [];
                 for(let index in this.activeSet){
@@ -429,39 +452,29 @@
                                 }
                         }
                     }
-                    allCatScores = totalCatScoreWithoutCue + totalCatScoreWithCue;
-                    all3letterCatScores = totalCatScore3lettersWithoutCue + totalCatScore3lettersWithCue;
-                    all4letterCatScores = totalCatScore4lettersWithoutCue + totalCatScore4lettersWithCue;
                 }
 
                 // create the first few rows
-                tableCatSummaryData[0] = [ 'All items', totalPossibleCatScore, totalCatScoreWithoutCue, this.calcPerCategory(totalCatScoreWithoutCue, allCatScores), totalCatScoreWithCue, this.calcPerCategory(totalCatScoreWithCue, allCatScores)];
+                tableCatSummaryData[0] = [ 'All items', totalPossibleCatScore, totalCatScoreWithoutCue, this.calcPerCategory(totalCatScoreWithoutCue, totalPossibleCatScore), totalCatScoreWithCue, this.calcPerCategory(totalCatScoreWithCue, totalPossibleCatScore)];
 
-                tableCatSummaryData[1] = [ '3 letters', totalPossibleCatScore3letters, totalCatScore3lettersWithoutCue, this.calcPerCategory(totalCatScore3lettersWithoutCue, all3letterCatScores), totalCatScore3lettersWithCue, this.calcPerCategory(totalCatScore3lettersWithCue, all3letterCatScores) ];
+                tableCatSummaryData[1] = [ '3 letters', totalPossibleCatScore3letters, totalCatScore3lettersWithoutCue, this.calcPerCategory(totalCatScore3lettersWithoutCue, totalPossibleCatScore3letters), totalCatScore3lettersWithCue, this.calcPerCategory(totalCatScore3lettersWithCue, totalPossibleCatScore3letters) ];
 
-                tableCatSummaryData[2] = [ '4 letters', totalPossibleCatScore4letters, totalCatScore4lettersWithoutCue, this.calcPerCategory(totalCatScore4lettersWithoutCue, all4letterCatScores), totalCatScore4lettersWithCue, this.calcPerCategory(totalCatScore4lettersWithCue, all4letterCatScores) ];
+                tableCatSummaryData[2] = [ '4 letters', totalPossibleCatScore4letters, totalCatScore4lettersWithoutCue, this.calcPerCategory(totalCatScore4lettersWithoutCue, totalPossibleCatScore4letters), totalCatScore4lettersWithCue, this.calcPerCategory(totalCatScore4lettersWithCue, totalPossibleCatScore4letters) ];
 
                 // if not using set four, then create the extra rows
                 if(this.mySet !== 'four'){
 
-                  all5letterCatScores = totalCatScore5lettersWithoutCue + totalCatScore5lettersWithCue;
-                  all6letterCatScores = totalCatScore6lettersWithoutCue + totalCatScore6lettersWithCue;
-                  all7letterCatScores = totalCatScore7lettersWithoutCue + totalCatScore7lettersWithCue;
-                  all8letterCatScores = totalCatScore8lettersWithoutCue + totalCatScore8lettersWithCue;
-                  all9letterCatScores = totalCatScore9lettersWithoutCue + totalCatScore9lettersWithCue;
-                  all10letterCatScores = totalCatScore10lettersWithoutCue + totalCatScore10lettersWithCue;
+                  tableCatSummaryData[3] = [ '5 letters', totalPossibleCatScore5letters, totalCatScore5lettersWithoutCue, this.calcPerCategory(totalCatScore5lettersWithoutCue, totalPossibleCatScore5letters), totalCatScore5lettersWithCue, this.calcPerCategory(totalCatScore5lettersWithCue, totalPossibleCatScore5letters) ];
 
-                  tableCatSummaryData[3] = [ '5 letters', totalPossibleCatScore5letters, totalCatScore5lettersWithoutCue, this.calcPerCategory(totalCatScore5lettersWithoutCue, all5letterCatScores), totalCatScore5lettersWithCue, this.calcPerCategory(totalCatScore5lettersWithCue, all5letterCatScores) ];
+                  tableCatSummaryData[4] = [ '6 letters', totalPossibleCatScore6letters, totalCatScore6lettersWithoutCue, this.calcPerCategory(totalCatScore6lettersWithoutCue, totalPossibleCatScore6letters), totalCatScore6lettersWithCue, this.calcPerCategory(totalCatScore6lettersWithCue, totalPossibleCatScore6letters) ];
 
-                  tableCatSummaryData[4] = [ '6 letters', totalPossibleCatScore6letters, totalCatScore6lettersWithoutCue, this.calcPerCategory(totalCatScore6lettersWithoutCue, all6letterCatScores), totalCatScore6lettersWithCue, this.calcPerCategory(totalCatScore6lettersWithCue, all6letterCatScores) ];
+                  tableCatSummaryData[5] = [ '7 letters', totalPossibleCatScore7letters, totalCatScore7lettersWithoutCue, this.calcPerCategory(totalCatScore7lettersWithoutCue, totalPossibleCatScore7letters), totalCatScore7lettersWithCue, this.calcPerCategory(totalCatScore7lettersWithCue, totalPossibleCatScore7letters) ];
 
-                  tableCatSummaryData[5] = [ '7 letters', totalPossibleCatScore7letters, totalCatScore7lettersWithoutCue, this.calcPerCategory(totalCatScore7lettersWithoutCue, all7letterCatScores), totalCatScore7lettersWithCue, this.calcPerCategory(totalCatScore7lettersWithCue, all7letterCatScores) ];
+                  tableCatSummaryData[6] = [ '8 letters', totalPossibleCatScore8letters, totalCatScore8lettersWithoutCue, this.calcPerCategory(totalCatScore8lettersWithoutCue, totalPossibleCatScore8letters), totalCatScore8lettersWithCue, this.calcPerCategory(totalCatScore8lettersWithCue, totalPossibleCatScore8letters) ];
 
-                  tableCatSummaryData[6] = [ '8 letters', totalPossibleCatScore8letters, totalCatScore8lettersWithoutCue, this.calcPerCategory(totalCatScore8lettersWithoutCue, all8letterCatScores), totalCatScore8lettersWithCue, this.calcPerCategory(totalCatScore8lettersWithCue, all8letterCatScores) ];
+                  tableCatSummaryData[7] = [ '9 letters', totalPossibleCatScore9letters, totalCatScore9lettersWithoutCue, this.calcPerCategory(totalCatScore9lettersWithoutCue, totalPossibleCatScore9letters), totalCatScore9lettersWithCue, this.calcPerCategory(totalCatScore9lettersWithCue, totalPossibleCatScore9letters) ];
 
-                  tableCatSummaryData[7] = [ '9 letters', totalPossibleCatScore9letters, totalCatScore9lettersWithoutCue, this.calcPerCategory(totalCatScore9lettersWithoutCue, all9letterCatScores), totalCatScore9lettersWithCue, this.calcPerCategory(totalCatScore9lettersWithCue, all9letterCatScores) ];
-
-                  tableCatSummaryData[8] = [ '10 letters', totalPossibleCatScore10letters, totalCatScore10lettersWithoutCue, this.calcPerCategory(totalCatScore10lettersWithoutCue, all10letterCatScores), totalCatScore10lettersWithCue, this.calcPerCategory(totalCatScore10lettersWithCue, all10letterCatScores) ];
+                  tableCatSummaryData[8] = [ '10 letters', totalPossibleCatScore10letters, totalCatScore10lettersWithoutCue, this.calcPerCategory(totalCatScore10lettersWithoutCue, totalPossibleCatScore10letters), totalCatScore10lettersWithCue, this.calcPerCategory(totalCatScore10lettersWithCue, totalPossibleCatScore10letters) ];
 
                 }
                 return tableCatSummaryData;
