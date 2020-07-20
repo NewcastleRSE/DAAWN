@@ -12,9 +12,16 @@
       <p>DAAWN is a <strong>D</strong>igitised <strong>A</strong>ssessment for <strong>A</strong>phasia of <strong>W</strong>ritten <strong>N</strong>aming</p>
 
        <div class="info">
-         <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as part of a Newcastle University MSc Computing Science dissertation by <span class="special">Alex Smith</span>, supervised by <span class="special">Dr Matthew Forshaw</span> (Computing Science) with support from <span class="special">Dr Fiona Menger</span> (Speech and Language Sciences). The software has been further developed and deployed by the <span class="special">Newcastle University Research Software Engineering</span> Team.</p>
-         <p>What you will see here is not intended to be a final version of an assessment tool. Instead, it is a pilot tool that aims to demonstrate the type of information that could be available to a Speech and Language Therapist as part of a digitised assessment. Our longer-term aim is to gather feedback and work with SLTs and people with aphasia to develop DAAWN further so it can be used in clinical practice and for research.</p>
-         <p>Please feel free to use DAAWN as much as you like. DAAWN can be used face to face with people with aphasia but may also be used as part of a telehealth assessment. This would be possible via screenshare and remote control using Zoom, Microsoft Teams, Jistsi or Google Meet with a Chrome extension. Please see the RCSLT guidance on telehealth for <a href="https://www.rcslt.org/members/delivering-quality-services/telehealth/telehealth-guidance#section-5" target="_blank">further support</a>. There will be an opportunity to provide initial feedback as part of a Newcastle University Speech and Language Sciences dissertation research project later in the year. For further information or if you have any questions on DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span></p>
+         <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as part of a Newcastle University MSc Computing Science dissertation by <span class="special">Alex Smith</span>, following a collaboration between Computing Science and Speech and Language Sciences.The software in its current form was produced thanks to funding from the <span class="special">Newcastle University Humanities and Social Sciences Faculty Research Software Engineering Fund</span>.</p>
+
+         <p><strong>DAAWN Team</strong></p>
+
+         <p><span class="special">Dr Fiona Menger</span> and <span class="special">Dr Julie Morris</span>, Speech and Language Sciences, Newcastle University </p>
+
+         <p><span class="special">Rebecca Osselton</span>, Newcastle University Research Software Engineering Team </p>
+
+         <p>With thanks to: <span class="special">Ella Creet</span> for support with stimulus items, members of the Newcastle University Speech and Language Sciences aphasia lab group for comments on the student dissertation version, and <span class="special">Christos Salis</span> and <span class="special">Janet Webster</span> for testing the software and providing comments. </p>
+
        </div>
 
         <div class="level" >
@@ -25,6 +32,7 @@
 
       </div>
       <img src="dist/di-logo.jpg" alt="Digital Institute" id="di-logo">
+      <img src="dist/NU-SLS.png" alt="School of Speech and Language Sciences" id="sls-logo">
     </div>
 
 </template>
@@ -34,7 +42,7 @@
         name: "AppHome",
         methods: {
           start() {
-            this.$router.push({ path: './info' });
+            this.$router.push({ path: './about' });
           }
       },
       created(){
@@ -64,6 +72,10 @@
     height: 60px;
     float: right;
     padding-right: 55px;
+  }
+
+  #sls-logo {
+    padding-left: 50px;
   }
 
   .info {

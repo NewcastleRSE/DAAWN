@@ -57,7 +57,7 @@
       <div class="level">
         <div class="level-item">
 
-          <p class="highlight special">Click <strong>Start</strong> to begin the ASSESSMENT section.</p>
+          <p class="highlight special">Click <strong>Start</strong> to begin the ASSESSMENT section</p>
         </div>
         <div class="level-item">
           <div class="buttons-section form-group">

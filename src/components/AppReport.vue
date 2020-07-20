@@ -8,6 +8,7 @@
      <div class="toptext">
          <p class="text"><span class="special">Reaction time</span> is the time taken from when the image appears to when the person either enters a letter response or uses the hint button. Reaction times over five seconds are shown in <span id="red">red</span>.</p>
          <p class="text"><span class="special">Response time</span> is the time taken to type the word from the first letter or hint key to the last letter typed. This does not include any hesitation before clicking on the arrow button to move on to the next item.</p>
+       <p class="text">A star (*) in front of the word in the 'End Response' column indicates where the first letter was provided by the <span class="special">hint</span> button.</p>
      </div>
 
 
@@ -19,7 +20,7 @@
         <tr v-for="item in activeSet">
           <td>{{ item.expected_outcome }}</td>
           <td><img v-show="item.response_type ===1" src="dist/green-tick.png" alt="tick" id="tick-image"><img v-show="item.response_type===0" src="dist/cross.png" alt="tick" id="cross-image"></td>
-          <td>{{ item.actual_response }}</td>
+          <td><span v-show="item.hint_clicked === true">*</span>{{ item.actual_response }}</td>
           <td>{{ item.cat_score }}</td>
           <td>{{ item.dla_score }}</td>
           <td><span v-bind:style="item.reaction_time > 5 ? 'color: red;' : 'color: black;' ">{{ item.reaction_time }}</span></td>
@@ -68,8 +69,8 @@
 
         </div>
       </div>
-      </div>
     </div>
+  </div>
 
 </template>
 
@@ -248,7 +249,6 @@
                                 if(this.activeSet[index].response_type === 1){
                                     count6lettersCorrect++;
                                     if(!this.activeSet[index].hint_clicked){
-                                      console.log('count me!');
                                       count6lettersCorrectWithoutCue++;
                                     }
                                     else {

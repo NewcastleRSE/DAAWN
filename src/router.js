@@ -9,6 +9,7 @@ import AppInstructions from "./components/AppInstructions";
 import AppAssessment from "./components/AppAssessment";
 import AppReport from "./components/AppReport";
 import AppAssessmentComplete from "./components/AssessmentComplete";
+import AppAbout from "./components/AppAbout";
 
 Vue.use(Router);
 
@@ -23,6 +24,10 @@ export const router = new Router({
     {
       path: '/info',
       component: AppInfo
+    },
+    {
+      path: '/about',
+      component: AppAbout
     },
     {
       path: '/select',

@@ -7,7 +7,7 @@
         <div class='modal-body'>
 
           <p id="text-header" class="title is-4">Levenshtein distance</p>
-          <p>Levenshtein distance (LD) is a measure of how close the final attempt at writing the word is to the target item. The LD score is based on the number of single-character changes needed to transform the client’s attempt into the target word. Changes can be either insertions, omissions, or substitutions. DAAWN calculates LD automatically. The larger the number, the greater the distance between the attempt and the target word.</p>
+          <p>Levenshtein distance (LD) is a measure of how close the final attempt at writing the word is to the target item. The LD score is based on the number of single-character changes needed to transform the client’s attempt into the target word. Changes can be either insertions, omissions, transpositions or substitutions. DAAWN calculates LD automatically. The larger the number, the greater the distance between the attempt and the target word.</p>
 
           <table class="table table-striped">
             <thead>
@@ -17,11 +17,19 @@
               <tr><td>CAT</td><td>CAR</td><td>1 x substitution = <strong>LD 1</strong></td></tr>
               <tr><td>SMILE</td><td>SIMILES</td><td>2 x insertions (I,S) = <strong>LD 2</strong></td></tr>
               <tr><td>SHOE</td><td>SOE</td><td>1 x omission (H) = <strong>LD 1</strong></td></tr>
+              <tr><td>SOAP</td><td>TAOP</td><td>1 x substitution, 1 X transposition = <strong>LD 2</strong></td></tr>
               <tr><td>GIRAFFE</td><td>GIFAG</td><td>2 x substitutions (R to F and F to G), 2 x omissions (F, E) = <strong>LD 4</strong></td></tr>
             </tbody>
           </table>
 
           <p>Clinicians should be aware that LD does not take errors of meaning into account. People with aphasia may, therefore, make some errors for which LD is not a good measure of accuracy. This would be problematic if a person produced a semantic error that was orthographically similar to the target, e.g, a target word of MONKEY and final attempt DONKEY. This example would lead to a LD of one.</p>
+
+          <div id="refs">
+            <p class="text"><span class="special">Damerau, F. J.</span> (March 1964) <cite>"A technique for computer detection and correction of spelling errors"</cite>, Communications of the ACM, 7 (3): 171-176, doi:10.1145/363958.363994</p>
+
+            <p class="text"><span class="special">Levenshtein, V. I.</span> (February 1966) <cite>"Binary codes capable of correcting deletions, insertions, and reversals"</cite>, Soviet Physics Doklady, 10 (8): 707-710</p>
+
+          </div>
 
         </div>
         <div class='modal-footer'>
@@ -37,7 +45,7 @@
 <script>
 
   export default {
-    name: "AboutModal",
+    name: "AboutLDModal",
     methods: {
       close (){
         this.$emit('close')
@@ -75,6 +83,10 @@
 
   #text-header {
     padding-bottom: 30px;
+  }
+
+  #refs {
+    margin-top: 40px;
   }
 
   .close-btn {

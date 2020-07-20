@@ -10,7 +10,7 @@
         <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
 
         <ul>
-          <li>Correct or incorrect response</li>
+          <li>Correct or incorrect (final response)</li>
           <li>End response</li>
           <li>Automatically scored results using the CAT system</li>
           <li>Automatically scored results using the Damerau-Levenshtein algorithm</li>
@@ -22,7 +22,7 @@
           <li>Number of deletions</li>
         </ul>
 
-        <p class="text">You can also download this information in a machine-readable JSON format.</p>
+        <p class="text">At the end of the assessment, it is also possible to download the results in a machine-readable JSON format. This option will appear as a ‘download raw data’ button and is not designed for clinical use; its purpose is to demonstrate how the tool can produce complex data on written naming for  further analysis. Please be aware that the use of DAAWN for this purpose would be clinical research and would require the relevant ethical and research and development approvals for your country.</p>
       </div>
 
       <p class="title is-4">Please select an appropriate image set</p>
@@ -51,7 +51,7 @@
         <div class="level" >
           <div class="level-item">
 
-            <p class="highlight special">Click <strong>Next</strong> to proceed.</p>
+            <p class="highlight special">Click <strong>Next</strong> to proceed</p>
           </div>
           <div class="level-item">
             <div class="buttons-section form-group">
