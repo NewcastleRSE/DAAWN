@@ -134,6 +134,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
               if (data.column.index === 1 && data.cell.section === 'body') {
                  var td = data.cell.raw;
                  var dim = data.cell.height - data.cell.padding('vertical');
+                 // this just broke for no reason
                //  var textPos = data.cell.textPos;
                  var textPosX = data.cell.x +1.5;
                  var textPosY = data.cell.y +1.5;

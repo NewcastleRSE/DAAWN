@@ -143,8 +143,33 @@
                 let tableProcessData = [];
                 for(let index in this.activeSet){
                     if(this.activeSet.hasOwnProperty(index)){
-                      tableReactionData[index] = [this.activeSet[index].expected_outcome, this.activeSet[index].response_type, this.activeSet[index].actual_response, this.activeSet[index].cat_score, this.activeSet[index].dla_score, this.activeSet[index].reaction_time, this.activeSet[index].response_time];
-                      tableProcessData[index] = [this.activeSet[index].expected_outcome, '[ ' + this.activeSet[index].processResponse + ' ]', this.activeSet[index].num_letters, this.activeSet[index].keystrokes, this.activeSet[index].num_deletions];
+
+                      let hinted_end_response = '';
+
+                      // add a * to the actual response if hint clicked is true
+                      if(this.activeSet[index].hint_clicked){
+                        hinted_end_response = '*' + this.activeSet[index].actual_response;
+                      }
+                      else {
+                        hinted_end_response = this.activeSet[index].actual_response;
+                      }
+
+                      tableReactionData[index] = [
+                        this.activeSet[index].expected_outcome,
+                        this.activeSet[index].response_type,
+                        hinted_end_response,
+                        this.activeSet[index].cat_score,
+                        this.activeSet[index].dla_score,
+                        this.activeSet[index].reaction_time,
+                        this.activeSet[index].response_time
+                      ];
+                      tableProcessData[index] = [
+                        this.activeSet[index].expected_outcome,
+                        '[ ' + this.activeSet[index].processResponse + ' ]',
+                        this.activeSet[index].num_letters,
+                        this.activeSet[index].keystrokes,
+                        this.activeSet[index].num_deletions
+                      ];
                     }
                 }
                 let tableSummaryData = this.createSummaryData(this.activeSet);

@@ -24,10 +24,13 @@
 
           <p>Clinicians should be aware that LD does not take errors of meaning into account. People with aphasia may, therefore, make some errors for which LD is not a good measure of accuracy. This would be problematic if a person produced a semantic error that was orthographically similar to the target, e.g, a target word of MONKEY and final attempt DONKEY. This example would lead to a LD of one.</p>
 
+          <p>The following links may be useful for further reading on coding using Damerau-Levenshtein distance.</p>
+
           <div id="refs">
             <p class="text"><span class="special">Damerau, F. J.</span> (March 1964) <cite>"A technique for computer detection and correction of spelling errors"</cite>, Communications of the ACM, 7 (3): 171-176, doi:10.1145/363958.363994</p>
 
             <p class="text"><span class="special">Levenshtein, V. I.</span> (February 1966) <cite>"Binary codes capable of correcting deletions, insertions, and reversals"</cite>, Soviet Physics Doklady, 10 (8): 707-710</p>
+            <p class="text"><span class="special">Boytsov, Leonid.</span> <cite>"Indexing methods for approximate dictionary searching: Comparative analysis."</cite> Journal of Experimental Algorithmics (JEA) 16 (2011): 1-1.</p>
 
           </div>
 
