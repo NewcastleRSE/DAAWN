@@ -23,6 +23,7 @@
         </ul>
 
         <p class="text">At the end of the assessment, it is also possible to download the results in a machine-readable JSON format. This option will appear as a ‘download raw data’ button and is not designed for clinical use; its purpose is to demonstrate how the tool can produce complex data on written naming for  further analysis. Please be aware that the use of DAAWN for this purpose would be clinical research and would require the relevant ethical and research and development approvals for your country.</p>
+        <p class="text">Please get in touch with fiona.menger@ncl.ac.uk if you are interested in using DAAWN for research purposes.</p>
       </div>
 
       <p class="title is-4">Please select an appropriate image set</p>

@@ -15,9 +15,11 @@
 
       <p class="text">The <span class="special">process response</span> records the keys pressed by the client when typing the word. This allows the SLT to see whether errors have been self-corrected during the typing process. It will also record any pause longer than one second. For example, the word ‘anchor’ could be typed as follows: [a, n, k, Backspace, c, (2.3secs), o, r] with the end result ‘ancor’.</p>
 
-      <p class="text">The application automatically calculates a score based on the system used in the writing section of the Comprehensive Aphasia Test. It also provides a score of Damerau-Levenshtein distance. Click for more information about <a href="#" @click="showAboutLDModal = true">Levenshtein distance</a>. </p>
+      <p class="text special">Scoring</p>
 
-      <p class="text">Scoring is based on the person's <span class="text">final response</span>. This includes items where the first letter has been provided by a hint. Where a hint was given, items are denoted with an [*] in the assessment results. </p>
+      <p class="text">The application automatically calculates a score based on the system used in the writing section of the Comprehensive Aphasia Test. It also provides a score of Damerau-Levenshtein distance. Click for more information about <a href="#" @click="showAboutLDModal = true">Damerau-Levenshtein distance</a>. </p>
+
+      <p class="text">Both CAT and LD scoring is automatically calculated from the person's <span class="text">final response</span>. This includes items where the first letter has been provided by a hint. Where a hint was given, items are denoted with an [*] in the assessment results. </p>
 
       <p class="text special">Images</p>
 

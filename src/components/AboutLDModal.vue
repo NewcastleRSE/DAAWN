@@ -6,8 +6,8 @@
         </div>
         <div class='modal-body'>
 
-          <p id="text-header" class="title is-4">Levenshtein distance</p>
-          <p>Levenshtein distance (LD) is a measure of how close the final attempt at writing the word is to the target item. The LD score is based on the number of single-character changes needed to transform the client’s attempt into the target word. Changes can be either insertions, omissions, transpositions or substitutions. DAAWN calculates LD automatically. The larger the number, the greater the distance between the attempt and the target word.</p>
+          <p id="text-header" class="title is-4">Damerau-Levenshtein distance</p>
+          <p>Damerau-Levenshtein distance (LD) is a measure of how close the final attempt at writing the word is to the target item. The LD score is based on the number of single-character changes needed to transform the client’s attempt into the target word. Changes can be either insertions, omissions, transpositions or substitutions. DAAWN calculates LD automatically. The larger the number, the greater the distance between the attempt and the target word.</p>
 
           <table class="table table-striped">
             <thead>
