@@ -13,12 +13,13 @@
 
       <p class="text">Please feel free to use DAAWN as much as you like. It can be used face to face with people with aphasia but may also be carried out as a telehealth assessment. This would be possible via screenshare and remote control using Zoom, Microsoft Teams, Jistsi or Google Meet with a Chrome extension. Please see the RCSLT guidance on telehealth for <a href="https://www.rcslt.org/members/delivering-quality-services/telehealth/telehealth-guidance#section-5" target="_blank">further support</a>. </p>
 
-      <p>If you are using DAAWN, please do get in touch to let us know. There will be an opportunity to provide detailed feedback as part of a Newcastle University Speech and Language Sciences dissertation research project in Autumn 2020, but in the meantime, we would be delighted to hear from you about how it is being used. </p>
+      <p class="text">If you are using DAAWN, please do get in touch to let us know. There will be an opportunity to provide detailed feedback as part of a Newcastle University Speech and Language Sciences dissertation research project in Autumn 2020, but in the meantime, we would be delighted to hear from you about how it is being used.        </p>
 
-      <p>For further information or to get in touch about DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span>. </p>
+      <p class="text">For further information or to get in touch about DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span>. </p>
 
-      <p><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/4.0/">Creative Commons Attribution 4.0 International License</a>.</p>
-     <p>    <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/80x15.png" /></a></p>
+      <p class="text"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Digitised Assessment for Aphasia of Written Naming (DAAWN)</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://daawn.ncldata.dev/" property="cc:attributionName" rel="cc:attributionURL">https://daawn.ncldata.dev/</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+
+      <p class="text"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
 
 
       <div class="level" >
