@@ -2,7 +2,6 @@
   <div class="container is-widescreen">
     <div id="page">
       <div class="header" v-show="index === 0">
-
        <!-- <span class="logo"><img src="/dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>-->
         <p  class="title is-3">Beginning the <strong>assessment</strong> session</p>
       </div>
@@ -11,7 +10,6 @@
        <!-- <span class="logo"><img src="/dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span> -->
         <p class="title is-3">Assessment {{ status }}</p>
       </div>
-
 
       <div class="level-item has-text-centered">
         <div class="box" >
@@ -47,9 +45,9 @@
         </div>
       </div>
 
-        <div class="level-item has-text-centered counter">
-          <p class="title is-5">{{ index+1 }} of {{ numInSet }} </p>
-        </div>
+      <div class="level-item has-text-centered counter">
+        <p class="title is-5">{{ index+1 }} of {{ numInSet }} </p>
+      </div>
 
     </div>
   </div>
@@ -171,6 +169,8 @@
             },
             collectData() {
                 this.expectedOutcome = this.name;
+                // get rid of any auto capitalisation
+                this.responseText = this.responseText.toLowerCase();
                 this.actualOutcome = this.responseText;
                 if(this.name === this.responseText){
                   this.responseType = 1;
@@ -251,22 +251,25 @@
 
                 let keystrokeTime = Date.now();
 
+                let key = $event.key;
+                key = key.toLowerCase();
+
                 // ignore Delete key
-                if($event.key !== 'Delete'){
-                  this.processResponse.push($event.key);
+                if(key !== 'Delete'){
+                  this.processResponse.push(key);
                   this.keystrokes++;
-                  this.interimResponse = this.interimResponse.concat($event.key);
-                  this.keystroke = $event.key;
+                  this.interimResponse = this.interimResponse.concat(key);
+                  this.keystroke = key;
                 }
 
               // if key is backspace remove previous char
-                if($event.key === 'Backspace'){
+                if(key === 'Backspace'){
                   this.interimResponse = this.interimResponse.slice(0, -1);
                   this.keystroke = "BACKSPACE";
                 }
 
                 // if its a single letter only, add it, ignore other keys
-                if($event.key.length === 1){
+                if(key.length === 1){
 
                     let response = {
                         "timestamp" : keystrokeTime,
@@ -311,9 +314,9 @@
               // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
               return Math.random().toString(36).substr(2, 9);
             },
-           exit() {
-              this.$router.push({ path: '../' });
-           }
+            exit() {
+                this.$router.push({ path: '../' });
+            }
         },
         mounted() {
             this.currentSet = this.$route.params.set;
