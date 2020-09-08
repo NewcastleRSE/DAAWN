@@ -35,7 +35,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage" spellcheck="false">
+                <input ref="text" class="input is-large" type="text" maxlength="10" v-model="practiceImage" spellcheck="false" autocorrect="off" autocapitalize="none">
                 <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextPractice"></font-awesome-icon></span>
               </div>
             </div>
