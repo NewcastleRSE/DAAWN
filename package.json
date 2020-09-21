@@ -21,6 +21,7 @@
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^1.5.3",
     "jspdf-autotable": "^3.5.3",
+    "node-forge": "^0.10.0",
     "prettier": "^1.12.1",
     "vee-validate": "^3.3.0",
     "vue": "^2.5.11",
