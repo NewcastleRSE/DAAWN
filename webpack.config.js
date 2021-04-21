@@ -2,6 +2,8 @@ var path = require('path')
 var webpack = require('webpack')
 
 const TerserPlugin = require('terser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 
 module.exports = {
   mode: 'production',
@@ -12,6 +14,10 @@ module.exports = {
     publicPath: '/dist/',
     filename: 'build.js'
   },
+  plugins: [
+    new HtmlWebpackPlugin({title: 'ePRaSE', favicon: 'favicon.ico'}),
+    new HtmlWebpackRootPlugin('app'),
+  ],
   optimization: {
     minimize: true,
     minimizer: [new TerserPlugin()],
