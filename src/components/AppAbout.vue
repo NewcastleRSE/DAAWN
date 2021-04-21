@@ -13,7 +13,7 @@
 
       <p class="text">Please feel free to use DAAWN as much as you like. It can be used face to face with people with aphasia but may also be carried out as a telehealth assessment. This would be possible via screenshare and remote control using Zoom, Microsoft Teams, Jistsi or Google Meet with a Chrome extension. Please see the RCSLT guidance on telehealth for <a href="https://www.rcslt.org/members/delivering-quality-services/telehealth/telehealth-guidance#section-5" target="_blank">further support</a>. </p>
 
-      <p class="text">If you are using DAAWN, please do get in touch to let us know. There will be an opportunity to provide detailed feedback as part of a Newcastle University Speech and Language Sciences dissertation research project in Autumn 2020, but in the meantime, we would be delighted to hear from you about how it is being used.        </p>
+      <p class="text">If you are using DAAWN, please do get in touch to let us know. You may be interested in taking part in this speech and language sciences dissertation study, which aims to find out about current SLT practice in the assessment of writing and obtains feedback on DAAWN. Link is <a href="https://newcastle.onlinesurveys.ac.uk/a-survey-on-written-language-assessments-for-aphasia-copy" target="_blank">https://newcastle.onlinesurveys.ac.uk/a-survey-on-written-language-assessments-for-aphasia-copy</a>. The survey closes on 14 Jan 2021.</p>
 
       <p class="text">For further information or to get in touch about DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span>. </p>
 
