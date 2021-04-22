@@ -266,8 +266,6 @@
                 let key = $event.key;
                 key = key.toLowerCase();
 
-                console.log(key);
-
                 // ignore Delete key
                 if(key !== 'delete'){
                   this.processResponse.push(key);
@@ -334,7 +332,7 @@
             }
         },
         mounted() {
-            this.currentSet = this.$route.params.set;
+            this.currentSet = this.$route.query.set;
             if(this.currentSet === 'four'){
                 this.numInSet = settings.numInSetFour;
             }

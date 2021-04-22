@@ -3,20 +3,20 @@ var webpack = require('webpack')
 
 const TerserPlugin = require('terser-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
+//const HtmlWebpackRootPlugin = require('html-webpack-root-plugin');
 
 module.exports = {
-  //mode: 'production',
-  mode: 'development',
+  mode: 'production',
+ // mode: 'development',
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
-    publicPath: '/dist/',
+    // publicPath: '/dist/',
     filename: 'build.js'
   },
   plugins: [
-    new HtmlWebpackPlugin({title: 'ePRaSE', favicon: 'favicon.ico'}),
-    new HtmlWebpackRootPlugin('app'),
+    new HtmlWebpackPlugin({ favicon: 'favicon.ico', template: 'template.html'})
+    //new HtmlWebpackRootPlugin('app'),
   ],
   optimization: {
     minimize: true,

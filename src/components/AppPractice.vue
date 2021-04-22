@@ -117,7 +117,7 @@
                 }
             },
             beginSet() {
-                this.$router.push({ path: './assessment/' + this.currentSet });
+                this.$router.push({ path: './assessment?set=' + this.currentSet });
             },
             hint() {
                 if(this.practiceImage === ""){
