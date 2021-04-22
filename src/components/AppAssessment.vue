@@ -38,7 +38,7 @@
             <div class="field">
               <div class="control">
                 <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none">
-                <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="nextImage(index)"></font-awesome-icon></span>
+                <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="activateModal()"></font-awesome-icon></span>
               </div>
             </div>
           </div>
@@ -50,6 +50,8 @@
       </div>
 
     </div>
+
+     <ContinueModal v-if="showContinueModal" @close="showContinueModal = false" @clicked="nextImage(index)" />
   </div>
 
 </template>
@@ -59,10 +61,12 @@
 
   import {dataService} from "../services/data.service";
   import {settings} from "../settings";
+  import ContinueModal from "./ContinueModal";
 
   export default {
         name: "AppPractice",
         components: {
+          ContinueModal
         },
         data() {
             return {
@@ -71,6 +75,7 @@
                 index : 0,
                 filename: '',
                 name: '',
+                showContinueModal : false,
                 hintClicked : false,
                 status : 'in progress',
                 responseText: '',
@@ -124,7 +129,14 @@
                 return require(`../assets/${set}/${this.filename}`);
               }
             },
+            activateModal() {
+                // prevents accidental moves forward
+                this.showContinueModal=true;
+            },
             nextImage(index) {
+                // close the modal if its open
+                this.showContinueModal= false;
+
                 if(index === this.numInSet-1){
                   this.collectData();
                   this.clearData();
@@ -254,14 +266,17 @@
                 let key = $event.key;
                 key = key.toLowerCase();
 
+                console.log(key);
+
                 // ignore Delete key
-                if(key !== 'Delete'){
+                if(key !== 'delete'){
                   this.processResponse.push(key);
                   this.keystrokes++;
                   this.interimResponse = this.interimResponse.concat(key);
                   this.keystroke = key;
                 }
 
+              // TODO, look at this - should be lowercase?
               // if key is backspace remove previous char
                 if(key === 'Backspace'){
                   this.interimResponse = this.interimResponse.slice(0, -1);
