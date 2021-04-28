@@ -206,7 +206,7 @@
                 this.responseTime = this.keystrokeTimes.pop();
                 let newTime = Date.now();
                 this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
-                this.numDeletions =  this.processResponse.filter(function(item){ return item === "Backspace"; }).length;
+                this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
                 let response = {
                   "timestamp" : newTime,
@@ -274,9 +274,8 @@
                   this.keystroke = key;
                 }
 
-              // TODO, look at this - should be lowercase?
               // if key is backspace remove previous char
-                if(key === 'Backspace'){
+                if(key === 'backspace'){
                   this.interimResponse = this.interimResponse.slice(0, -1);
                   this.keystroke = "BACKSPACE";
                 }
