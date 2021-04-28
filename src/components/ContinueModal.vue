@@ -9,8 +9,8 @@
          <p>Are you sure you want to continue?</p>
         </div>
         <div class='modal-footer'>
-          <button id="yes" type="button"  @click="loadNext">Yes</button>
-          <button id="no" type="button"  @click="close">No</button>
+          <span id="yes"><button type="button"  @click="loadNext">Yes</button><img src="dist/green-tick.png" alt="tick" id="tick-image" width="44px"></span>
+          <span id="no"><button type="button"  @click="close">No</button><img src="dist/cross.png" alt="tick" id="cross-image" width="80px"></span>
         </div>
 
       </div>
@@ -60,8 +60,8 @@
     left: 50%;
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
-    width: 25%;
-    height: 200px;
+    width: 50%;
+    height: 300px;
     background: #FFF;
     border-radius: 25px;
   }
@@ -83,10 +83,12 @@
   }
 
   button {
-    height: 40px;
-    width: 45px;
-    font-size: 1.2em;
+    height: 80px;
+    width: 90px;
+    font-size: 1.4em;
     margin: 30px;
+    border: 1px solid #000;
+
   }
 
   #yes {
@@ -97,5 +99,13 @@
     float:right;
   }
 
+  #cross-image{
+    padding-right: 35px;
+    margin-bottom: -10px;
+  }
+
+  #tick-image {
+    margin-bottom: -10px;
+  }
 
 </style>
