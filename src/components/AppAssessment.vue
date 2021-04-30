@@ -37,7 +37,7 @@
           <div class="level-item has-text-centered">
             <div class="field">
               <div class="control">
-                <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none">
+                <input ref="text" class="input is-large" type="text" maxlength="50" v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" v-on:click="mouseclick($event)">
                 <span id="forward-arrow" v-show="status !== 'completed'"><font-awesome-icon icon="arrow-circle-right" size="3x"  @click="activateModal()"></font-awesome-icon></span>
               </div>
             </div>
@@ -159,7 +159,6 @@
                   "interimResponse" : this.interimResponse
                 }
                 this.jsonProcessResponse.push(response);
-
             },
             hint() {
                 if(this.responseText === ""){
@@ -209,33 +208,32 @@
                 this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
                 let response = {
-                  "timestamp" : newTime,
-                  "keystroke" : "SUBMIT",
-                  "interimResponse" : this.interimResponse
+                    "timestamp" : newTime,
+                    "keystroke" : "SUBMIT",
+                    "interimResponse" : this.interimResponse
                 }
                 this.jsonProcessResponse.push(response);
 
                 this.response = {
-                                  "participant_id" : this.participantId,
-                                  "date" : this.dateStr,
-                                  "expected_outcome" : this.expectedOutcome,
-                                  "actual_response" : this.actualOutcome,
-                                  "response_type" : this.responseType,
-                                  "cat_score" : this.catScore,
-                                  "dla_score" : this.DLScore,
-                                  "reaction_time": this.reactionTime,
-                                  "response_time" : this.responseTime,
-                                  "move_on_time" : this.moveOnTime,
-                                  "num_letters" : this.numLetters,
-                                  "keystrokes" : this.keystrokes,
-                                  "num_deletions" : this.numDeletions,
-                                  "processResponse" : this.processResponse,
-                                  "json_process_response" : this.jsonProcessResponse,
-                                  "hint_clicked" : this.hintClicked
+                    "participant_id" : this.participantId,
+                    "date" : this.dateStr,
+                    "expected_outcome" : this.expectedOutcome,
+                    "actual_response" : this.actualOutcome,
+                    "response_type" : this.responseType,
+                    "cat_score" : this.catScore,
+                    "dla_score" : this.DLScore,
+                    "reaction_time": this.reactionTime,
+                    "response_time" : this.responseTime,
+                    "move_on_time" : this.moveOnTime,
+                    "num_letters" : this.numLetters,
+                    "keystrokes" : this.keystrokes,
+                    "num_deletions" : this.numDeletions,
+                    "processResponse" : this.processResponse,
+                    "json_process_response" : this.jsonProcessResponse,
+                    "hint_clicked" : this.hintClicked
                 };
 
                 localStorage.setItem(this.name, JSON.stringify(this.response));
-
             },
             clearData() {
                 this.jsonProcessResponse = [];
@@ -328,6 +326,9 @@
             },
             exit() {
                 this.$router.push({ path: '../' });
+            },
+            mouseclick: function($event) {
+              this.processResponse.push('MOUSECLICK');
             }
         },
         mounted() {

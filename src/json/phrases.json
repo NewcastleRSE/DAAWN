@@ -1,0 +1,107 @@
+[
+    {
+      "id": 1,
+      "text": "You can't judge a book by its cover",
+      "wordlength": 7
+    },
+    {
+      "id": 2,
+      "text": "Every dog has his day",
+       "wordlength": 5
+    },
+    {
+      "id": 3,
+      "text": "He who laughs last laughs longest",
+      "wordlength": 6
+    },
+    {
+      "id": 4,
+      "text": "A stitch in time saves nine",
+       "wordlength": 6
+    },
+    {
+      "id": 5,
+      "text": "A storm in a teacup",
+      "wordlength": 5
+    },
+    {
+      "id": 6,
+      "text": "An apple a day keeps the doctor away",
+       "wordlength": 8
+    },
+    {
+      "id": 7,
+      "text": "The calm before the storm",
+      "wordlength": 5
+    },
+    {
+      "id": 8,
+      "text": "Curiosity killed the cat",
+       "wordlength": 4
+    },
+    {
+      "id": 9,
+      "text": "Take it with a grain of salt",
+       "wordlength": 6
+    },
+    {
+      "id": 10,
+      "text": "The devil is in the details",
+      "wordlength": 6
+    },
+    {
+      "id": 11,
+      "text": "Don't look a gift horse in the mouth",
+       "wordlength": 8
+    },
+    {
+      "id": 12,
+      "text": "Fortune favours the bold",
+      "wordlength": 4
+    },
+    {
+      "id": 13,
+      "text": "Straight from the horse's mouth",
+       "wordlength": 5
+    },
+    {
+      "id": 14,
+      "text": "Once in a blue moon",
+       "wordlength": 5
+    },
+    {
+      "id": 15,
+      "text": "Let sleeping dogs lie",
+      "wordlength": 4
+    },
+    {
+      "id": 16,
+      "text": "That ship has sailed",
+       "wordlength": 4
+    },
+    {
+      "id": 17,
+      "text": "Out of the frying pan and into the fire",
+      "wordlength": 9
+    },
+    {
+      "id": 18,
+      "text": "The pot calling the kettle black",
+       "wordlength": 6
+    },
+    {
+      "id": 19,
+      "text": "Many a mickle makes a muckle",
+      "wordlength": 6
+    },
+    {
+      "id": 20,
+      "text": "You can't make an omelette without breaking eggs",
+       "wordlength": 8
+    }
+]
+
+
+
+
+
