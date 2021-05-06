@@ -15,36 +15,38 @@
       </ul>
       </div>
 
-      <table class="table table-striped" >
-        <thead>
-        <tr><th>Expected Response</th><th>Correct/Incorrect</th><th>Actual Response</th></tr>
-        </thead>
-        <tbody>
-        <tr v-for="item in allData">
-          <td>{{ item.expected_outcome }}</td>
-          <td><img v-show="item.response_type ===1" src="dist/green-tick.png" alt="tick" id="tick-image"><img v-show="item.response_type===0" src="dist/cross.png" alt="tick" id="cross-image"></td>
-          <td>{{ item.actual_response }}</td>
-        </tr>
-        </tbody>
-      </table>
 
-      <table class="table">
-        <tr><th>Mean Typing Speed</th><td>{{ reactionTimeMean }}</td></tr>
-        <tr><th>Median Typing Speed</th><td>{{ reactionTimeMedian }}</td></tr>
-      </table>
+      <div class="response-table" v-for="item in allData">
+          <table class="table table-striped" >
+          <tbody>
+          <tr><th>Expected Response</th><td>{{ item.expected_outcome }}</td></tr>
+          <tr><th>Final Response</th><td>{{ item.actual_response }}</td></tr>
+          <tr><th>Process Response</th><td>{{ item.processResponse }}</td></tr>
+          <tr><th>Correct/Incorrect</th><td><img v-show="item.response_type ===1" src="dist/green-tick.png" alt="tick" class="tick-image"><img v-show="item.response_type===0" src="dist/cross.png" alt="tick" class="cross-image"></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div id="wordspeed">
+        <table class="table">
+          <caption>Overall time to complete/words</caption>
+          <tr><th>Mean Typing Speed</th><td>{{ speedTimeMean }}</td></tr>
+          <tr><th>Median Typing Speed</th><td>{{ speedTimeMedian }}</td></tr>
+        </table>
+      </div>
 
 
       <table class="table table-striped">
         <thead>
-        <tr><th>Item</th><th>Process Response</th><th>No. Letters</th><th>Keystrokes</th><th>No. Deletions</th></tr>
+        <tr><th>Text</th><th>No. Words</th><th>Edited Words</th><th>Correct Words</th><th>Incorrect Words</th></tr>
         </thead>
         <tbody>
-        <tr  v-for="item in activeSet">
+        <tr v-for="item in allData">
           <td><span v-bind:style="item.hint_clicked ? 'color: #eb9b34' : 'color: black' ">{{ item.expected_outcome }}</span></td>
-          <td>[ {{  item.processResponse }} ]</td>
-          <td>{{ item.num_letters }}</td>
-          <td>{{ item.keystrokes }}</td>
-          <td>{{ item.num_deletions }}</td>
+          <td> {{  item.wordLength  }} </td>
+          <td>{{ item.num_edited_words }}</td>
+          <td>{{ item.num_correct_words }}</td>
+          <td>{{ item.num_incorrect_words }}</td>
         </tr>
         </tbody>
       </table>
@@ -82,40 +84,42 @@
             return {
               data: settings.numTasksInSet,
               allData: [],
-              allResponseTimes: [],
-              allReactionTimes: []
+              allSpeedTimes: []
             }
         },
         computed : {
-            responseTimeMean : function () {
-                 return this.returnMean(this.allResponseTimes);
+            speedTimeMean : function () {
+                 return this.returnMean(this.allSpeedTimes);
             },
-            reactionTimeMean : function () {
-                return this.returnMean(this.allReactionTimes);
-            },
-            responseTimeMedian : function () {
-                return this.returnMedian(this.allResponseTimes);
-            },
-            reactionTimeMedian : function () {
-                return this.returnMedian(this.allReactionTimes);
+            speedTimeMedian : function () {
+                return this.returnMedian(this.allSpeedTimes);
             }
         },
         methods : {
             returnData() {
-               for(let i = 1; i < this.data; i++){
+               for(let i = 1; i <= this.data; i++){
                   let num = i.toString();
                   let data = JSON.parse(localStorage.getItem(num));
-                  console.log(data);
                   this.allData.push(data);
                }
             },
-            filter(set){
-              for(let item in set){
-                if(set.hasOwnProperty(item)){
-                   let string = set[item].processResponse;
-                    set[item].processResponse = string.join(', ');
+            fillSpeedTable(){
+               this.filter(this.allData);
+                for(let index in this.allData){
+                    if(this.allData.hasOwnProperty(index)){
+                        if(this.allData[index].averageSpeed !== undefined) {
+                          this.allSpeedTimes.push(this.allData[index].averageSpeed);
+                        }
+                    }
                 }
-              }
+            },
+            filter(set){
+                for(let item in set){
+                    if(set.hasOwnProperty(item)){
+                       let string = set[item].processResponse;
+                        set[item].processResponse = string.join(', ');
+                    }
+                }
             },
             createPDF() {
                 let tableReactionData = [];
@@ -207,6 +211,7 @@
         },
         mounted() {
             this.returnData();
+            this.fillSpeedTable();
         }
     }
 </script>
@@ -221,11 +226,19 @@
     padding: 30px;
   }
 
-  #tick-image {
+  #wordspeed {
+     padding: 30px 0;
+  }
+
+  .response-table {
+    margin-bottom: 20px;
+  }
+
+  .tick-image {
     height: 20px;
   }
 
-  #cross-image {
+  .cross-image {
     height: 18px;
   }
 

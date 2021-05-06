@@ -34,7 +34,7 @@
 
       </div>
 
-      <ContinueModal v-if="showContinueModal" @close="showContinueModal = false" @clicked="nextText(index)" />
+      <ContinueModal v-if="showContinueModal" @close="showContinueModal=false" @clicked="nextText(index)" />
   </div>
 </template>
 
@@ -55,13 +55,12 @@
           return {
               text: phrases,
               textToShow: '',
-              textArray: [],
               index : 0,
-              numInSet : 5,
-              textLength : 0,
+              numInSet : settings.numTasksInSet,
+              wordLength : 0,
               textId : 0,
+              averageSpeed : 0,
               showContinueModal : false,
-
               status : 'in progress',
               responseText: '',
               response: [],
@@ -73,17 +72,13 @@
               processResponse: [],
               jsonProcessResponse: [],
               keystrokeTimes: [],
-              catScore: 0,
-              DLScore: 0,
-              firstCorrect: '',
-              secondCorrect: '',
               startTime: 0,
               reactionTime: 0,
               responseTime: 0,
               moveOnTime: 0,
-              numLetters : 0,
-              numDeletions : 0,
-              keystrokes: 0,
+              numCorrectWords : 0,
+              numEditedWords : 0,
+              numIncorrectWords: 0,
               participantId: '',
               dateStr: ''
           }
@@ -123,28 +118,27 @@
           collectData() {
               this.expectedOutcome = this.textToShow;
               this.actualOutcome = this.responseText;
+
+              this.compareText(this.expectedOutcome, this.actualOutcome, this.processResponse);
+
               if(this.textToShow === this.responseText){
                 this.responseType = 1;
               }
               else {
                 this.responseType = 0;
               }
-
-              if(this.responseText !== ''){
-                //this.DLScore = dataService.levenshtein(this.name, this.responseText);
-              }
-
-              this.numLetters = this.textLength;
-
-              /*let imageNameLength=this.name.length;
-              if(imageNameLength-this.DLScore > 0 && this.responseText !== ''){
-                  this.catScore=imageNameLength-this.DLScore;
-              } */
-
+              this.numLetters = this.wordLength;
               this.reactionTime = this.keystrokeTimes[0];
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
               this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
+
+              console.log('Moving on now ' + this.moveOnTime);
+
+              this.averageSpeed = this.moveOnTime/this.wordLength;
+
+              console.log('Average speed ' + this.averageSpeed);
+
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
               let response = {
@@ -160,21 +154,19 @@
                   "expected_outcome" : this.expectedOutcome,
                   "actual_response" : this.actualOutcome,
                   "response_type" : this.responseType,
-                  "cat_score" : this.catScore,
-                  "dla_score" : this.DLScore,
                   "reaction_time": this.reactionTime,
                   "response_time" : this.responseTime,
                   "move_on_time" : this.moveOnTime,
-                  "num_letters" : this.numLetters,
+                  "averageSpeed" : this.averageSpeed,
+                  "wordLength" : this.wordLength,
                   "keystrokes" : this.keystrokes,
-                  "num_deletions" : this.numDeletions,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse,
-                  "hint_clicked" : this.hintClicked
+                  "num_correct_words" : this.numCorrectWords,
+                  "num_edited_words" : this.numEditedWords,
+                  "num_incorrect_words" : this.numIncorrectWords
               };
-
               localStorage.setItem(this.textId, JSON.stringify(this.response));
-
           },
           clearData() {
               this.jsonProcessResponse = [];
@@ -183,22 +175,59 @@
               this.expectedOutcome = '';
               this.actualOutcome = '';
               this.responseType = '';
-              this.catScore = 0;
-              this.DLScore = 0;
-              this.firstCorrect = '';
-              this.secondCorrect = '';
-              this.numLetters = 0;
-              this.numDeletions = 0;
               this.keystrokes = 0;
               this.startTime = Date.now();
               this.reactionTime = 0;
               this.responseTime = 0;
               this.moveOnTime = 0;
+              this.wordLength = 0;
+              this.numCorrectWords = 0;
+              this.numEditedWords = 0;
+              this.numIncorrectWords = 0;
+          },
+          compareText(expectedOutcome, actualOutcome, processResponse) {
+
+              let wordArray = expectedOutcome.split(' ');
+              let outcomeArray = actualOutcome.split(' ');
+
+                // check they are the same length
+              if(wordArray.length === outcomeArray.length){
+
+                // compare each word
+                  for(let i = 0; i < wordArray.length; i++){
+                      if(wordArray[i] === outcomeArray[i]){
+                        console.log('word is the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
+                        this.numCorrectWords++;
+                      }
+                      else if(wordArray[i] !== outcomeArray[i]){
+                         console.log('word is not the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
+                         this.numIncorrectWords++;
+                      }
+                  }
+              }
+              else {
+                // do something else
+                console.log('Word length differs')
+              }
+
+              // reverse engineer the processResponse
+              let procResponse =  processResponse.toString();
+              // filter out anything within ()
+              procResponse = procResponse.replace(/ *\([^)]*\) */g, "");
+              procResponse = procResponse.split(' ');
+              for(let index in procResponse ) {
+                  if(procResponse.hasOwnProperty(index)){
+                      // look for a backspace, indicates word edit
+                      if(procResponse[index].match(/backspace/g)){
+                         this.numEditedWords++;
+                      }
+                  }
+              }
+              console.log(procResponse);
           },
           keyLogger: function($event) {
 
               let keystrokeTime = Date.now();
-
               let key = $event.key;
               key = key.toLowerCase();
 
@@ -256,8 +285,7 @@
           getTextToShow(index) {
               this.textId = this.text[index].id;
               this.textToShow = this.text[index].text;
-              this.textLength = this.text[index].wordlength;
-              console.log(index);
+              this.wordLength = this.text[index].wordlength;
           },
           returnID() {
               // Math.random should be unique because of its seeding algorithm.
