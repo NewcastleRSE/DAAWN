@@ -31,6 +31,10 @@
         <p class="title is-5">{{ index+1 }} of {{ numInSet }} </p>
       </div>
 
+      <div v-if="errorMessage">
+        The number of words do not match the example, please try again
+      </div>
+
 
       </div>
 
@@ -60,6 +64,7 @@
               wordLength : 0,
               textId : 0,
               averageSpeed : 0,
+              averageKeySpeed : 0,
               showContinueModal : false,
               status : 'in progress',
               responseText: '',
@@ -72,15 +77,18 @@
               processResponse: [],
               jsonProcessResponse: [],
               keystrokeTimes: [],
+              editedWords: [],
               startTime: 0,
               reactionTime: 0,
               responseTime: 0,
               moveOnTime: 0,
+              numCorrectEditedWords : 0,
+              numIncorrectEditedWords : 0,
               numCorrectWords : 0,
-              numEditedWords : 0,
               numIncorrectWords: 0,
               participantId: '',
-              dateStr: ''
+              dateStr: '',
+              errorMessage : false
           }
       },
       methods: {
@@ -131,12 +139,10 @@
               this.reactionTime = this.keystrokeTimes[0];
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
+
               this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
-
               console.log('Moving on now ' + this.moveOnTime);
-
               this.averageSpeed = this.moveOnTime/this.wordLength;
-
               console.log('Average speed ' + this.averageSpeed);
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
@@ -162,8 +168,9 @@
                   "keystrokes" : this.keystrokes,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse,
+                  "num_correct_edited_words" : this.numCorrectEditedWords,
+                  "num_incorrect_edited_words" : this.numIncorrectEditedWords,
                   "num_correct_words" : this.numCorrectWords,
-                  "num_edited_words" : this.numEditedWords,
                   "num_incorrect_words" : this.numIncorrectWords
               };
               localStorage.setItem(this.textId, JSON.stringify(this.response));
@@ -181,8 +188,9 @@
               this.responseTime = 0;
               this.moveOnTime = 0;
               this.wordLength = 0;
+              this.numCorrectEditedWords = 0;
+              this.numIncorrectEditedWords = 0;
               this.numCorrectWords = 0;
-              this.numEditedWords = 0;
               this.numIncorrectWords = 0;
           },
           compareText(expectedOutcome, actualOutcome, processResponse) {
@@ -193,37 +201,46 @@
                 // check they are the same length
               if(wordArray.length === outcomeArray.length){
 
-                // compare each word
-                  for(let i = 0; i < wordArray.length; i++){
-                      if(wordArray[i] === outcomeArray[i]){
-                        console.log('word is the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
-                        this.numCorrectWords++;
-                      }
-                      else if(wordArray[i] !== outcomeArray[i]){
-                         console.log('word is not the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
-                         this.numIncorrectWords++;
+                  // reverse engineer the processResponse
+                  let procResponse =  processResponse.toString();
+                  // filter out anything within () like the times in seconds
+                  procResponse = procResponse.replace(/ *\([^)]*\) */g, "");
+                  procResponse = procResponse.split(' ');
+                  for(let index in procResponse ) {
+                      if(procResponse.hasOwnProperty(index)){
+                          // look for a backspace, indicates word edit
+                          if(procResponse[index].match(/backspace/g)){
+                              // keep a record of the index number of the edited word
+                              this.editedWords.push(parseInt(index));
+                          }
                       }
                   }
+                  // console.log(procResponse);
+
+                  // compare each word
+                  for(let i = 0; i < wordArray.length; i++){
+                      if(wordArray[i] === outcomeArray[i]){
+                          console.log('word is the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
+                          this.numCorrectWords++;
+                          if(this.editedWords.indexOf(i) > -1){
+                             this.numCorrectEditedWords++;
+                          }
+                      }
+                      else if(wordArray[i] !== outcomeArray[i]){
+                          console.log('word is not the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
+                          this.numIncorrectWords++;
+                          if(this.editedWords.indexOf(i) > -1){
+                             this.numIncorrectEditedWords++;
+                          }
+                      }
+                  }
+                  this.editedWords = [];
               }
               else {
                 // do something else
                 console.log('Word length differs')
+                this.errorMessage = true;
               }
-
-              // reverse engineer the processResponse
-              let procResponse =  processResponse.toString();
-              // filter out anything within ()
-              procResponse = procResponse.replace(/ *\([^)]*\) */g, "");
-              procResponse = procResponse.split(' ');
-              for(let index in procResponse ) {
-                  if(procResponse.hasOwnProperty(index)){
-                      // look for a backspace, indicates word edit
-                      if(procResponse[index].match(/backspace/g)){
-                         this.numEditedWords++;
-                      }
-                  }
-              }
-              console.log(procResponse);
           },
           keyLogger: function($event) {
 
@@ -259,8 +276,11 @@
               if(this.keystrokeTimes.length > 0){
                     // get the last array entry
                    let lastKeystrokeTime = this.keystrokeTimes.slice(-1);
-                   // get the value for the current key event
+
+                   // calculate the time passed since the text has loaded on screen
                    let timePassed = this.calcTimePassed(this.startTime, keystrokeTime);
+
+                   console.log('Time passed ' + timePassed);
 
                    if(timePassed-lastKeystrokeTime > 1){
                      let formattedTime = (timePassed-lastKeystrokeTime).toFixed(2);
