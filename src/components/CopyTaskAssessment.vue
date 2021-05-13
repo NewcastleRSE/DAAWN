@@ -140,10 +140,11 @@
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
 
+              console.log('reaction time ' + this.reactionTime);
+              console.log('response time ' + this.responseTime);
+
               this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
               console.log('Moving on now ' + this.moveOnTime);
-              this.averageSpeed = this.moveOnTime/this.wordLength;
-              console.log('Average speed ' + this.averageSpeed);
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
@@ -279,8 +280,6 @@
 
                    // calculate the time passed since the text has loaded on screen
                    let timePassed = this.calcTimePassed(this.startTime, keystrokeTime);
-
-                   console.log('Time passed ' + timePassed);
 
                    if(timePassed-lastKeystrokeTime > 1){
                      let formattedTime = (timePassed-lastKeystrokeTime).toFixed(2);

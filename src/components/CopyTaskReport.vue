@@ -29,22 +29,32 @@
 
       <div id="wordspeed">
         <table class="table">
-          <caption>Overall time to complete/words</caption>
-          <tr><th>Mean Typing Speed</th><td>{{ speedTimeMean }}</td></tr>
-          <tr><th>Median Typing Speed</th><td>{{ speedTimeMedian }}</td></tr>
+          <caption>Overall time to complete text</caption>
+          <tr><th>Mean Reaction Time</th><td>{{ reactionTimeMean }}</td></tr>
+          <tr><th>Mean Response Time</th><td>{{ responseTimeMean }}</td></tr>
+        </table>
+      </div>
+
+       <div id="keyspeed">
+        <table class="table">
+          <caption>Interkey typing speeds</caption>
+          <tr><th>Mean Key Typing Speed</th><td>{{ keyTimeMean }}</td></tr>
+          <tr><th>Median Key Typing Speed</th><td>{{ keyTimeMedian }}</td></tr>
         </table>
       </div>
 
 
+
       <table class="table table-striped">
         <thead>
-        <tr><th>Text</th><th>No. Words</th><th>Edited Words</th><th>Correct Words</th><th>Incorrect Words</th></tr>
+        <tr><th>Text</th><th>No. Words</th><th>Correct Edited Words</th><th>Incorrect Edited Words</th><th>Correct Words</th><th>Incorrect Words</th></tr>
         </thead>
         <tbody>
         <tr v-for="item in allData">
           <td><span v-bind:style="item.hint_clicked ? 'color: #eb9b34' : 'color: black' ">{{ item.expected_outcome }}</span></td>
           <td> {{  item.wordLength  }} </td>
-          <td>{{ item.num_edited_words }}</td>
+          <td>{{ item.num_correct_edited_words }}</td>
+          <td>{{ item.num_incorrect_edited_words }}</td>
           <td>{{ item.num_correct_words }}</td>
           <td>{{ item.num_incorrect_words }}</td>
         </tr>
@@ -75,7 +85,7 @@
 <script>
 
     import { settings } from "../settings";
-    import { pdfService } from "../services/pdf.service";
+    import { copyTaskPdfService } from "../services/copytaskpdf.service";
     import { dataService } from "../services/data.service"
 
     export default {
@@ -83,32 +93,47 @@
         data() {
             return {
               data: settings.numTasksInSet,
+              id : '',
               allData: [],
-              allSpeedTimes: []
+              allResponseTimes: [],
+              allReactionTimes: [],
+              allKeyTimes: []
             }
         },
         computed : {
-            speedTimeMean : function () {
-                 return this.returnMean(this.allSpeedTimes);
+            responseTimeMean : function () {
+                return this.returnMean(this.allResponseTimes);
             },
-            speedTimeMedian : function () {
-                return this.returnMedian(this.allSpeedTimes);
+            reactionTimeMean : function () {
+                return this.returnMean(this.allReactionTimes);
+            },
+            keyTimeMean : function () {
+                 return this.returnMean(this.allKeyTimes);
+            },
+            keyTimeMedian : function () {
+                return this.returnMedian(this.allKeyTimes);
             }
         },
         methods : {
-            returnData() {
-               for(let i = 1; i <= this.data; i++){
-                  let num = i.toString();
-                  let data = JSON.parse(localStorage.getItem(num));
-                  this.allData.push(data);
-               }
+            returnID() {
+                this.id = localStorage.getItem('ID');
             },
-            fillSpeedTable(){
-               this.filter(this.allData);
+            returnData() {
+                for(let i = 1; i <= this.data; i++){
+                    let num = i.toString();
+                    let data = JSON.parse(localStorage.getItem(num));
+                    this.allData.push(data);
+                }
+            },
+            fillTextTable(){
+                this.filter(this.allData);
                 for(let index in this.allData){
                     if(this.allData.hasOwnProperty(index)){
-                        if(this.allData[index].averageSpeed !== undefined) {
-                          this.allSpeedTimes.push(this.allData[index].averageSpeed);
+                        if(this.allData[index].reaction_time !== undefined) {
+                            this.allReactionTimes.push(this.allData[index].reaction_time);
+                        }
+                        if(this.allData[index].response_time !== undefined){
+                          this.allResponseTimes.push(this.allData[index].response_time);
                         }
                     }
                 }
@@ -121,46 +146,81 @@
                     }
                 }
             },
-            createPDF() {
-                let tableReactionData = [];
-                let tableProcessData = [];
-                for(let index in this.activeSet){
-                    if(this.activeSet.hasOwnProperty(index)){
+            calcInterkeyInterval() {
+                let timestampArray = [];
+                for(let index in this.allData){
+                    if(this.allData.hasOwnProperty(index)){
+                        if(this.allData[index].json_process_response !== undefined) {
+                            // get the json process response data
+                            let json_response = this.allData[index].json_process_response;
+                            for(let item in json_response){
+                                if(json_response.hasOwnProperty(item))
+                                {
+                                   timestampArray.push(json_response[item].timestamp);
+                                }
+                            }
 
-                      let hinted_end_response = '';
-
-                      // add a * to the actual response if hint clicked is true
-                      if(this.activeSet[index].hint_clicked){
-                        hinted_end_response = '*' + this.activeSet[index].actual_response;
-                      }
-                      else {
-                        hinted_end_response = this.activeSet[index].actual_response;
-                      }
-
-                      tableReactionData[index] = [
-                        this.activeSet[index].expected_outcome,
-                        this.activeSet[index].response_type,
-                        hinted_end_response,
-                        this.activeSet[index].cat_score,
-                        this.activeSet[index].dla_score,
-                        this.activeSet[index].reaction_time,
-                        this.activeSet[index].response_time
-                      ];
-                      tableProcessData[index] = [
-                        this.activeSet[index].expected_outcome,
-                        '[ ' + this.activeSet[index].processResponse + ' ]',
-                        this.activeSet[index].num_letters,
-                        this.activeSet[index].keystrokes,
-                        this.activeSet[index].num_deletions
-                      ];
+                            for(let i = 0; i < timestampArray.length; i++) {
+                                // check its not out of range
+                                if(timestampArray[i+1] !== undefined){
+                                    let timePassed = this.calcTimePassed(timestampArray[i], timestampArray[i+1]);
+                                    this.allKeyTimes.push(timePassed);
+                                }
+                            }
+                        }
                     }
                 }
-                let tableSummaryData = this.createSummaryData(this.activeSet);
-                let tableCatSummaryData = this.createCatSummaryData(this.activeSet);
-                pdfService.createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tableProcessData, this.responseTimeMean, this.reactionTimeMean, this.responseTimeMedian, this.reactionTimeMedian, this.id);
+            },
+             // compares 2 timestamps, returns an integer
+            calcTimePassed(startTime, newTime){
+                let diff=(newTime-startTime)/1000;
+                // truncates to 4 decimal places
+                let timePassed=diff.toFixed(4);
+                return timePassed;
+            },
+            createPDF() {
+                let tableProcessData = [];
+                let tableWordAccuracy = [];
+
+                for(let index in this.allData){
+                    if(this.allData.hasOwnProperty(index)){
+                        tableProcessData[index] = [
+                            this.allData[index].expected_outcome,
+                            this.allData[index].actual_response,
+                            this.allData[index].processResponse,
+                            this.allData[index].response_type
+                        ];
+                    }
+                }
+
+                for(let index in this.allData){
+                    if(this.allData.hasOwnProperty(index)){
+                         let textType = ''
+                         if(index === '0'){
+                            textType = 'Real words'
+                         }
+                         else {
+                            textType = 'Non words'
+                         }
+                         tableWordAccuracy[index] = [
+                            textType,
+                            this.allData[index].wordLength,
+                            this.allData[index].num_correct_edited_words,
+                            this.allData[index].num_incorrect_edited_words,
+                            this.allData[index].num_correct_words,
+                            this.allData[index].num_incorrect_words
+                        ];
+                    }
+                }
+
+                console.log(tableWordAccuracy);
+
+                let tableSummaryData = this.createSummaryData(this.allData);
+                let tableCatSummaryData = this.createCatSummaryData(this.allData);
+                copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.id);
             },
             createJSON() {
-              let data = JSON.stringify(this.activeSet);
+              let data = JSON.stringify(this.allData);
               let datestr = this.getDate();
               dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
             },
@@ -211,7 +271,8 @@
         },
         mounted() {
             this.returnData();
-            this.fillSpeedTable();
+            this.fillTextTable();
+            this.calcInterkeyInterval();
         }
     }
 </script>
@@ -226,9 +287,13 @@
     padding: 30px;
   }
 
-  #wordspeed {
+  #wordspeed  {
      padding: 30px 0;
   }
+
+  #keyspeed {
+      padding: 30px 0 50px 0;
+   }
 
   .response-table {
     margin-bottom: 20px;

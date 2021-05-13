@@ -118,7 +118,7 @@
                       }
                     }
                 }
-               this.filter(this.activeSet);
+                this.filter(this.activeSet);
                 for(let index in this.activeSet){
                     if(this.activeSet.hasOwnProperty(index)){
                         if(this.activeSet[index].reaction_time !== undefined) {
@@ -154,6 +154,7 @@
                         hinted_end_response = this.activeSet[index].actual_response;
                       }
 
+                      // create a new record each time with each index
                       tableReactionData[index] = [
                         this.activeSet[index].expected_outcome,
                         this.activeSet[index].response_type,
