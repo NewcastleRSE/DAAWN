@@ -20,7 +20,7 @@
     "fs-js": "^1.0.6",
     "html2canvas": "^1.0.0-rc.5",
     "jspdf": "^2.3.1",
-    "jspdf-autotable": "^3.5.3",
+    "jspdf-autotable": "^3.5.12",
     "lodash": "^4.17.21",
     "lodash.shuffle": "^4.2.0",
     "node-forge": "^0.10.0",

@@ -1,5 +1,5 @@
-import jsPDF from 'jspdf';
-import 'jspdf-autotable'
+import jsPDF from 'jspdf'
+import autoTable from 'jspdf-autotable'
 
 export const pdfService = {
   createPDF,
@@ -34,7 +34,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
     doc.setFontSize(22);
     doc.text(20, 50, 'Assessment Report');
     doc.setFontSize(14);
-    doc.text(20, 60, 'DAAWN v.1.0');
+    doc.text(20, 60, 'DAAWN v.1.1');
     doc.text(20, 75, 'Date : ' + date + '/' + month + '/' + shortyear );
     doc.text(20, 90, 'Name :');
     doc.text(20, 105, 'DOB :');
@@ -78,7 +78,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
     doc.text(15, 20, 'Summary');
 
     // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
-    doc.autoTable({
+    autoTable(doc,{
        head: [['Breakdown', 'Items Attempted', 'No. Correct (no hint)', 'Percentage Correct', 'Correct (with hint)'  ]],
        body: tableSummaryData,
        startY: 30
@@ -88,7 +88,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
     doc.text(15, 120, 'CAT Scores Summary');
 
     // must correspond to set taken, so should not show 5+ letters if set 4 is taken.
-    doc.autoTable({
+    autoTable(doc,{
        head: [['Breakdown', 'Total possible CAT score', 'Score (no hint)', 'Percentage', 'Score (with hint)', 'Percentage'  ]],
        body: tableCatSummaryData,
        startY: 130
@@ -107,7 +107,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
     doc.text(15, 60, 'the \'End Response\' column indicates where the first letter was provided by the hint button.');
 
 
-    doc.autoTable({
+    autoTable(doc, {
           head: [['Item', 'Correct/Incorrect', 'End Response', 'CAT', 'LD', 'Reaction Time', 'Response Time']],
           body: tableReactionData,
           didParseCell: function(data){
@@ -175,7 +175,7 @@ function createPDF(tableReactionData, tableCatSummaryData, tableSummaryData, tab
 
     const headrow = [['Item', 'Process Response', 'No. Letters', 'Keystrokes', 'No. Deletions']];
 
-    doc.autoTable({
+    autoTable(doc,{
         head: headrow,
         body: tableProcessData,
         startY: 40
