@@ -62,10 +62,10 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
     doc.addPage();
 
     doc.setFontSize(14);
-    doc.text(15, 20, 'Real word sentence');
+    doc.text(15, 20, 'Sentence Copying');
 
     autoTable(doc,{
-        head: [['Expected Response']],
+        head: [['Target Response']],
         body:  [[ tableProcessData[0][0] ]],
         startY: 30
     });
@@ -111,7 +111,7 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
         startY: 70
     });
 
-    doc.text(15, 110, 'Nonsense word sentence');
+    doc.text(15, 110, 'Non-word Copying');
 
     autoTable(doc,{
         head: [['Expected Response']],
@@ -161,7 +161,7 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
     });
 
    doc.setFontSize(14);
-   doc.text(15, 200, 'Overall time to complete text');
+   doc.text(15, 200, 'Timings');
 
    doc.setFontSize(12);
 
@@ -186,7 +186,7 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
    doc.addPage()
 
    doc.setFontSize(14);
-   doc.text(15, 20, 'Typing accuracy word counts');
+   doc.text(15, 20, 'Typing and Editing Accuracy');
 
    autoTable(doc, {
       head:  [['Text type', 'No. Words', 'Correct Edited Words', 'Incorrect Edited Words', 'Correct Words', 'Incorrect Words']],

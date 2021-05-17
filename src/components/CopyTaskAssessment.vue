@@ -82,6 +82,8 @@
               reactionTime: 0,
               responseTime: 0,
               moveOnTime: 0,
+              minKeypresses : 0,
+              actualKeypresses : 0,
               numCorrectEditedWords : 0,
               numIncorrectEditedWords : 0,
               numCorrectWords : 0,
@@ -135,16 +137,19 @@
               else {
                 this.responseType = 0;
               }
-              this.numLetters = this.wordLength;
+
               this.reactionTime = this.keystrokeTimes[0];
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
 
-              console.log('reaction time ' + this.reactionTime);
-              console.log('response time ' + this.responseTime);
-
               this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
-              console.log('Moving on now ' + this.moveOnTime);
+
+              // get the overall number of keypresses
+              let numOfKeypresses = this.processResponse.length;
+              const string = 'sec';
+              // find the number of array elements that contain 'sec' i.e. are additional time elements, not an actual key press
+              let numInserts = this.processResponse.filter(function(item){ return item.includes(string); }).length;
+              this.actualKeypresses = numOfKeypresses - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
@@ -166,6 +171,8 @@
                   "move_on_time" : this.moveOnTime,
                   "averageSpeed" : this.averageSpeed,
                   "wordLength" : this.wordLength,
+                  "minKeypresses" : this.minKeypresses,
+                  "actualKeypresses" : this.actualKeypresses,
                   "keystrokes" : this.keystrokes,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse,
@@ -189,6 +196,7 @@
               this.responseTime = 0;
               this.moveOnTime = 0;
               this.wordLength = 0;
+              this.minKeypresses = 0;
               this.numCorrectEditedWords = 0;
               this.numIncorrectEditedWords = 0;
               this.numCorrectWords = 0;
@@ -305,6 +313,7 @@
               this.textId = this.text[index].id;
               this.textToShow = this.text[index].text;
               this.wordLength = this.text[index].wordlength;
+              this.minKeypresses = this.text[index].keypresses;
           },
           returnID() {
               // Math.random should be unique because of its seeding algorithm.

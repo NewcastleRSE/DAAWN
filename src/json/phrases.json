@@ -2,12 +2,14 @@
     {
       "id": 1,
       "text": "You can't judge a book by its cover",
-      "wordlength": 8
+      "wordlength": 8,
+      "keypresses" : 35
     },
     {
       "id": 2,
-      "text": "Ked doop smode pretch targey zipe",
-      "wordlength": 6
+      "text": "Kerd doop smode pretch targey zippe",
+      "wordlength": 6,
+      "keypresses" : 35
     }
 ]
 

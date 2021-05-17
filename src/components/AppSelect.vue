@@ -49,10 +49,11 @@
 
       </form>
 
- <!--
-      <p class="title is-5">Choose a sentence copying task</p>
+
+    <!--  <p class="title is-5">Choose a sentence copying task</p>
       <p class="text">The sentence copying task will present a sequence of phrases to be copied. Thse will be analysed in a similar way to the image task.</p>
-      <p class="text">To choose the copying task, click the Copying Task button. <button class="button ct-btn" @click=copytask()>Copying Task</button></p> -->
+      <p class="text">To choose the copying task, click the Copying Task button. </p>
+      <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p> -->
 
 
         <div class="level" >
@@ -157,7 +158,7 @@
   .ct-btn {
     background-color: #FFBD68;
     font-size: 0.8em;
-    margin-left: 10px;
+    margin: 20px 0;
   }
 
 

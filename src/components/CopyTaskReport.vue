@@ -15,35 +15,41 @@
       </ul>
       </div>
 
+      <h3>Sentence Copying</h3>
 
-      <div class="response-table" v-for="item in allData">
+      <div class="response-table">
           <table class="table table-striped" >
           <tbody>
-          <tr><th>Expected Response</th><td>{{ item.expected_outcome }}</td></tr>
-          <tr><th>Final Response</th><td>{{ item.actual_response }}</td></tr>
-          <tr><th>Process Response</th><td>{{ item.processResponse }}</td></tr>
-          <tr><th>Correct/Incorrect</th><td><img v-show="item.response_type ===1" src="dist/green-tick.png" alt="tick" class="tick-image"><img v-show="item.response_type===0" src="dist/cross.png" alt="tick" class="cross-image"></td></tr>
+          <tr><th>Target Response</th><td>{{ this.sentenceData.expected_outcome }}</td></tr>
+          <tr><th>Final Response</th><td>{{ this.sentenceData.actual_response }}</td></tr>
+          <tr><th>Process Response</th><td>{{ this.sentenceData.processResponse }}</td></tr>
+          <tr><th>Correct/Incorrect</th><td><img v-show="this.sentenceData.response_type ===1" src="dist/green-tick.png" alt="tick" class="tick-image"><img v-show="this.sentenceData.response_type===0" src="dist/cross.png" alt="tick" class="cross-image"></td></tr>
+          <tr><th>Reaction Time</th><td>{{ this.sentenceData.reaction_time }}</td></tr>
+          <tr><th>Response Time</th><td>{{ this.sentenceData.response_time }}</td></tr>
+          <tr><th>Mean interkey typing speed</th><td>{{ sentenceInterkeyTimeMean }}</td></tr>
+          <tr><th>Min keypresses/<br>keypresses + mouseclicks</th><td>{{ this.sentenceData.minKeypresses }}/{{ this.sentenceData.actualKeypresses}}</td></tr>
           </tbody>
         </table>
       </div>
 
-      <div id="wordspeed">
-        <table class="table">
-          <caption>Overall time to complete text</caption>
-          <tr><th>Mean Reaction Time</th><td>{{ reactionTimeMean }}</td></tr>
-          <tr><th>Mean Response Time</th><td>{{ responseTimeMean }}</td></tr>
+      <h3>Non Word Copying</h3>
+
+      <div class="response-table">
+          <table class="table table-striped" >
+          <tbody>
+          <tr><th>Target Response</th><td>{{ this.nonWordData.expected_outcome }}</td></tr>
+          <tr><th>Final Response</th><td>{{ this.nonWordData.actual_response }}</td></tr>
+          <tr><th>Process Response</th><td>{{ this.nonWordData.processResponse }}</td></tr>
+          <tr><th>Correct/Incorrect</th><td><img v-show="this.nonWordData.response_type ===1" src="dist/green-tick.png" alt="tick" class="tick-image"><img v-show="this.nonWordData.response_type===0" src="dist/cross.png" alt="tick" class="cross-image"></td></tr>
+          <tr><th>Reaction Time</th><td>{{  this.nonWordData.reaction_time }}</td></tr>
+          <tr><th>Response Time</th><td>{{  this.nonWordData.response_time }}</td></tr>
+          <tr><th>Mean interkey typing speed</th><td>{{ nonWordInterkeyTimeMean }}</td></tr>
+          <tr><th>Min keypresses/<br>keypresses + mouseclicks</th><td>{{ this.nonWordData.minKeypresses }}/{{ this.nonWordData.actualKeypresses }}</td></tr>
+          </tbody>
         </table>
       </div>
 
-       <div id="keyspeed">
-        <table class="table">
-          <caption>Interkey typing speeds</caption>
-          <tr><th>Mean Key Typing Speed</th><td>{{ keyTimeMean }}</td></tr>
-          <tr><th>Median Key Typing Speed</th><td>{{ keyTimeMedian }}</td></tr>
-        </table>
-      </div>
-
-
+      <h3>Typing and Editing Accuracy</h3>
 
       <table class="table table-striped">
         <thead>
@@ -51,8 +57,8 @@
         </thead>
         <tbody>
         <tr v-for="item in allData">
-          <td><span v-bind:style="item.hint_clicked ? 'color: #eb9b34' : 'color: black' ">{{ item.expected_outcome }}</span></td>
-          <td> {{  item.wordLength  }} </td>
+          <td>{{ item.expected_outcome }}</td>
+          <td>{{ item.wordLength  }} </td>
           <td>{{ item.num_correct_edited_words }}</td>
           <td>{{ item.num_incorrect_edited_words }}</td>
           <td>{{ item.num_correct_words }}</td>
@@ -60,6 +66,8 @@
         </tr>
         </tbody>
       </table>
+
+
       <div class="level">
         <div class="level-item">
           <p class="btn-text">Please wait a few seconds after clicking either of the download buttons, your file is being generated.</p>
@@ -95,23 +103,22 @@
               data: settings.numTasksInSet,
               id : '',
               allData: [],
-              allResponseTimes: [],
-              allReactionTimes: [],
-              allKeyTimes: []
+              sentenceData: [],
+              nonWordData: [],
+              sentenceResponseTime: '',
+              nonWordResponseTime: '',
+              sentenceReactionTime: '',
+              nonWordReactionTime: '',
+              sentenceKeyTimes: [],
+              nonWordKeyTimes: []
             }
         },
         computed : {
-            responseTimeMean : function () {
-                return this.returnMean(this.allResponseTimes);
+            sentenceInterkeyTimeMean : function () {
+                 return this.returnMean(this.sentenceKeyTimes);
             },
-            reactionTimeMean : function () {
-                return this.returnMean(this.allReactionTimes);
-            },
-            keyTimeMean : function () {
-                 return this.returnMean(this.allKeyTimes);
-            },
-            keyTimeMedian : function () {
-                return this.returnMedian(this.allKeyTimes);
+            nonWordInterkeyTimeMean : function () {
+                return this.returnMean(this.nonWordKeyTimes);
             }
         },
         methods : {
@@ -119,57 +126,38 @@
                 this.id = localStorage.getItem('ID');
             },
             returnData() {
-                for(let i = 1; i <= this.data; i++){
-                    let num = i.toString();
-                    let data = JSON.parse(localStorage.getItem(num));
-                    this.allData.push(data);
-                }
+               this.sentenceData = JSON.parse(localStorage.getItem('1'));
+               this.nonWordData = JSON.parse(localStorage.getItem('2'));
+               this.sentenceData.processResponse = this.filter(this.sentenceData.processResponse);
+               this.nonWordData.processResponse = this.filter(this.nonWordData.processResponse);
+               this.allData = [this.sentenceData, this.nonWordData ];
+               this.sentenceKeyTimes = this.calcInterkeyInterval(this.sentenceData);
+               this.nonWordKeyTimes = this.calcInterkeyInterval(this.nonWordData);
             },
-            fillTextTable(){
-                this.filter(this.allData);
-                for(let index in this.allData){
-                    if(this.allData.hasOwnProperty(index)){
-                        if(this.allData[index].reaction_time !== undefined) {
-                            this.allReactionTimes.push(this.allData[index].reaction_time);
-                        }
-                        if(this.allData[index].response_time !== undefined){
-                          this.allResponseTimes.push(this.allData[index].response_time);
-                        }
-                    }
-                }
+            filter(string){
+                 let newstring = string.join(', ');
+                 return newstring;
             },
-            filter(set){
-                for(let item in set){
-                    if(set.hasOwnProperty(item)){
-                       let string = set[item].processResponse;
-                        set[item].processResponse = string.join(', ');
-                    }
-                }
-            },
-            calcInterkeyInterval() {
+            calcInterkeyInterval(data) {
                 let timestampArray = [];
-                for(let index in this.allData){
-                    if(this.allData.hasOwnProperty(index)){
-                        if(this.allData[index].json_process_response !== undefined) {
-                            // get the json process response data
-                            let json_response = this.allData[index].json_process_response;
-                            for(let item in json_response){
-                                if(json_response.hasOwnProperty(item))
-                                {
-                                   timestampArray.push(json_response[item].timestamp);
-                                }
-                            }
+                let interkeyTimes = [];
 
-                            for(let i = 0; i < timestampArray.length; i++) {
-                                // check its not out of range
-                                if(timestampArray[i+1] !== undefined){
-                                    let timePassed = this.calcTimePassed(timestampArray[i], timestampArray[i+1]);
-                                    this.allKeyTimes.push(timePassed);
-                                }
-                            }
-                        }
+                let json_response = data.json_process_response;
+                for(let item in json_response){
+                    if(json_response.hasOwnProperty(item))
+                    {
+                       timestampArray.push(json_response[item].timestamp);
                     }
                 }
+
+                for(let i = 0; i < timestampArray.length; i++) {
+                    // check its not out of range
+                    if(timestampArray[i+1] !== undefined){
+                        let timePassed = this.calcTimePassed(timestampArray[i], timestampArray[i+1]);
+                        interkeyTimes.push(timePassed);
+                    }
+                }
+                return interkeyTimes;
             },
              // compares 2 timestamps, returns an integer
             calcTimePassed(startTime, newTime){
@@ -214,19 +202,12 @@
                 }
 
                 console.log(tableWordAccuracy);
-
-                let tableSummaryData = this.createSummaryData(this.allData);
-                let tableCatSummaryData = this.createCatSummaryData(this.allData);
                 copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.id);
             },
             createJSON() {
               let data = JSON.stringify(this.allData);
               let datestr = this.getDate();
               dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
-            },
-            createSummaryData(activeSet) {
-            },
-            createCatSummaryData(activeSet) {
             },
             calcPerCategory(num, total){
               if(total !== 0) {
@@ -271,13 +252,16 @@
         },
         mounted() {
             this.returnData();
-            this.fillTextTable();
-            this.calcInterkeyInterval();
         }
     }
 </script>
 
 <style scoped>
+
+  h3 {
+    font-size: 1.2em;
+    padding: 20px 0;
+  }
 
   #page {
     border: 1px solid #c4c4c4;
@@ -287,16 +271,12 @@
     padding: 30px;
   }
 
-  #wordspeed  {
-     padding: 30px 0;
-  }
-
-  #keyspeed {
-      padding: 30px 0 50px 0;
-   }
-
   .response-table {
     margin-bottom: 20px;
+  }
+
+  .response-table th {
+    max-width: 150px;
   }
 
   .tick-image {
@@ -332,20 +312,8 @@
     margin: 30px 0 0 0;
   }
 
-  .toptext {
-    margin-bottom: 40px;
-  }
 
-  .toptext #red {
-    color: red;
-  }
 
-  .midtext {
-    margin: 45px 0;
-  }
 
-  #amber {
-    color: #eb9b34;
-  }
 
 </style>
