@@ -204,8 +204,6 @@
                         ];
                     }
                 }
-
-                console.log(tableWordAccuracy);
                 copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id);
             },
             createJSON() {

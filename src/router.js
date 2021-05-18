@@ -11,6 +11,8 @@ import AppAssessment from "./components/AppAssessment";
 import CopyTaskAssessment from "./components/CopyTaskAssessment";
 import CopyTaskAssessmentComplete from "./components/CopyTaskAssessmentComplete";
 import CopyTaskReport from "./components/CopyTaskReport";
+import FreeTaskInstructions from "./components/FreeTaskInstructions";
+import FreeTaskAssessment from "./components/FreeTaskAssessment";
 import AppReport from "./components/AppReport";
 import AppAssessmentComplete from "./components/AssessmentComplete";
 import AppAbout from "./components/AppAbout";
@@ -52,6 +54,10 @@ export const router = new Router({
       component: CopyTaskInstructions
     },
     {
+      path: '/ftinstructions',
+      component: FreeTaskInstructions
+    },
+    {
       path: '/practice',
       component: AppPractice
     },
@@ -62,6 +68,10 @@ export const router = new Router({
     {
       path: '/ctassessment',
       component: CopyTaskAssessment
+    },
+    {
+      path: '/ftassessment',
+      component: FreeTaskAssessment
     },
     {
       path: '/report',
