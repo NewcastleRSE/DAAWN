@@ -176,7 +176,11 @@
                             this.allData[index].expected_outcome,
                             this.allData[index].actual_response,
                             this.allData[index].processResponse,
-                            this.allData[index].response_type
+                            this.allData[index].response_type,
+                            this.allData[index].reaction_time,
+                            this.allData[index].response_time,
+                            this.allData[index].minKeypresses,
+                            this.allData[index].actualKeypresses
                         ];
                     }
                 }
@@ -202,7 +206,7 @@
                 }
 
                 console.log(tableWordAccuracy);
-                copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.id);
+                copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id);
             },
             createJSON() {
               let data = JSON.stringify(this.allData);

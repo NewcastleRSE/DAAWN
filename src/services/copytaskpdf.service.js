@@ -6,7 +6,7 @@ export const copyTaskPdfService = {
 
 };
 
-function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean, reactionTimeMean, keyTimeMean, keyTimeMedian, id){
+function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean, reactionTimeMean, keyTimeMean, keyTimeMedian, nonWordInterkeyTimeMean, sentenceInterkeyTimeMean, id){
 
     let today = new Date();
     let year = today.getFullYear();
@@ -106,17 +106,32 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
     });
 
     autoTable(doc,{
-        head: [['Process Response']],
-        body:  [[ tableProcessData[0][2] ]],
+        head: [['Reaction Time', 'Response Time']],
+        body:  [[ tableProcessData[0][4], tableProcessData[0][5] ]],
         startY: 70
     });
 
-    doc.text(15, 110, 'Non-word Copying');
+    autoTable(doc,{
+        head: [['Interkey Typing Speed', 'Min keypresses/keypresses + mouseclicks']],
+        body:  [[ sentenceInterkeyTimeMean, tableProcessData[0][6] + '/' +  tableProcessData[0][7] ]],
+        startY: 90
+    });
+
+    autoTable(doc,{
+        head: [['Process Response']],
+        body:  [[ tableProcessData[0][2] ]],
+        startY: 110
+    });
+
+    // page 3
+    doc.addPage()
+
+    doc.text(15, 20, 'Non-word Copying');
 
     autoTable(doc,{
         head: [['Expected Response']],
         body:  [[ tableProcessData[1][0] ]],
-        startY: 120
+        startY: 30
     });
 
     autoTable(doc,{
@@ -151,38 +166,30 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
                    }
               }
          },
-        startY: 140
+        startY: 50
     });
+
+   autoTable(doc,{
+        head: [['Reaction Time', 'Response Time']],
+        body:  [[ tableProcessData[1][4], tableProcessData[1][5] ]],
+        startY: 70
+   });
+
+   autoTable(doc,{
+        head: [['Interkey Typing Speed', 'Min keypresses/keypresses + mouseclicks']],
+        body:  [[ nonWordInterkeyTimeMean, tableProcessData[1][6] + '/' +  tableProcessData[1][7] ]],
+        startY: 90
+   });
 
    autoTable(doc,{
         head: [['Process Response']],
         body:  [[ tableProcessData[1][2] ]],
-        startY: 160
-    });
-
-   doc.setFontSize(14);
-   doc.text(15, 200, 'Timings');
-
-   doc.setFontSize(12);
-
-   autoTable(doc, {
-      head:  [['Mean Reaction Time', 'Mean Response Time']],
-      body: [[ reactionTimeMean, responseTimeMean ]],
-      startY: 210
+        startY: 110
    });
 
-   doc.setFontSize(14);
-   doc.text(15, 240, 'Interkey typing speeds');
 
-   doc.setFontSize(12);
 
-   autoTable(doc, {
-      head:  [['Mean key Typing Speed', 'Median Key Typing Speed']],
-      body: [[ keyTimeMean, keyTimeMedian ]],
-      startY: 250
-   });
-
-   // page 3
+   // page 4
    doc.addPage()
 
    doc.setFontSize(14);
