@@ -5,6 +5,8 @@
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
         <p class="title is-3">Free text task example</p>
       </div>
+      <p class="text">The client will be given a picture with a text entry area below. They will be asked to <em>'Tell the story of this picture'</em>.
+      There are no restrictions on what the client can write, other than a fixed 200 character word limit.</p>
 
 
       <div class="level">
@@ -47,9 +49,6 @@
           exit() {
             this.$router.push({ path: './' });
           }
-      },
-      created() {
-          this.randomiseText(this.text);
       }
   }
 </script>

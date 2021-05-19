@@ -35,9 +35,7 @@
         The number of words do not match the example, please try again
       </div>
 
-
       </div>
-
       <ContinueModal v-if="showContinueModal" @close="showContinueModal=false" @clicked="nextText(index)" />
   </div>
 </template>
@@ -69,8 +67,6 @@
               status : 'in progress',
               responseText: '',
               response: [],
-              expectedOutcome: '',
-              actualOutcome: '',
               responseType: '',
               interimResponse: '',
               keystroke : '',
@@ -126,11 +122,7 @@
               this.getTextToShow(this.index);
           },
           collectData() {
-              this.expectedOutcome = this.textToShow;
-              this.actualOutcome = this.responseText;
-
-              this.compareText(this.expectedOutcome, this.actualOutcome, this.processResponse);
-
+              this.compareText(this.textToShow, this.responseText, this.processResponse);
               if(this.textToShow === this.responseText){
                 this.responseType = 1;
               }
@@ -163,8 +155,8 @@
               this.response = {
                   "participant_id" : this.participantId,
                   "date" : this.dateStr,
-                  "expected_outcome" : this.expectedOutcome,
-                  "actual_response" : this.actualOutcome,
+                  "expected_outcome" : this.textToShow,
+                  "actual_response" : this.responseText,
                   "response_type" : this.responseType,
                   "reaction_time": this.reactionTime,
                   "response_time" : this.responseTime,
@@ -187,8 +179,8 @@
               this.jsonProcessResponse = [];
               this.processResponse = [];
               this.keystrokeTimes = [];
-              this.expectedOutcome = '';
-              this.actualOutcome = '';
+              this.textToShow = '';
+              this.responseText = '';
               this.responseType = '';
               this.keystrokes = 0;
               this.startTime = Date.now();
@@ -324,7 +316,7 @@
                 this.$router.push({ path: '../ctAssessmentComplete' });
           },
           exit() {
-                this.$router.push({ path: '../' });
+                this.$router.push({ path: './' });
           }
       },
       mounted() {

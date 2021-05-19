@@ -1,42 +1,32 @@
 <template>
     <div class="container is-widescreen">
-    <div id="page">
-      <div id="header">
-
-        <p class="title is-3">Beginning the free task assessment</p>
-      </div>
-
-      <div class="level-item has-text-centered">
-        <div class="box" >
-
-          <div class="level">
-            <div class="level-left">
-              <p id="displayText">IMAGE HERE</p>
-            </div>
+       <div id="page">
+          <div id="header">
+             <p class="title is-3">Beginning the free task assessment</p>
           </div>
 
           <div class="level-item has-text-centered">
-            <div class="field">
-              <div class="control">
-                <textarea></textarea>
-              </div>
+              <img src="/dist/story-picture.jpg" alt="flying helicopter trailing two people on a cable">
+          </div>
+          <div class="field">
+            <label class="label">Tell the <strong>story</strong> of this <strong>picture</strong></label>
+            <div class="control">
+              <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200"></textarea>
             </div>
           </div>
-
-        </div>
+          <div class="level-item">
+            <div class="buttons-section form-group">
+              <button class="button exit-btn" @click=exit()>Exit</button>
+              <button class="button next-btn" @click=saveData() :disabled="isFormInvalid">Done</button>
+            </div>
+          </div>
       </div>
 
-      </div>
-
-      <ContinueModal v-if="showContinueModal" @close="showContinueModal=false" @clicked="nextText(index)" />
   </div>
 </template>
 
 <script>
 
-  import _ from 'lodash';
-  import phrases from '../json/phrases.json';
-  import {settings} from "../settings";
   import ContinueModal from "./ContinueModal";
   import {dataService} from "../services/data.service";
 
@@ -47,21 +37,14 @@
       },
       data() {
           return {
-              text: phrases,
-              textToShow: '',
-              index : 0,
-              numInSet : settings.numTasksInSet,
+              numWords : 0,
+              numEditedWords : 0,
               wordLength : 0,
-              textId : 0,
               averageSpeed : 0,
               averageKeySpeed : 0,
               showContinueModal : false,
-              status : 'in progress',
               responseText: '',
               response: [],
-              expectedOutcome: '',
-              actualOutcome: '',
-              responseType: '',
               interimResponse: '',
               keystroke : '',
               processResponse: [],
@@ -74,13 +57,18 @@
               moveOnTime: 0,
               minKeypresses : 0,
               actualKeypresses : 0,
-              numCorrectEditedWords : 0,
-              numIncorrectEditedWords : 0,
-              numCorrectWords : 0,
-              numIncorrectWords: 0,
               participantId: '',
               dateStr: '',
-              errorMessage : false
+          }
+      },
+      computed : {
+          isFormInvalid() {
+              if(!this.responseText){
+                return true;
+              }
+              else {
+                return false;
+              }
           }
       },
       methods: {
@@ -88,19 +76,17 @@
                 // prevents accidental moves forward
                this.showContinueModal=true;
           },
+          saveData() {
+                // close the modal if its open
+              this.showContinueModal= false;
+
+              this.collectData();
+              this.clearData();
+              this.$router.push({ path: '../ftAssessmentComplete' });
+          },
           collectData() {
-              this.expectedOutcome = this.textToShow;
-              this.actualOutcome = this.responseText;
 
-              this.compareText(this.expectedOutcome, this.actualOutcome, this.processResponse);
-
-              if(this.textToShow === this.responseText){
-                this.responseType = 1;
-              }
-              else {
-                this.responseType = 0;
-              }
-
+              this.responseText;
               this.reactionTime = this.keystrokeTimes[0];
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
@@ -126,8 +112,7 @@
               this.response = {
                   "participant_id" : this.participantId,
                   "date" : this.dateStr,
-                  "expected_outcome" : this.expectedOutcome,
-                  "actual_response" : this.actualOutcome,
+                  "actual_response" : this.responseText,
                   "response_type" : this.responseType,
                   "reaction_time": this.reactionTime,
                   "response_time" : this.responseTime,
@@ -139,19 +124,15 @@
                   "keystrokes" : this.keystrokes,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse,
-                  "num_correct_edited_words" : this.numCorrectEditedWords,
-                  "num_incorrect_edited_words" : this.numIncorrectEditedWords,
-                  "num_correct_words" : this.numCorrectWords,
-                  "num_incorrect_words" : this.numIncorrectWords
+                  "num_edited_words" : this.numEditedWords,
               };
-              localStorage.setItem(this.textId, JSON.stringify(this.response));
+              localStorage.setItem('responseText', JSON.stringify(this.response));
           },
           clearData() {
               this.jsonProcessResponse = [];
               this.processResponse = [];
               this.keystrokeTimes = [];
-              this.expectedOutcome = '';
-              this.actualOutcome = '';
+              this.responseText = '';
               this.responseType = '';
               this.keystrokes = 0;
               this.startTime = Date.now();
@@ -160,59 +141,7 @@
               this.moveOnTime = 0;
               this.wordLength = 0;
               this.minKeypresses = 0;
-              this.numCorrectEditedWords = 0;
-              this.numIncorrectEditedWords = 0;
-              this.numCorrectWords = 0;
-              this.numIncorrectWords = 0;
-          },
-          compareText(expectedOutcome, actualOutcome, processResponse) {
-
-              let wordArray = expectedOutcome.split(' ');
-              let outcomeArray = actualOutcome.split(' ');
-
-                // check they are the same length
-              if(wordArray.length === outcomeArray.length){
-
-                  // reverse engineer the processResponse
-                  let procResponse =  processResponse.toString();
-                  // filter out anything within () like the times in seconds
-                  procResponse = procResponse.replace(/ *\([^)]*\) */g, "");
-                  procResponse = procResponse.split(' ');
-                  for(let index in procResponse ) {
-                      if(procResponse.hasOwnProperty(index)){
-                          // look for a backspace, indicates word edit
-                          if(procResponse[index].match(/backspace/g)){
-                              // keep a record of the index number of the edited word
-                              this.editedWords.push(parseInt(index));
-                          }
-                      }
-                  }
-                  // console.log(procResponse);
-
-                  // compare each word
-                  for(let i = 0; i < wordArray.length; i++){
-                      if(wordArray[i] === outcomeArray[i]){
-                          console.log('word is the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
-                          this.numCorrectWords++;
-                          if(this.editedWords.indexOf(i) > -1){
-                             this.numCorrectEditedWords++;
-                          }
-                      }
-                      else if(wordArray[i] !== outcomeArray[i]){
-                          console.log('word is not the same ' + wordArray[i] + ' === ' + outcomeArray[i]);
-                          this.numIncorrectWords++;
-                          if(this.editedWords.indexOf(i) > -1){
-                             this.numIncorrectEditedWords++;
-                          }
-                      }
-                  }
-                  this.editedWords = [];
-              }
-              else {
-                // do something else
-                console.log('Word length differs')
-                this.errorMessage = true;
-              }
+              this.numEditedWords = 0;
           },
           keyLogger: function($event) {
 
@@ -272,38 +201,29 @@
           focusInput() {
               this.$refs.text.focus();
           },
-          getTextToShow(index) {
-              this.textId = this.text[index].id;
-              this.textToShow = this.text[index].text;
-              this.wordLength = this.text[index].wordlength;
-              this.minKeypresses = this.text[index].keypresses;
-          },
           returnID() {
               // Math.random should be unique because of its seeding algorithm.
               // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
               return Math.random().toString(36).substr(2, 9);
           },
-          endSet() {
-                this.$router.push({ path: '../ctAssessmentComplete' });
-          },
           exit() {
-                this.$router.push({ path: '../' });
+                this.$router.push({ path: './' });
           }
       },
       mounted() {
-              this.focusInput();
-              this.startTime = Date.now();
-              this.dateStr = new Date;
-              this.participantId = this.returnID();
-              localStorage.setItem('ID', this.participantId);
+          this.focusInput();
+          this.startTime = Date.now();
+          this.dateStr = new Date;
+          this.participantId = this.returnID();
+          localStorage.setItem('ID', this.participantId);
 
-              let response = {
-                 "timestamp" : this.startTime,
-                 "keystroke" : "TEXTLOAD",
-                 "interimResponse" : ""
-              }
-              this.jsonProcessResponse.push(response);
+          let response = {
+             "timestamp" : this.startTime,
+             "keystroke" : "IMAGELOAD",
+             "interimResponse" : ""
           }
+          this.jsonProcessResponse.push(response);
+      }
   }
 </script>
 
@@ -320,12 +240,9 @@
     padding-bottom: 20px;
   }
 
-
-   #displayText {
-     border: 1px solid #c4c4c4;
-     border-radius: 5px;
-     font-size: 1.6em;
-     padding: 10px 20px;
+  #story-picture {
+    height : 100%;
+    width: auto;
   }
 
   #forward-arrow {

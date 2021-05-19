@@ -13,11 +13,12 @@ import CopyTaskAssessmentComplete from "./components/CopyTaskAssessmentComplete"
 import CopyTaskReport from "./components/CopyTaskReport";
 import FreeTaskInstructions from "./components/FreeTaskInstructions";
 import FreeTaskAssessment from "./components/FreeTaskAssessment";
+import FreeTaskAssessmentComplete from "./components/FreeTaskAssessmentComplete";
+import FreeTaskReport from "./components/FreeTaskReport";
 import AppReport from "./components/AppReport";
 import AppAssessmentComplete from "./components/AssessmentComplete";
 import AppAbout from "./components/AppAbout";
 import AppFAQs from "./components/AppFAQs";
-
 
 Vue.use(Router);
 
@@ -82,12 +83,20 @@ export const router = new Router({
       component: CopyTaskReport
     },
     {
+      path: '/ftreport',
+      component: FreeTaskReport
+    },
+    {
       path: '/assessmentComplete',
       component: AppAssessmentComplete
     },
-     {
+    {
       path: '/ctAssessmentComplete',
       component: CopyTaskAssessmentComplete
+    },
+    {
+      path: '/ftAssessmentComplete',
+      component: FreeTaskAssessmentComplete
     }
   ]
 });

@@ -58,7 +58,6 @@
 
 <script>
 
-
   import {dataService} from "../services/data.service";
   import {settings} from "../settings";
   import ContinueModal from "./ContinueModal";
@@ -325,7 +324,7 @@
               return Math.random().toString(36).substr(2, 9);
             },
             exit() {
-                this.$router.push({ path: '../' });
+                this.$router.push({ path: './' });
             },
             mouseclick: function($event) {
               this.processResponse.push('MOUSECLICK');

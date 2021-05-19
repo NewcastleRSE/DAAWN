@@ -3,7 +3,7 @@
     <div id="page" ref="content">
       <div class="header">
         <span class="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" class="daawn-logo"></span>
-        <p class="title is-3">Copy Task Assessment Complete</p>
+        <p class="title is-3">Free Task Assessment Complete</p>
       </div>
 
       <div id="main" class="level">
@@ -16,12 +16,12 @@
       <div class="level">
         <div class="level-item">
 
-          <p class="highlight special">Click <strong>Copy Task Report</strong> to view the assessment results.</p>
+          <p class="highlight special">Click <strong>Free Task Report</strong> to view the assessment results.</p>
         </div>
         <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button report-btn" @click=report()>Copy Task Report</button>
+            <button class="button report-btn" @click=report()>Free Task Report</button>
           </div>
 
         </div>
@@ -34,10 +34,10 @@
 
 <script>
     export default {
-        name: "CopyTaskAssessmentComplete",
+        name: "FreeTaskAssessmentComplete",
         methods: {
           report() {
-            this.$router.push({ path: './ctreport'});
+            this.$router.push({ path: './ftreport'});
           },
           exit() {
             this.$router.push({ path: './' });
