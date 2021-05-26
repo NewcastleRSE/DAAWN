@@ -27,7 +27,7 @@
           <tr><th>Reaction Time</th><td>{{ this.sentenceData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.sentenceData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ sentenceInterkeyTimeMean }}</td></tr>
-          <tr><th>Min keypresses/<br>keypresses + mouseclicks</th><td>{{ this.sentenceData.minKeypresses }}/{{ this.sentenceData.actualKeypresses}}</td></tr>
+          <tr><th>Min keystrokes/<br>keystrokes + mouseclicks</th><td>{{ this.sentenceData.minKeypresses }}/{{ this.sentenceData.actualKeypresses}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -44,7 +44,7 @@
           <tr><th>Reaction Time</th><td>{{  this.nonWordData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{  this.nonWordData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ nonWordInterkeyTimeMean }}</td></tr>
-          <tr><th>Min keypresses/<br>keypresses + mouseclicks</th><td>{{ this.nonWordData.minKeypresses }}/{{ this.nonWordData.actualKeypresses }}</td></tr>
+          <tr><th>Min strokes/<br>keystrokes + mouseclicks</th><td>{{ this.nonWordData.minKeypresses }}/{{ this.nonWordData.actualKeypresses }}</td></tr>
           </tbody>
         </table>
       </div>

@@ -112,7 +112,7 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
     });
 
     autoTable(doc,{
-        head: [['Interkey Typing Speed', 'Min keypresses/keypresses + mouseclicks']],
+        head: [['Interkey Typing Speed', 'Min keystrokes/keystrokes + mouseclicks']],
         body:  [[ sentenceInterkeyTimeMean, tableProcessData[0][6] + '/' +  tableProcessData[0][7] ]],
         startY: 90
     });
@@ -176,7 +176,7 @@ function createCopyTaskPDF(tableProcessData, tableWordAccuracy, responseTimeMean
    });
 
    autoTable(doc,{
-        head: [['Interkey Typing Speed', 'Min keypresses/keypresses + mouseclicks']],
+        head: [['Interkey Typing Speed', 'Min keystrokes/keystrokes + mouseclicks']],
         body:  [[ nonWordInterkeyTimeMean, tableProcessData[1][6] + '/' +  tableProcessData[1][7] ]],
         startY: 90
    });

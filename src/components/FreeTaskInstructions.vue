@@ -62,7 +62,7 @@
               <div class="field">
                 <div class="form-group">
                   <validation-provider rules="required" v-slot="{ errors }">
-                    <div><input type="radio" name="sentence-option" v-model="sentence" value="social-media"> <label class="radio">Write a <strong>social media commnent</strong></label></div>
+                    <div><input type="radio" name="sentence-option" v-model="sentence" value="social-media"> <label class="radio">Write a <strong>social media comment</strong></label></div>
                     <div><input type="radio" name="sentence-option" v-model="sentence" value="text-message"> <label class="radio">Reply to a <strong>text message</strong></label></div>
                     <span>{{ errors[0] }}</span>
                   </validation-provider>

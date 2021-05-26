@@ -78,8 +78,8 @@
               reactionTime: 0,
               responseTime: 0,
               moveOnTime: 0,
-              minKeypresses : 0,
-              actualKeypresses : 0,
+              minKeystrokes : 0,
+              keystrokes : 0,
               numCorrectEditedWords : 0,
               numIncorrectEditedWords : 0,
               numCorrectWords : 0,
@@ -136,12 +136,12 @@
 
               this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
 
-              // get the overall number of keypresses
-              let numOfKeypresses = this.processResponse.length;
+              // get the overall number of keystrokes
+              let numOfKeystrokes = this.processResponse.length;
               const string = 'sec';
               // find the number of array elements that contain 'sec' i.e. are additional time elements, not an actual key press
               let numInserts = this.processResponse.filter(function(item){ return item.includes(string); }).length;
-              this.actualKeypresses = numOfKeypresses - numInserts;
+              this.keystrokes = numOfKeystrokes - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
@@ -163,8 +163,7 @@
                   "move_on_time" : this.moveOnTime,
                   "averageSpeed" : this.averageSpeed,
                   "wordLength" : this.wordLength,
-                  "minKeypresses" : this.minKeypresses,
-                  "actualKeypresses" : this.actualKeypresses,
+                  "minKeystrokes" : this.minKeystrokes,
                   "keystrokes" : this.keystrokes,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse,
@@ -188,7 +187,7 @@
               this.responseTime = 0;
               this.moveOnTime = 0;
               this.wordLength = 0;
-              this.minKeypresses = 0;
+              this.minKeystrokes = 0;
               this.numCorrectEditedWords = 0;
               this.numIncorrectEditedWords = 0;
               this.numCorrectWords = 0;

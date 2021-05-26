@@ -14,7 +14,7 @@
           <div class="field">
             <label class="label"><strong>{{ taskLabel}}</strong></label>
             <div class="control">
-              <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200"></textarea>
+              <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200" v-on:click="mouseclick($event)"></textarea>
             </div>
           </div>
           <div class="level">
@@ -45,11 +45,6 @@
               taskOption: '',
               taskImage: '',
               taskLabel: '',
-              numWords : 0,
-              numEditedWords : 0,
-              wordLength : 0,
-              averageSpeed : 0,
-              averageKeySpeed : 0,
               showContinueModal : false,
               responseText: '',
               response: [],
@@ -58,13 +53,10 @@
               processResponse: [],
               jsonProcessResponse: [],
               keystrokeTimes: [],
-              editedWords: [],
               startTime: 0,
               reactionTime: 0,
               responseTime: 0,
-              moveOnTime: 0,
-              minKeypresses : 0,
-              actualKeypresses : 0,
+              keystrokes : 0,
               participantId: '',
               dateStr: '',
           }
@@ -105,14 +97,12 @@
               this.responseTime = this.keystrokeTimes.pop();
               let newTime = Date.now();
 
-              this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
-
-              // get the overall number of keypresses
-              let numOfKeypresses = this.processResponse.length;
+              // get the overall number of keystrokes
+              let numOfKeystrokes = this.processResponse.length;
               const string = 'sec';
               // find the number of array elements that contain 'sec' i.e. are additional time elements, not an actual key press
               let numInserts = this.processResponse.filter(function(item){ return item.includes(string); }).length;
-              this.actualKeypresses = numOfKeypresses - numInserts;
+              this.keystrokes = numOfKeystrokes - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
@@ -130,15 +120,9 @@
                   "response_type" : this.responseType,
                   "reaction_time": this.reactionTime,
                   "response_time" : this.responseTime,
-                  "move_on_time" : this.moveOnTime,
-                  "averageSpeed" : this.averageSpeed,
-                  "wordLength" : this.wordLength,
-                  "minKeypresses" : this.minKeypresses,
-                  "actualKeypresses" : this.actualKeypresses,
                   "keystrokes" : this.keystrokes,
                   "processResponse" : this.processResponse,
-                  "json_process_response" : this.jsonProcessResponse,
-                  "num_edited_words" : this.numEditedWords,
+                  "json_process_response" : this.jsonProcessResponse
               };
               localStorage.setItem('responseText', JSON.stringify(this.response));
           },
@@ -152,10 +136,6 @@
               this.startTime = Date.now();
               this.reactionTime = 0;
               this.responseTime = 0;
-              this.moveOnTime = 0;
-              this.wordLength = 0;
-              this.minKeypresses = 0;
-              this.numEditedWords = 0;
           },
           keyLogger: function($event) {
 

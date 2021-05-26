@@ -30,21 +30,18 @@
 
       </form>
 
-          <div class="level" >
-          <div class="level-item">
-
-            <p class="highlight special">Click <strong>Next</strong> to proceed</p>
-          </div>
-          <div class="level-item">
-            <div class="buttons-section form-group">
-              <button class="button exit-btn" @click=exit()>Exit</button>
-              <button class="button next-btn" @click=next() :disabled="isFormInvalid">Next</button>
-            </div>
-
+      <div class="level" >
+        <div class="level-item">
+          <p class="highlight special">Click <strong>Next</strong> to proceed</p>
+        </div>
+        <div class="level-item">
+          <div class="buttons-section form-group">
+            <button class="button exit-btn" @click=exit()>Exit</button>
+            <button class="button next-btn" @click=next() :disabled="isFormInvalid">Next</button>
           </div>
         </div>
-        <ExitModal v-if="showExitModal" @close="showExitModal = false" />
-
+      </div>
+      <ExitModal v-if="showExitModal" @close="showExitModal = false" />
 
     </div>
   </div>

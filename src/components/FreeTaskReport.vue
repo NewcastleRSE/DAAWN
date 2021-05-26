@@ -22,10 +22,11 @@
 
           <tr><th>Final Response</th><td>{{ this.textData.actual_response }}</td></tr>
           <tr><th>Process Response</th><td>{{ this.textData.processResponse }}</td></tr>
+          <tr><th>Number of words</th><td>{{ this.numWords }}</td></tr>
           <tr><th>Reaction Time</th><td>{{ this.textData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.textData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ textDataInterkeyTimeMean }}</td></tr>
-          <tr><th>Keypresses + mouseclicks</th><td>{{ this.textData.actualKeypresses}}</td></tr>
+          <tr><th>Keystrokes + mouseclicks</th><td>{{ this.textData.keystrokes}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -67,7 +68,8 @@
               textData: [],
               textResponseTime: '',
               textReactionTime: '',
-              textKeyTimes: []
+              textKeyTimes: [],
+              numWords: 0
             }
         },
         computed : {
@@ -82,6 +84,8 @@
             returnData() {
                this.textData = JSON.parse(localStorage.getItem('responseText'));
                this.textKeyTimes = this.calcInterkeyInterval(this.textData);
+               let test = this.filter(this.textData.processResponse);
+               console.log(test);
             },
             filter(string){
                  let newstring = string.join(', ');
@@ -128,13 +132,10 @@
                             this.allData[index].response_type,
                             this.allData[index].reaction_time,
                             this.allData[index].response_time,
-                            this.allData[index].minKeypresses,
-                            this.allData[index].actualKeypresses
+                            this.allData[index].keystrokes
                         ];
                     }
                 }
-
-
                 copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id);
             },
             createJSON() {
