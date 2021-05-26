@@ -27,7 +27,7 @@
           <tr><th>Reaction Time</th><td>{{ this.sentenceData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.sentenceData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ sentenceInterkeyTimeMean }}</td></tr>
-          <tr><th>Min keystrokes/<br>keystrokes + mouseclicks</th><td>{{ this.sentenceData.minKeypresses }}/{{ this.sentenceData.actualKeypresses}}</td></tr>
+          <tr><th>Min keystrokes/<br>keystrokes + mouseclicks</th><td>{{ this.sentenceData.minKeystrokes }}/{{ this.sentenceData.keystrokes}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -44,7 +44,7 @@
           <tr><th>Reaction Time</th><td>{{  this.nonWordData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{  this.nonWordData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ nonWordInterkeyTimeMean }}</td></tr>
-          <tr><th>Min strokes/<br>keystrokes + mouseclicks</th><td>{{ this.nonWordData.minKeypresses }}/{{ this.nonWordData.actualKeypresses }}</td></tr>
+          <tr><th>Min strokes/<br>keystrokes + mouseclicks</th><td>{{ this.nonWordData.minKeystrokes }}/{{ this.nonWordData.keystrokes }}</td></tr>
           </tbody>
         </table>
       </div>
@@ -179,8 +179,8 @@
                             this.allData[index].response_type,
                             this.allData[index].reaction_time,
                             this.allData[index].response_time,
-                            this.allData[index].minKeypresses,
-                            this.allData[index].actualKeypresses
+                            this.allData[index].minKeystrokes,
+                            this.allData[index].keystrokes
                         ];
                     }
                 }

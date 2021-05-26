@@ -26,7 +26,7 @@
           <tr><th>Reaction Time</th><td>{{ this.textData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.textData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ textDataInterkeyTimeMean }}</td></tr>
-          <tr><th>Keystrokes + mouseclicks</th><td>{{ this.textData.keystrokes}}</td></tr>
+          <tr><th>Keystrokes + mouseclicks</th><td>{{ this.textData.keystrokes}} + {{ this.textData.num_mouse_clicks }}</td></tr>
           </tbody>
         </table>
       </div>
@@ -84,8 +84,8 @@
             returnData() {
                this.textData = JSON.parse(localStorage.getItem('responseText'));
                this.textKeyTimes = this.calcInterkeyInterval(this.textData);
-               let test = this.filter(this.textData.processResponse);
-               console.log(test);
+               let words = this.textData.actual_response.split(' ');
+               this.numWords = words.length;
             },
             filter(string){
                  let newstring = string.join(', ');
@@ -132,11 +132,12 @@
                             this.allData[index].response_type,
                             this.allData[index].reaction_time,
                             this.allData[index].response_time,
-                            this.allData[index].keystrokes
+                            this.allData[index].keystrokes,
+                            this.allData[index].num_mouse_clicks
                         ];
                     }
                 }
-                copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id);
+               /* copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id); */
             },
             createJSON() {
               let data = JSON.stringify(this.allData);

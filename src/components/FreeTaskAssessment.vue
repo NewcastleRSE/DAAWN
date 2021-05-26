@@ -57,6 +57,7 @@
               reactionTime: 0,
               responseTime: 0,
               keystrokes : 0,
+              numMouseclicks: 0,
               participantId: '',
               dateStr: '',
           }
@@ -105,6 +106,7 @@
               this.keystrokes = numOfKeystrokes - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
+              this.numMouseclicks =  this.processResponse.filter(function(item){ return item === "MOUSECLICK"; }).length;
 
               let response = {
                 "timestamp" : newTime,
@@ -121,6 +123,7 @@
                   "reaction_time": this.reactionTime,
                   "response_time" : this.responseTime,
                   "keystrokes" : this.keystrokes,
+                  "num_mouse_clicks" : this.numMouseclicks,
                   "processResponse" : this.processResponse,
                   "json_process_response" : this.jsonProcessResponse
               };
@@ -136,6 +139,7 @@
               this.startTime = Date.now();
               this.reactionTime = 0;
               this.responseTime = 0;
+              this.numMouseclicks = 0;
           },
           keyLogger: function($event) {
 

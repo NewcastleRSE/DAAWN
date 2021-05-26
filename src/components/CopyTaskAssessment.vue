@@ -304,7 +304,7 @@
               this.textId = this.text[index].id;
               this.textToShow = this.text[index].text;
               this.wordLength = this.text[index].wordlength;
-              this.minKeypresses = this.text[index].keypresses;
+              this.minKeystrokes = this.text[index].keystrokes;
           },
           returnID() {
               // Math.random should be unique because of its seeding algorithm.
