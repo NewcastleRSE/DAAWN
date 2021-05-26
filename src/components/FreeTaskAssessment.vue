@@ -229,22 +229,22 @@
                 this.taskLabel = "Write a shopping list"
                 break;
               case 'names':
-                this.taskOption = "Write the names of your family members"
+                this.taskLabel = "Write the names of your family members"
                 break;
               case 'social-media':
-                this.taskOption = "Someone posts this picture on social media. Write your comment"
+                this.taskLabel = "Someone posts this picture on social media. Write your comment"
                 break;
               case 'text-message':
-                this.taskOption = "Reply to this text message"
+                this.taskLabel = "Reply to this text message"
                 break;
               case 'diary':
-                this.taskOption = "Write a diary entry for yesterday"
+                this.taskLabel = "Write a diary entry for yesterday"
                 break;
               case 'email':
-                this.taskOption = "Write an email to a friend to tell them how you are and what you have been doing"
+                this.taskLabel = "Write an email to a friend to tell them how you are and what you have been doing"
                 break;
               case 'important':
-                this.taskOption = "Write about something important to you"
+                this.taskLabel = "Write about something important to you"
                 break;
               case 'story':
                 this.taskLabel = "Tell the story of this picture"
