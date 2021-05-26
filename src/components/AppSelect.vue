@@ -7,7 +7,7 @@
       </div>
 
       <div class="content">
-        <p class="special">DAAWN will collect the following information, which you can download as a PDF when the assessment is completed:</p>
+        <p class="special">DAAWN will collect the following information from the Image Naming Task, which you can download as a PDF when the assessment is completed:</p>
 
         <ul>
           <li>Correct or incorrect (final response)</li>
@@ -26,50 +26,27 @@
         <p class="text">Please get in touch with fiona.menger@ncl.ac.uk if you are interested in using DAAWN for research purposes.</p>
       </div>
 
-      <p class="title is-4">Please select an appropriate image set</p>
+      <p class="title is-5">Choose an image naming task</p>
+      <p class="text">The image naming task will present a sequence of images. Click the button to choose a word set for the task.</p>
+      <p><button class="button ct-btn" @click=namingtask()>Image Naming Task</button></p>
 
-      <p class="text">Before starting DAAWN, you will see an example of an assessment page followed by two practice items.</p>
+      <p class="title is-5">Choose a sentence copying task</p>
+      <p class="text">The sentence copying task will present a sequence of phrases to be copied. These will be analysed in a similar way to the image task.</p>
+      <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p>
 
-      <p>Sets <span class="special">One</span>, <span class="special">Two</span> and <span class="special">Three</span> present 30 images of different word length in a random order. Set <span class="special">Four</span> contains 42 images of only 3 and 4 letter words, presented in respective groups.</p>
+      <p class="title is-5">Choose a free text task</p>
+      <p class="text">The client will be presented with a free text task. Click the button to choose from the task options. </p>
+      <p><button class="button ct-btn" @click=freetask()>Free Text Task</button></p>
 
+      <div class="level" >
 
-      <form id="options-form">
-        <div class="field">
-          <div class="form-group">
-
-            <validation-provider rules="required" v-slot="{ errors }">
-            <div><input type="radio" name="question" v-model="set" value="one"> <label class="radio">One</label></div>
-            <div><input type="radio" name="question" v-model="set" value="two"> <label class="radio">Two</label></div>
-            <div><input type="radio" name="question" v-model="set" value="three"> <label class="radio">Three</label></div>
-            <div><input type="radio" name="question" v-model="set" value="four"> <label class="radio">Four</label></div>
-              <span>{{ errors[0] }}</span>
-            </validation-provider>
+        <div class="level-item">
+          <div class="buttons-section form-group">
+            <button class="button exit-btn" @click=exit()>Exit</button>
           </div>
         </div>
-
-      </form>
-
-
-    <!--  <p class="title is-5">Choose a sentence copying task</p>
-      <p class="text">The sentence copying task will present a sequence of phrases to be copied. Thse will be analysed in a similar way to the image task.</p>
-      <p class="text">To choose the copying task, click the Copying Task button. </p>
-      <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p> -->
-
-
-        <div class="level" >
-          <div class="level-item">
-
-            <p class="highlight special">Click <strong>Next</strong> to proceed</p>
-          </div>
-          <div class="level-item">
-            <div class="buttons-section form-group">
-              <button class="button exit-btn" @click=exit()>Exit</button>
-              <button class="button next-btn" @click=next() :disabled="isFormInvalid">Next</button>
-            </div>
-
-          </div>
-        </div>
-        <ExitModal v-if="showExitModal" @close="showExitModal = false" />
+      </div>
+      <ExitModal v-if="showExitModal" @close="showExitModal = false" />
 
     </div>
   </div>
@@ -79,47 +56,31 @@
 <script>
 
   import { dataService } from '../services/data.service';
-  import { ValidationProvider } from 'vee-validate';
   import ExitModal from "./ExitModal";
 
 
   export default {
         name: "AppSelect",
         components: {
-          ValidationProvider,
           ExitModal
         },
         data() {
             return  {
-              set : null,
-              submitted: false,
               showExitModal: false
-          }
-        },
-        computed : {
-          isFormInvalid() {
-            if(!this.set){
-              return true;
-            }
-            else {
-              return false;
-            }
           }
         },
         methods: {
             exit() {
                 this.showExitModal = true;
             },
-            next() {
-              this.submitted = true;
-              this.saveData();
-              this.$router.push({ path: './instructions' });
+            namingtask() {
+              this.$router.push({ path: './chooseimageset' });
             },
             copytask(){
                this.$router.push({ path: './ctinstructions' });
             },
-            saveData() {
-              dataService.saveSettings(this.set);
+            freetask(){
+               this.$router.push({ path: './ftinstructions' });
             }
         }
     }
@@ -139,10 +100,6 @@
     padding-bottom: 20px;
   }
 
-  #options-form {
-    padding-bottom: 20px;
-  }
-
   #logo {
     float:right;
   }
@@ -151,14 +108,10 @@
     height: 40px;
   }
 
- .field {
-   padding: 10px;
- }
-
   .ct-btn {
     background-color: #FFBD68;
     font-size: 0.8em;
-    margin: 20px 0;
+    margin: 20px 0 30px 0;
   }
 
 

@@ -3,11 +3,101 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">Free text task example</p>
+        <p class="title is-3">Free text task instructions</p>
       </div>
-      <p class="text">The client will be given a picture with a text entry area below. They will be asked to <em>'Tell the story of this picture'</em>.
-      There are no restrictions on what the client can write, other than a fixed 200 character word limit.</p>
 
+       <div class="content">
+          <p class="special">DAAWN will collect the following information from the Free Text Task, which you can download as a PDF when the assessment is completed:</p>
+
+          <ul>
+            <li>Final produced text​</li>
+            <li>Keystroke log/process response – including pauses and deletions as with single word data</li>
+            <li>Typing speed – mean inter-key interval</li>
+            <li>Response time (time taken to write the entire response)</li>
+            <li>Process response (all letters, pauses over 1 second and deletions)</li>
+            <li>No of words produced in final text</li>
+            <li>No. of correctly produced words​</li>
+            <li>Proportion of unedited text</li>
+          </ul>
+
+         <p class="title is-4">Choose a level of complexity</p>
+
+           <form id="options-form">
+            <div class="field">
+              <div class="form-group">
+                <validation-provider rules="required" v-slot="{ errors }">
+                  <div><input type="radio" name="options" v-model="option" value="phrase"> <label class="radio">Short Phrase</label></div>
+                  <div><input type="radio" name="options" v-model="option" value="sentence"> <label class="radio">Sentence</label></div>
+                  <div><input type="radio" name="options" v-model="option" value="narrative"> <label class="radio">Narrative</label></div>
+                  <span>{{ errors[0] }}</span>
+                </validation-provider>
+              </div>
+            </div>
+          </form>
+
+         <div v-show="option === 'phrase'">
+           <p class="title is-4">Short phrase level options</p>
+
+           <div class="level">
+            <form id="phrase-options-form">
+              <div class="field">
+                <div class="form-group">
+                  <validation-provider rules="required" v-slot="{ errors }">
+                    <div><input type="radio" name="short-phrase" v-model="phrase" value="address"> <label class="radio">Write your <strong>address</strong></label></div>
+                    <div><input type="radio" name="short-phrase" v-model="phrase" value="list"> <label class="radio">Write a <strong>shopping list</strong></label></div>
+                    <div><input type="radio" name="short-phrase" v-model="phrase" value="names"> <label class="radio">Write the <strong>names</strong> of your <strong>family members</strong></label></div>
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+              </div>
+            </form>
+           </div>
+         </div>
+
+         <div v-show="option === 'sentence'">
+           <p class="title is-4">Sentence level options</p>
+
+           <div class="level">
+            <form id="sentence-options-form">
+              <div class="field">
+                <div class="form-group">
+                  <validation-provider rules="required" v-slot="{ errors }">
+                    <div><input type="radio" name="sentence-option" v-model="sentence" value="social-media"> <label class="radio">Write a <strong>social media commnent</strong></label></div>
+                    <div><input type="radio" name="sentence-option" v-model="sentence" value="text-message"> <label class="radio">Reply to a <strong>text message</strong></label></div>
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+              </div>
+            </form>
+           </div>
+         </div>
+
+
+         <div v-show="option === 'narrative'">
+           <p class="title is-4">Narrative level options</p>
+
+           <div class="level">
+            <form id="narrative-options-form">
+              <div class="field">
+                <div class="form-group">
+                  <validation-provider rules="required" v-slot="{ errors }">
+                    <div><input type="radio" name="narrative-option" v-model="narrative" value="diary"> <label class="radio">Write a <strong>diary entry</strong> for yesterday</label></div>
+                    <div><input type="radio" name="narrative-option" v-model="narrative" value="email"> <label class="radio">Write an <strong>email</strong> to a <strong>friend</strong> to tell them <strong>how you are</strong> and what you <strong>have been doing</strong></label></div>
+                    <div><input type="radio" name="narrative-option" v-model="narrative" value="important"> <label class="radio">Write about <strong>something important</strong> to you</label></div>
+                    <div><input type="radio" name="narrative-option" v-model="narrative" value="story"> <label class="radio">Tell the <strong>story</strong> of this picture</label></div>
+                    <span>{{ errors[0] }}</span>
+                  </validation-provider>
+                </div>
+              </div>
+            </form>
+           </div>
+         </div>
+
+       <div v-show="optionerror === true">
+         <p>No choice has been selected, please choose from one of the options provided</p>
+       </div>
+
+       </div>
 
       <div class="level">
         <div class="level-item">
@@ -16,7 +106,7 @@
         <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=beginFreeTask()>Start</button>
+            <button class="button next-btn" @click=saveFreeTextSettings()>Next</button>
           </div>
 
         </div>
@@ -29,22 +119,45 @@
 </template>
 
 <script>
-
-  import _ from 'lodash';
-  import phrases from '../json/phrases.json';
+  import {ValidationProvider} from "vee-validate";
+  import ExitModal from "./ExitModal";
+  import {dataService} from "../services/data.service";
 
   export default {
       name: "FreeTaskInstructions",
+      components: {
+          ValidationProvider,
+          ExitModal
+      },
       data() {
         return {
-            text: phrases,
-            textToShow: '',
-            textArray: []
+          option: '',
+          phrase: '',
+          sentence: '',
+          narrative: '',
+          final: '',
+          optionerror: false
         }
       },
       methods: {
-          beginFreeTask() {
-                this.$router.push({ path: './ftassessment' });
+          saveFreeTextSettings(){
+             if(this.option === 'phrase'){
+               this.final = this.phrase;
+             }
+             else if(this.option === 'sentence'){
+               this.final = this.sentence;
+             }
+             else if(this.option === 'narrative'){
+               this.final = this.narrative;
+             }
+             else {
+               this.optionerror = true;
+             }
+             this.saveData()
+          },
+          saveData() {
+              dataService.saveFreeTextOption(this.final);
+              this.$router.push({ path: './ftassessment' });
           },
           exit() {
             this.$router.push({ path: './' });
@@ -74,19 +187,12 @@
     height: 40px;
   }
 
-   #displayText {
-     border: 1px solid #c4c4c4;
-     border-radius: 5px;
-     font-size: 1.6em;
-     padding: 10px 20px;
+  #options-form {
+    margin-bottom: 30px;
   }
 
-  .large {
-    font-size: 1.2em;
-  }
-
-  .text {
-    margin-bottom: 20px;
+  form {
+    margin-left: 10px;
   }
 
 

@@ -1,5 +1,6 @@
 
 export const dataService = {
+  saveFreeTextOption,
   saveSettings,
   levenshtein,
   download
@@ -8,6 +9,11 @@ export const dataService = {
 function saveSettings(set) {
   localStorage.setItem('set', set);
 }
+
+function saveFreeTextOption(option) {
+  localStorage.setItem('option', option);
+}
+
 
 //algorithm to find levenshtein distance score
 //before it sets the unit in the matrix, it will check what type of error it is and adds to an array

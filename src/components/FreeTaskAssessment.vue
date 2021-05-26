@@ -5,19 +5,24 @@
              <p class="title is-3">Beginning the free task assessment</p>
           </div>
 
-          <div class="level-item has-text-centered">
-              <img src="/dist/story-picture.jpg" alt="flying helicopter trailing two people on a cable">
+          <div class="level has-text-centered">
+            <img v-if="taskOption === 'story'" :src="getImage('story-picture.jpg')">
+            <img v-if="taskOption === 'social-media'" :src="getImage('water-fight.jpg')">
+            <img v-if="taskOption === 'text-message'" :src="getImage('text-message.png')">
           </div>
+
           <div class="field">
-            <label class="label">Tell the <strong>story</strong> of this <strong>picture</strong></label>
+            <label class="label"><strong>{{ taskLabel}}</strong></label>
             <div class="control">
               <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200"></textarea>
             </div>
           </div>
-          <div class="level-item">
-            <div class="buttons-section form-group">
-              <button class="button exit-btn" @click=exit()>Exit</button>
-              <button class="button next-btn" @click=saveData() :disabled="isFormInvalid">Done</button>
+          <div class="level">
+            <div class="level-item">
+              <div class="buttons-section form-group">
+                <button class="button exit-btn" @click=exit()>Exit</button>
+                <button class="button next-btn" @click=saveData() :disabled="isFormInvalid">Done</button>
+              </div>
             </div>
           </div>
       </div>
@@ -37,6 +42,9 @@
       },
       data() {
           return {
+              taskOption: '',
+              taskImage: '',
+              taskLabel: '',
               numWords : 0,
               numEditedWords : 0,
               wordLength : 0,
@@ -75,6 +83,12 @@
           activateModal() {
                 // prevents accidental moves forward
                this.showContinueModal=true;
+          },
+          getImage(image) {
+            if(image){
+               this.taskImage = image;
+               return require(`../assets/freeText/${this.taskImage}`);
+            }
           },
           saveData() {
                 // close the modal if its open
@@ -206,6 +220,39 @@
               // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
               return Math.random().toString(36).substr(2, 9);
           },
+          getTaskLabel(taskoption){
+            switch(taskoption) {
+              case 'address':
+                this.taskLabel = "Write your address"
+                break;
+              case 'list':
+                this.taskLabel = "Write a shopping list"
+                break;
+              case 'names':
+                this.taskOption = "Write the names of your family members"
+                break;
+              case 'social-media':
+                this.taskOption = "Someone posts this picture on social media. Write your comment"
+                break;
+              case 'text-message':
+                this.taskOption = "Reply to this text message"
+                break;
+              case 'diary':
+                this.taskOption = "Write a diary entry for yesterday"
+                break;
+              case 'email':
+                this.taskOption = "Write an email to a friend to tell them how you are and what you have been doing"
+                break;
+              case 'important':
+                this.taskOption = "Write about something important to you"
+                break;
+              case 'story':
+                this.taskLabel = "Tell the story of this picture"
+                break;
+            default:
+              // code block
+            }
+          },
           exit() {
                 this.$router.push({ path: './' });
           }
@@ -216,6 +263,8 @@
           this.dateStr = new Date;
           this.participantId = this.returnID();
           localStorage.setItem('ID', this.participantId);
+          this.taskOption = localStorage.getItem('option');
+          this.getTaskLabel(this.taskOption);
 
           let response = {
              "timestamp" : this.startTime,

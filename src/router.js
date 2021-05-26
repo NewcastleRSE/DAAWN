@@ -19,6 +19,7 @@ import AppReport from "./components/AppReport";
 import AppAssessmentComplete from "./components/AssessmentComplete";
 import AppAbout from "./components/AppAbout";
 import AppFAQs from "./components/AppFAQs";
+import ChooseImageSet from "./components/ChooseImageSet";
 
 Vue.use(Router);
 
@@ -57,6 +58,10 @@ export const router = new Router({
     {
       path: '/ftinstructions',
       component: FreeTaskInstructions
+    },
+    {
+      path: '/chooseimageset',
+      component: ChooseImageSet
     },
     {
       path: '/practice',
