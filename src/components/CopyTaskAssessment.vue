@@ -79,7 +79,6 @@
               responseTime: 0,
               moveOnTime: 0,
               minKeystrokes : 0,
-              keystrokes : 0,
               numCorrectEditedWords : 0,
               numIncorrectEditedWords : 0,
               numCorrectWords : 0,
@@ -181,13 +180,13 @@
               this.textToShow = '';
               this.responseText = '';
               this.responseType = '';
+              this.minKeystrokes = 0;
               this.keystrokes = 0;
               this.startTime = Date.now();
               this.reactionTime = 0;
               this.responseTime = 0;
               this.moveOnTime = 0;
               this.wordLength = 0;
-              this.minKeystrokes = 0;
               this.numCorrectEditedWords = 0;
               this.numIncorrectEditedWords = 0;
               this.numCorrectWords = 0;
@@ -303,8 +302,8 @@
           getTextToShow(index) {
               this.textId = this.text[index].id;
               this.textToShow = this.text[index].text;
-              this.wordLength = this.text[index].wordlength;
-              this.minKeystrokes = this.text[index].keystrokes;
+              this.wordLength = this.text[index].wordLength;
+              this.minKeystrokes = this.text[index].minKeystrokes;
           },
           returnID() {
               // Math.random should be unique because of its seeding algorithm.

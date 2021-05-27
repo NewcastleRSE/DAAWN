@@ -23,6 +23,7 @@
           <tr><th>Final Response</th><td>{{ this.textData.actual_response }}</td></tr>
           <tr><th>Process Response</th><td>{{ this.textData.processResponse }}</td></tr>
           <tr><th>Number of words</th><td>{{ this.numWords }}</td></tr>
+         <!-- <tr><th>Unedited words</th><td>{{ this.numEditedWords }}</td></tr> -->
           <tr><th>Reaction Time</th><td>{{ this.textData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.textData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ textDataInterkeyTimeMean }}</td></tr>
@@ -56,8 +57,7 @@
 
 <script>
 
-    import { settings } from "../settings";
-    import { copyTaskPdfService } from "../services/copytaskpdf.service";
+    import {  freeTaskPdfService } from "../services/freetaskpdf.service";
     import { dataService } from "../services/data.service"
 
     export default {
@@ -69,7 +69,8 @@
               textResponseTime: '',
               textReactionTime: '',
               textKeyTimes: [],
-              numWords: 0
+              numWords: 0,
+              numEditedWords: 0
             }
         },
         computed : {
@@ -83,19 +84,67 @@
             },
             returnData() {
                this.textData = JSON.parse(localStorage.getItem('responseText'));
-               this.textKeyTimes = this.calcInterkeyInterval(this.textData);
-               let words = this.textData.actual_response.split(' ');
+               this.textKeyTimes = this.calcInterkeyInterval(this.textData.json_process_response);
+
+               let responseString = this.textData.actual_response.replace(/,/g, "");
+               // replace carriage returns with spaces
+               responseString = responseString.replace(/[\n\r]/g, ' ');
+               let words = this.splitString(responseString);
                this.numWords = words.length;
+               // TODO
+               /* let uneditedWords = this.findEditedWords(this.textData.processResponse, words); */
             },
-            filter(string){
-                 let newstring = string.join(', ');
+            convert(string){
+                 let newstring = string.join(' ');
                  return newstring;
+            },
+            splitString(str){
+               return str.split(' ');
+            },
+             // TODO - not accurate enough as it is
+            findEditedWords(process_response, final_response){
+
+                // creates clone, not a reference to the original array
+                let copiedPResponse = JSON.parse(JSON.stringify(process_response));
+                let procResponse =  copiedPResponse.toString();
+                 // replace the times in seconds with TEMP
+                procResponse = procResponse.replace(/ *\([^)]*\) */g, "TEMP");
+                // convert back to array
+                procResponse = procResponse.split(/,/);
+                 // filter out the TEMP elements
+                procResponse = procResponse.filter(function(e) { return e !== 'TEMP' });
+
+
+                for(let index in procResponse){
+                    if(procResponse.hasOwnProperty(index)){
+                         // if we find the shift key, uppercase the subsequent element
+                        if(procResponse[index] === 'shift'){
+                            procResponse[parseInt(index)+1] = procResponse[parseInt(index)+1].toUpperCase();
+                        }
+                    }
+                }
+
+                console.log('Copy ' + procResponse);
+
+                // convert to string again
+                procResponse =  procResponse.toString()
+                // filter out more items
+                procResponse = procResponse.replace(/,|shift|capslock|backspace|arrowright|arrowleft/g, "");
+                 // split the json response on MOUSECLICK
+                let processResponseArray = procResponse.split('MOUSECLICK');
+                // this stops element being bunched together
+                let processResponseString = this.convert(processResponseArray);
+                processResponseArray = this.splitString(processResponseString);
+
+                const intersection = processResponseArray.filter(element => final_response.includes(element));
+                console.log(intersection);
+                this.numEditedWords = intersection.length;
             },
             calcInterkeyInterval(data) {
                 let timestampArray = [];
                 let interkeyTimes = [];
 
-                let json_response = data.json_process_response;
+                let json_response = data;
                 for(let item in json_response){
                     if(json_response.hasOwnProperty(item))
                     {
@@ -120,27 +169,22 @@
                 return timePassed;
             },
             createPDF() {
-                let tableProcessData = [];
-                let tableWordAccuracy = [];
 
-                for(let index in this.allData){
-                    if(this.allData.hasOwnProperty(index)){
-                        tableProcessData[index] = [
-                            this.allData[index].expected_outcome,
-                            this.allData[index].actual_response,
-                            this.allData[index].processResponse,
-                            this.allData[index].response_type,
-                            this.allData[index].reaction_time,
-                            this.allData[index].response_time,
-                            this.allData[index].keystrokes,
-                            this.allData[index].num_mouse_clicks
-                        ];
-                    }
-                }
-               /* copyTaskPdfService.createCopyTaskPDF(tableProcessData, tableWordAccuracy, this.responseTimeMean, this.reactionTimeMean, this.keyTimeMean, this.keyTimeMedian, this.nonWordInterkeyTimeMean, this.sentenceInterkeyTimeMean, this.id); */
+                const tableFreeText = [
+                    this.textData.actual_response,
+                    this.numWords,
+                    this.textData.reaction_time,
+                    this.textData.response_time,
+                    this.textDataInterkeyTimeMean,
+                    this.textData.keystrokes,
+                    this.textData.num_mouse_clicks,
+                    this.textData.processResponse,
+                  ]
+
+                 freeTaskPdfService.createFreeTaskPDF(tableFreeText, this.id);
             },
             createJSON() {
-              let data = JSON.stringify(this.allData);
+              let data = JSON.stringify(this.textData);
               let datestr = this.getDate();
               dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
             },

@@ -27,7 +27,7 @@
           <tr><th>Reaction Time</th><td>{{ this.sentenceData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.sentenceData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ sentenceInterkeyTimeMean }}</td></tr>
-          <tr><th>Min keystrokes/<br>keystrokes + mouseclicks</th><td>{{ this.sentenceData.minKeystrokes }}/{{ this.sentenceData.keystrokes}}</td></tr>
+          <tr><th>Min keystrokes/<br>keystrokes + mouseclicks</th><td>{{this.sentenceData.minKeystrokes }}/{{ this.sentenceData.keystrokes}}</td></tr>
           </tbody>
         </table>
       </div>
@@ -91,7 +91,6 @@
 </template>
 
 <script>
-
     import { settings } from "../settings";
     import { copyTaskPdfService } from "../services/copytaskpdf.service";
     import { dataService } from "../services/data.service"
