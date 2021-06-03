@@ -7,17 +7,24 @@
 
       </div>
 
-      <p class="text">DAAWN is an assessment of single word typed naming designed to be used by <span class="special">Speech and Language Therapists</span> with people with aphasia.  </p>
+      <p class="text">DAAWN is a set of assessment tools designed to be used by <span class="special">Speech and Language Therapists</span> with people with aphasia.  </p>
 
-      <p class="text">What you will see here is not intended to be a final version of an assessment. Instead, it is a pilot tool that aims to demonstrate the type of information that could be available as part of a digitised clinical assessment. Our longer-term aim is to gather feedback and work with SLTs and people with aphasia to develop DAAWN further so it can be used in clinical practice and for research. </p>
+      <p class="text">This website currently contains:</p>
+      <div class="text special">
+        <ol>
+          <li>A single word typed naming task</li>
+          <li>A sentence level copy task for words and non-words</li>
+          <li>A free text generation task with a choice of stimulus prompts.</li>
+        </ol>
+      </div>
 
-      <p class="text">Please feel free to use DAAWN as much as you like. It can be used face to face with people with aphasia but may also be carried out as a telehealth assessment. This would be possible via screenshare and remote control using Zoom, Microsoft Teams, Jistsi or Google Meet with a Chrome extension. Please see the RCSLT guidance on telehealth for <a href="https://www.rcslt.org/members/delivering-quality-services/telehealth/telehealth-guidance#section-5" target="_blank">further support</a>. </p>
+      <p class="text">These tools are not intended to be final polished versions of assessments. Instead, we have developed pilot them to demonstrate the type of information that could be available as part of a digitised clinical assessment. Our longer-term aim is to continue to develop DAAWN and to explore the potential for the technology, so it can be of use in clinical practice and for research. Please feel free to use the DAAWN tools as much as you like. They can be conducted face to face with people with aphasia but may also be carried out via telehealth assessment. This would be possible via screenshare and remote-control using Zoom, Microsoft Teams, Jistsi or Google Meet with a Chrome extension. Please see the RCSLT guidance on telehealth for <a href="https://www.rcslt.org/members/delivering-quality-services/telehealth/telehealth-guidance#section-5" target="_blank">further support</a>.</p>
 
-      <p class="text">If you are using DAAWN, please do get in touch to let us know. You may be interested in taking part in this speech and language sciences dissertation study, which aims to find out about current SLT practice in the assessment of writing and obtains feedback on DAAWN. Link is <a href="https://newcastle.onlinesurveys.ac.uk/a-survey-on-written-language-assessments-for-aphasia-copy" target="_blank">https://newcastle.onlinesurveys.ac.uk/a-survey-on-written-language-assessments-for-aphasia-copy</a>. The survey closes on 14 Jan 2021.</p>
+      <p class="text">For further information or to get in touch about DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span>.</p>
 
-      <p class="text">For further information or to get in touch about DAAWN, please contact <span class="special">fiona.menger@ncl.ac.uk</span>. Alternatively consult our <a href="#" @click="faqs()">FAQ</a> page.</p>
+      <p class="text"> Alternatively consult our <a href="faqs" target="_blank">FAQ page</a>.</p>
 
-      <p class="text"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Digitised Assessment for Aphasia of Written Naming (DAAWN)</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://daawn.ncldata.dev/" property="cc:attributionName" rel="cc:attributionURL">https://daawn.ncldata.dev/</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
+      <p class="text"><span xmlns:dct="http://purl.org/dc/terms/" property="dct:title">Digitised Assessment for Aphasia of WritiNg (DAAWN)</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://daawn.ncldata.dev/" property="cc:attributionName" rel="cc:attributionURL">https://daawn.ncldata.dev/</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.</p>
 
       <p class="text"><a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/"><img alt="Creative Commons Licence" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" /></a></p>
 
@@ -65,9 +72,6 @@
             },
             next() {
               this.$router.push({ path: './info' });
-            },
-            faqs() {
-                this.$router.push({ path: './faqs' });
             }
         }
     }
@@ -95,5 +99,10 @@
   #daawn-logo {
     height: 40px;
   }
+
+  .text.special {
+    margin-left: 20px;
+  }
+
 
 </style>

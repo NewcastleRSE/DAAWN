@@ -3,11 +3,18 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">DAAWN Assessment</p>
+        <p class="title is-3">DAAWN single word typed naming task</p>
       </div>
 
+      <p class="text">You can choose from one of four stimulus picture sets to carry out this assessment.  Click for information about <a href="#" @click="showSetsModal = true">word sets</a>.
+        DAAWN will automatically calculate the number of items correctly named and will provide you with a range of other information you may find relevant as part of your assessment, e.g., timings, automated scoring, and a record of the process by which a person reaches their final response. When your assessment is complete, DAAWN generates an anonymised report, which will be a PDF download.</p>
 
- <p class="title is-4">Please select an appropriate image set</p>
+      <p class="text special">Images</p>
+
+      <p class="text">The photographs used as stimulus images in DAAWN were initially selected as part of a PhD research project by <span class="special">Dr Ella Creet</span> and were obtained from various sources: <cite>Hemera Photo Object Library (Hemera Technologies Inc, 1997-2000)</cite>, Newcastle University picture library or from other open access sources.</p>
+
+
+      <p class="title is-4">Please select an appropriate image set</p>
 
       <p class="text">Before starting the Image Naming Task, you will see an example of an assessment page followed by two practice items.</p>
 
@@ -42,6 +49,7 @@
         </div>
       </div>
       <ExitModal v-if="showExitModal" @close="showExitModal = false" />
+      <SetsModal v-if="showSetsModal"  @close="showSetsModal = false"  />
 
     </div>
   </div>
@@ -51,19 +59,22 @@
 <script>
     import {ValidationProvider} from "vee-validate";
     import ExitModal from "./ExitModal";
+    import SetsModal from "./SetsModal";
     import {dataService} from "../services/data.service";
 
     export default {
         name: "ChooseImageSet",
         components: {
           ValidationProvider,
-          ExitModal
+          ExitModal,
+          SetsModal
         },
         data() {
             return  {
               set : null,
               submitted: false,
-              showExitModal: false
+              showExitModal: false,
+              showSetsModal : false,
           }
         },
         computed : {
@@ -122,5 +133,8 @@
     padding-bottom: 20px;
   }
 
+   .title.is-4 {
+    margin: 20px 0;
+  }
 
 </style>

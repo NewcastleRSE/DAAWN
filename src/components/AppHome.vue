@@ -9,10 +9,10 @@
       </div>
 
       <p class="title is-3"> Welcome to DAAWN<p>
-      <p>DAAWN is a <strong>D</strong>igitised <strong>A</strong>ssessment for <strong>A</strong>phasia of <strong>W</strong>ritten <strong>N</strong>aming</p>
+      <p>DAAWN is a <strong>D</strong>igitised <strong>A</strong>ssessment for <strong>A</strong>phasia of <strong>W</strong>riti<strong>N</strong>g</p>
 
        <div class="info">
-         <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as part of a Newcastle University MSc Computing Science dissertation by <span class="special">Alex Smith</span>, following a collaboration between Computing Science and Speech and Language Sciences. The software in its current form was produced thanks to funding from the <span class="special">Newcastle University Humanities and Social Sciences Faculty Research Software Engineering Fund</span>.</p>
+         <p>Thank you for your interest in this project. <span class="special">DAAWN</span> was initially developed as an assessment of single word typed naming as part of a Newcastle University MSc Computing Science dissertation by  <span class="special">Alex Smith</span>, following a collaboration between Computing Science and Speech and Language Sciences. The software in its current form contains an expanded set of writing assessment tasks and was produced thanks to funding from the <span class="special">Newcastle University Humanities and Social Sciences Faculty Research Software Engineering Fund</span>.</p>
 
          <p><strong>DAAWN Team</strong></p>
 

@@ -7,7 +7,11 @@
       </div>
 
        <div class="content">
-          <p class="special">DAAWN will collect the following information from the Free Text Task, which you can download as a PDF when the assessment is completed:</p>
+
+         <p class="text">This tool allows you to elicit written language from a person with aphasia based on their current level. The suggested tasks aim to be functional and relevant to the type of written language people may wish to produce. </p>
+
+
+          <p class="special">Regardless of the task stimulus, DAAWN will collect the following information which you can download as a PDF when the assessment is completed:</p>
 
           <ul>
             <li>Final produced text​</li>
@@ -16,8 +20,6 @@
             <li>Response time (time taken to write the entire response)</li>
             <li>Process response (all letters, pauses over 1 second and deletions)</li>
             <li>No of words produced in final text</li>
-            <li>No. of correctly produced words​</li>
-            <li>Proportion of unedited text</li>
           </ul>
 
          <p class="title is-4">Choose a level of complexity</p>
@@ -106,7 +108,7 @@
         <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=saveFreeTextSettings()>Next</button>
+            <button class="button next-btn" @click=saveFreeTextSettings()>Start</button>
           </div>
 
         </div>
@@ -195,6 +197,8 @@
     margin-left: 10px;
   }
 
-
+  .title.is-4 {
+    margin: 20px 0;
+  }
 
 </style>

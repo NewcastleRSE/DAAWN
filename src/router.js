@@ -11,6 +11,7 @@ import AppAssessment from "./components/AppAssessment";
 import CopyTaskAssessment from "./components/CopyTaskAssessment";
 import CopyTaskAssessmentComplete from "./components/CopyTaskAssessmentComplete";
 import CopyTaskReport from "./components/CopyTaskReport";
+import CopyTaskInfo from "./components/CopyTaskInfo";
 import FreeTaskInstructions from "./components/FreeTaskInstructions";
 import FreeTaskAssessment from "./components/FreeTaskAssessment";
 import FreeTaskAssessmentComplete from "./components/FreeTaskAssessmentComplete";
@@ -58,6 +59,10 @@ export const router = new Router({
     {
       path: '/ftinstructions',
       component: FreeTaskInstructions
+    },
+    {
+      path: '/ctinfo',
+      component: CopyTaskInfo
     },
     {
       path: '/chooseimageset',
