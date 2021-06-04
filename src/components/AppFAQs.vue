@@ -29,7 +29,7 @@
 
        <p class="title is-5">Can you help me to interpret DAAWN results?</p>
 
-       <p class="text">We have provided a <a href="public/CI-form.docx" download>clinical interpretation form</a> to support you to interpret DAAWN output using your own clinical reasoning skills and knowledge of language processing in aphasia. We also provide some suggested reading in our <a href="public/UserGuide.docx" download>user guide</a>, which may inform your interpretation.</p>
+       <p class="text">We have provided a <a href="public/Clinical-interpretation-form.docx" download>clinical interpretation form</a> to support you to interpret DAAWN output using your own clinical reasoning skills and knowledge of language processing in aphasia. We also provide some suggested reading in our <a href="public/DAAWN-user-guide.docx" download>user guide</a>, which may inform your interpretation.</p>
 
        <p class="title is-5">Can I use DAAWN to try out assistive technology such as word prediction or speech to text?</p>
 

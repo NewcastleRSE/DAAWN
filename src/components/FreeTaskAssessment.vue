@@ -12,7 +12,17 @@
           </div>
 
           <div class="field">
-            <label class="label"><strong>{{ taskLabel}}</strong></label>
+
+             <label class="label" v-show="taskOption === 'address'">Write your <strong>address</strong></label>
+             <label class="label" v-show="taskOption === 'list'">Write a <strong>shopping list</strong></label>
+             <label class="label" v-show="taskOption === 'names'">Write the <strong>names</strong> of your <strong>family members</strong></label>
+             <label class="label" v-show="taskOption === 'social-media'">Write a <strong>social media comment</strong></label>
+             <label class="label" v-show="taskOption === 'text'">Reply to a <strong>text message</strong></label>
+             <label class="label" v-show="taskOption === 'diary'">Write a <strong>diary entry</strong> for yesterday</label>
+             <label class="label" v-show="taskOption === 'email'">Write an <strong>email</strong> to a <strong>friend</strong> to tell them <strong>how you are</strong> and what you <strong>have been doing</strong></label>
+             <label class="label" v-show="taskOption === 'important'">Write about <strong>something important</strong> to you</label>
+             <label class="label" v-show="taskOption === 'story'">Tell the <strong>story</strong> of this picture</label>
+
             <div class="control">
               <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200" v-on:click="mouseclick($event)"></textarea>
             </div>
@@ -302,5 +312,9 @@
 
   .customwidth {
     width: 600px;
+  }
+
+  label {
+    font-weight: normal;
   }
 </style>

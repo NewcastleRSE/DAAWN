@@ -15,6 +15,15 @@
       </div>
 
       <h3>Free Text Analysis</h3>
+      <div class="option" v-show="option === 'address'">Write your <strong>address</strong></div>
+      <div class="option" v-show="option === 'list'">Write a <strong>shopping list</strong></div>
+      <div class="option" v-show="option === 'names'">Write the <strong>names</strong> of your <strong>family members</strong></div>
+      <div class="option" v-show="option === 'social-media'">Write a <strong>social media comment</strong></div>
+      <div class="option" v-show="option === 'text'">Reply to a <strong>text message</strong></div>
+      <div class="option" v-show="option === 'diary'">Write a <strong>diary entry</strong> for yesterday</div>
+      <div class="option" v-show="option === 'email'">Write an <strong>email</strong> to a <strong>friend</strong> to tell them <strong>how you are</strong> and what you <strong>have been doing</strong></div>
+      <div class="option" v-show="option === 'important'">Write about <strong>something important</strong> to you</div>
+      <div class="option" v-show="option === 'story'">Tell the <strong>story</strong> of this picture</div>
 
       <div class="response-table">
           <table class="table table-striped" >
@@ -65,6 +74,7 @@
         data() {
             return {
               id : '',
+              option: '',
               textData: [],
               textResponseTime: '',
               textReactionTime: '',
@@ -81,6 +91,9 @@
         methods : {
             returnID() {
                 this.id = localStorage.getItem('ID');
+            },
+            returnOption(){
+                this.option = localStorage.getItem('option');
             },
             returnData() {
                this.textData = JSON.parse(localStorage.getItem('responseText'));
@@ -181,7 +194,7 @@
                     this.textData.processResponse,
                   ]
 
-                 freeTaskPdfService.createFreeTaskPDF(tableFreeText, this.id);
+                 freeTaskPdfService.createFreeTaskPDF(tableFreeText, dataService.returnFreeTextOption(this.option), this.id);
             },
             createJSON() {
               let data = JSON.stringify(this.textData);
@@ -231,6 +244,7 @@
         },
         mounted() {
             this.returnData();
+            this.returnOption();
         }
     }
 </script>
@@ -258,12 +272,8 @@
     max-width: 150px;
   }
 
-  .tick-image {
-    height: 20px;
-  }
-
-  .cross-image {
-    height: 18px;
+  .option {
+    margin: 10px 0 30px 0;
   }
 
   .header {
