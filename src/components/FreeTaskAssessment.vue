@@ -2,7 +2,7 @@
     <div class="container is-widescreen">
        <div id="page">
           <div id="header">
-             <p class="title is-3">Beginning the free task assessment</p>
+             <p class="title is-3">Beginning the free text task assessment</p>
           </div>
 
           <div class="level has-text-centered">

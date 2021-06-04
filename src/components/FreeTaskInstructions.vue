@@ -108,8 +108,9 @@
         <div class="level-item">
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button next-btn" @click=saveFreeTextSettings()>Start</button>
+            <button class="button next-btn" @click=saveFreeTextSettings() :disabled="isFormInvalid">Start</button>
           </div>
+
 
         </div>
       </div>
@@ -132,30 +133,40 @@
           ExitModal
       },
       data() {
-        return {
-          option: '',
-          phrase: '',
-          sentence: '',
-          narrative: '',
-          final: '',
-          optionerror: false
-        }
+          return {
+            option: '',
+            phrase: '',
+            sentence: '',
+            narrative: '',
+            final: null,
+            optionerror: false
+          }
+      },
+      computed : {
+          isFormInvalid() {
+            if(!this.phrase && !this.narrative && !this.sentence){
+              return true;
+            }
+            else {
+              return false;
+            }
+          }
       },
       methods: {
           saveFreeTextSettings(){
-             if(this.option === 'phrase'){
-               this.final = this.phrase;
-             }
-             else if(this.option === 'sentence'){
-               this.final = this.sentence;
-             }
-             else if(this.option === 'narrative'){
-               this.final = this.narrative;
-             }
-             else {
-               this.optionerror = true;
-             }
-             this.saveData()
+               if(this.option === 'phrase'){
+                 this.final = this.phrase;
+               }
+               else if(this.option === 'sentence'){
+                 this.final = this.sentence;
+               }
+               else if(this.option === 'narrative'){
+                 this.final = this.narrative;
+               }
+               else {
+                 this.optionerror = true;
+               }
+               this.saveData()
           },
           saveData() {
               dataService.saveFreeTextOption(this.final);

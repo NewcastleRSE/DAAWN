@@ -7,11 +7,11 @@
       </div>
 
       <p class="title is-5">Choose a typed naming task</p>
-      <p class="text">Assesses single word typed naming. The SLT can choose from one of four stimulus picture sets</p>
+      <p class="text">Assesses single word typed naming. The SLT can choose from one of four stimulus picture sets.</p>
       <p><button class="button ct-btn" @click=namingtask()>Image Naming Task</button></p>
 
       <p class="title is-5">Choose a sentence copying task</p>
-      <p class="text">Assesses typing speed and copying ability using a well-known phrase and non-word sentence</p>
+      <p class="text">Assesses typing speed and copying ability using a well-known phrase and non-word sentence.</p>
       <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p>
 
       <p class="title is-5">Choose a free text task</p>
