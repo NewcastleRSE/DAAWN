@@ -2,7 +2,7 @@
     <div class="container is-widescreen">
       <div id="page">
         <div id="header">
-          <p class="title is-3">DAAWN copy task</p>
+          <p class="title is-3">DAAWN copying task</p>
         </div>
 
         <div>

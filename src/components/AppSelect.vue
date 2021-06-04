@@ -3,19 +3,19 @@
     <div id="page">
       <div id="header">
         <span id="logo"><img src="dist/sundawn.png" alt="Welcome to the DAAWN tool" id="daawn-logo"></span>
-        <p class="title is-3">DAAWN Assessment</p>
+        <p class="title is-3">Select a DAAWN assessment tool</p>
       </div>
 
-      <p class="title is-5">Choose an image naming task</p>
-      <p class="text">The image naming task will present a sequence of images. Click the button to choose a word set for the task.</p>
+      <p class="title is-5">Choose a typed naming task</p>
+      <p class="text">Assesses single word typed naming. The SLT can choose from one of four stimulus picture sets</p>
       <p><button class="button ct-btn" @click=namingtask()>Image Naming Task</button></p>
 
       <p class="title is-5">Choose a sentence copying task</p>
-      <p class="text">The sentence copying task will present a sequence of phrases to be copied. These will be analysed in a similar way to the image task.</p>
+      <p class="text">Assesses typing speed and copying ability using a well-known phrase and non-word sentence</p>
       <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p>
 
       <p class="title is-5">Choose a free text task</p>
-      <p class="text">The client will be presented with a free text task. Click the button to choose from the task options. </p>
+      <p class="text">Provides stimuli to elicit everyday written language at phrase, sentence, and narrative level. </p>
       <p><button class="button ct-btn" @click=freetask()>Free Text Task</button></p>
 
       <div class="level" >
