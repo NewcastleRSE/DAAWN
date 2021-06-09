@@ -17,7 +17,7 @@
              <label class="label" v-show="taskOption === 'list'">Write a <strong>shopping list</strong></label>
              <label class="label" v-show="taskOption === 'names'">Write the <strong>names</strong> of your <strong>family members</strong></label>
              <label class="label" v-show="taskOption === 'social-media'">Write a <strong>social media comment</strong></label>
-             <label class="label" v-show="taskOption === 'text'">Reply to a <strong>text message</strong></label>
+             <label class="label" v-show="taskOption === 'text-message'">Your <strong>friend</strong> has sent you a <strong>text</strong> message. Please <strong>reply</strong>.</label>
              <label class="label" v-show="taskOption === 'diary'">Write a <strong>diary entry</strong> for yesterday</label>
              <label class="label" v-show="taskOption === 'email'">Write an <strong>email</strong> to a <strong>friend</strong> to tell them <strong>how you are</strong> and what you <strong>have been doing</strong></label>
              <label class="label" v-show="taskOption === 'important'">Write about <strong>something important</strong> to you</label>
@@ -214,39 +214,6 @@
               // Convert it to base 36 (numbers + letters), and grab the first 9 characters after the decimal.
               return Math.random().toString(36).substr(2, 9);
           },
-          getTaskLabel(taskoption){
-            switch(taskoption) {
-              case 'address':
-                this.taskLabel = "Write your address"
-                break;
-              case 'list':
-                this.taskLabel = "Write a shopping list"
-                break;
-              case 'names':
-                this.taskLabel = "Write the names of your family members"
-                break;
-              case 'social-media':
-                this.taskLabel = "Someone posts this picture on social media. Write your comment"
-                break;
-              case 'text-message':
-                this.taskLabel = "Reply to this text message"
-                break;
-              case 'diary':
-                this.taskLabel = "Write a diary entry for yesterday"
-                break;
-              case 'email':
-                this.taskLabel = "Write an email to a friend to tell them how you are and what you have been doing"
-                break;
-              case 'important':
-                this.taskLabel = "Write about something important to you"
-                break;
-              case 'story':
-                this.taskLabel = "Tell the story of this picture"
-                break;
-            default:
-              // code block
-            }
-          },
           exit() {
                 this.$router.push({ path: './' });
           }
@@ -258,7 +225,6 @@
           this.participantId = this.returnID();
           localStorage.setItem('ID', this.participantId);
           this.taskOption = localStorage.getItem('option');
-          this.getTaskLabel(this.taskOption);
 
           let response = {
              "timestamp" : this.startTime,

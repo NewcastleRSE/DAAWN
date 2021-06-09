@@ -6,7 +6,7 @@ export const freeTaskPdfService = {
 
 };
 
-function createFreeTaskPDF(tableProcessData, id){
+function createFreeTaskPDF(tableProcessData, option, id){
 
     let today = new Date();
     let year = today.getFullYear();
@@ -54,11 +54,12 @@ function createFreeTaskPDF(tableProcessData, id){
 
     doc.setFontSize(14);
     doc.text(15, 20, 'Free Text Task');
+    doc.text(15, 30, option);
 
     autoTable(doc,{
         head: [['Final Response']],
         body:  [[ tableProcessData[0] ]],
-        startY: 30
+        startY: 40
     });
 
     autoTable(doc,{

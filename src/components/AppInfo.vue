@@ -28,7 +28,7 @@
       </div>
       <p class="text">All the DAAWN tasks provide an SLT with a report containing information generated from keystroke logging and timing data. The tool does not currently require any registration on the part of the user and does not collect or keep any of the assessment data. For each task, a PDF summary report is downloaded to the user’s computer. There is also the option to download a raw data (JSON) file. We advise that you do not use DAAWN on devices that do not belong you to you or to your employer as you would then need to transfer the PDF download to your own device. </p>
 
-      <p class="text">We have provided a downloadable <a href="public/Clinical-interpretation-form.docx" download>clinical interpretation form</a> to accompany the DAAWN PDF downloads.. Please feel free to use this to support interpretation of the DAAWN data and to personalise the assessment information for your client. </p>
+      <p class="text">We have provided a downloadable <a href="public/Client-record-form.docx" download>client record form</a> to accompany the DAAWN PDF downloads. Please feel free to use this to personalise the assessment information for your client. </p>
       <p class="text">Please see the DAAWN <a href="public/DAAWN-user-guide.docx" download>user guide</a> for detailed information on DAAWN output. You may also wish to visit our <a href="faqs" target="_blank">FAQ page</a>. </p>
 
       <div class="level" >

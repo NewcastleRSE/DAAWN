@@ -16,11 +16,11 @@
 
          <p><strong>DAAWN Team</strong></p>
 
-         <p><span class="special"><a href="https://www.ncl.ac.uk/ecls/staff/profile/fionamengernewcastleacuk.html#background" target="_blank">Dr Fiona Menger</a></span> and <span class="special"><a href="https://www.ncl.ac.uk/ecls/staff/profile/juliemorris.html#background" target="_blank">Dr Julie Morris</a></span>, Speech and Language Sciences, Newcastle University. <a href="https://www.ncl.ac.uk/ecls/about/sls/" target="_blank">https://www.ncl.ac.uk/ecls/about/sls/</a></p>
-         <p><span class="special"><a href="https://www.ncl.ac.uk/computing/people/profile/matthewforshaw.html#background" target="_blank">Dr Matt Forshaw</a></span>, School of Computing, Newcastle University</p>
+         <p><span class="special"><a href="https://www.ncl.ac.uk/ecls/staff/profile/fionamengernewcastleacuk.html#background" target="_blank">Dr Fiona Menger</a></span> (lead researcher) and <span class="special"><a href="https://www.ncl.ac.uk/ecls/staff/profile/juliemorris.html#background" target="_blank">Dr Julie Morris</a></span>, Speech and Language Sciences, Newcastle University. <a href="https://www.ncl.ac.uk/ecls/about/sls/" target="_blank">https://www.ncl.ac.uk/ecls/about/sls/</a></p>
+         <p><span class="special"><a href="https://www.ncl.ac.uk/computing/people/profile/matthewforshaw.html#background" target="_blank">Dr Matt Forshaw</a></span>, National Skills Lead, Alan Turing Institute and School of Computing, Newcastle University.</p>
          <p><span class="special">Rebecca Osselton</span>, Newcastle University Research Software Engineering Team. <a href="https://research.ncl.ac.uk/rse/" target="_blank">https://research.ncl.ac.uk/rse/</a></p>
 
-         <p>With thanks to: <span class="special">Ella Creet</span> for support with stimulus items, members of the Newcastle University Speech and Language Sciences aphasia lab group for comments on the student dissertation version, and <span class="special">Christos Salis</span> and <span class="special">Janet Webster</span> for testing the software and providing comments. </p>
+         <p>With thanks to: <span class="special">Alex Smith</span> for the original dissertation project, <span class="special">Ella Creet</span> for support with stimulus items, members of the  <a href="https://www.ncl.ac.uk/ecls/research/research-themes/language-disorders/" target="_blank">Newcastle University Language, Cognition and Communication Disorders in Adults</a> group for the opportunity for discussion on the project, and <span class="special">Christos Salis</span> and <span class="special">Janet Webster</span> for testing the software and providing comments. </p>
 
        </div>
 

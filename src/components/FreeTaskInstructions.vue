@@ -8,7 +8,7 @@
 
        <div class="content">
 
-         <p class="text">This tool allows you to elicit written language from a person with aphasia based on their current level. The suggested tasks aim to be functional and relevant to the type of written language people may wish to produce. </p>
+         <p class="text">This tool allows you to elicit written language from a person with aphasia using different stimulus prompts. The suggested tasks offer varying levels of complexity and aim to be functional and relevant to the type of written language people may wish to produce. </p>
 
 
           <p class="special">Regardless of the task stimulus, DAAWN will collect the following information which you can download as a PDF when the assessment is completed:</p>
@@ -65,7 +65,7 @@
                 <div class="form-group">
                   <validation-provider rules="required" v-slot="{ errors }">
                     <div><input type="radio" name="sentence-option" v-model="sentence" value="social-media"> <label class="radio">Write a <strong>social media comment</strong></label></div>
-                    <div><input type="radio" name="sentence-option" v-model="sentence" value="text-message"> <label class="radio">Reply to a <strong>text message</strong></label></div>
+                    <div><input type="radio" name="sentence-option" v-model="sentence" value="text-message"> <label class="radio">Your <strong>friend</strong> has sent you a <strong>text</strong> message. Please <strong>reply</strong>.</label></div>
                     <span>{{ errors[0] }}</span>
                   </validation-provider>
                 </div>

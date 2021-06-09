@@ -11,7 +11,7 @@
 
        <p class="title is-5">I cannot get the DAAWN website to work at my workplace.</p>
 
-       <p class="text">This may be an issue with your IT service blocking DAAWN. We suggest you raise an IT ticket with them, explaining the tool’s purpose, and ask for the site to be whitelisted.</p>
+       <p class="text">This may be an issue with your IT service blocking DAAWN. We suggest you raise an IT ticket with them, explaining the tool’s purpose, and ask for the tool to be available via your workplace.</p>
 
        <p class="title is-5">The picture stimulus item is obscured by my client’s on-screen keyboard.</p>
 
@@ -29,7 +29,7 @@
 
        <p class="title is-5">Can you help me to interpret DAAWN results?</p>
 
-       <p class="text">We have provided a <a href="public/Clinical-interpretation-form.docx" download>clinical interpretation form</a> to support you to interpret DAAWN output using your own clinical reasoning skills and knowledge of language processing in aphasia. We also provide some suggested reading in our <a href="public/DAAWN-user-guide.docx" download>user guide</a>, which may inform your interpretation.</p>
+       <p class="text">DAAWN does not provide any clinical interpretation of assessment. We have created a <a href="public/Client-record-form.docx" download>client record form</a> to support you to interpret DAAWN output using your own clinical reasoning skills and knowledge of language processing in aphasia. We also provide some suggested reading in our <a href="public/DAAWN-user-guide.docx" download>user guide</a>, which may inform your interpretation.</p>
 
        <p class="title is-5">Can I use DAAWN to try out assistive technology such as word prediction or speech to text?</p>
 
