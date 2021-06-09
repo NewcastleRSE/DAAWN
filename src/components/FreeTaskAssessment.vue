@@ -1,9 +1,6 @@
 <template>
     <div class="container is-widescreen">
        <div id="page">
-          <div id="header">
-             <p class="title is-3">Beginning the free text task assessment</p>
-          </div>
 
           <div class="level has-text-centered">
             <img v-if="taskOption === 'story'" :src="getImage('story-picture.jpg')">
@@ -282,5 +279,6 @@
 
   label {
     font-weight: normal;
+    font-size : 2em;
   }
 </style>

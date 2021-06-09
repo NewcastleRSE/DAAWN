@@ -45,9 +45,10 @@ function createFreeTaskPDF(tableProcessData, option, id){
     doc.text(20, 180, '- Reaction time (time taken to begin typing)');
     doc.text(20, 185, '- Response time (time taken to write the entire response)');
     doc.text(20, 190, '- Interkey typing speed');
-    doc.text(20, 195, '- Number of words');
-    doc.text(20, 210, 'For further information or to get in touch about DAAWN, please contact :');
-    doc.text(20, 215, 'fiona.menger@ncl.ac.uk');
+    doc.text(20, 195, '- Minimum number of keystrokes');
+    doc.text(20, 200, '- Number of keystrokes + mouseclicks');
+    doc.text(20, 215, 'For further information or to get in touch about DAAWN, please contact :');
+    doc.text(20, 220, 'fiona.menger@ncl.ac.uk');
 
      // page 2
     doc.addPage();
@@ -75,15 +76,21 @@ function createFreeTaskPDF(tableProcessData, option, id){
     });
 
     autoTable(doc,{
-        head: [['Interkey Typing Speed', 'Keystrokes + mouseclicks']],
-        body:  [[ tableProcessData[4], tableProcessData[5] + ' / ' +  tableProcessData[6] ]],
+        head: [['Interkey Typing Speed']],
+        body:  [[ tableProcessData[4] ]],
         startY: 150
+    });
+
+    autoTable(doc,{
+        head: [['Min keystrokes required', 'Keystrokes + mouseclicks']],
+        body:  [[ tableProcessData[5], tableProcessData[6] + ' / ' +  tableProcessData[7] ]],
+        startY: 170
     });
 
      autoTable(doc,{
         head: [['Process Response']],
-        body:  [[ tableProcessData[7] ]],
-        startY: 170
+        body:  [[ tableProcessData[8] ]],
+        startY: 190
     });
 
 

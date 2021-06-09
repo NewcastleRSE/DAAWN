@@ -25,6 +25,7 @@
       <div class="option" v-show="option === 'important'">Write about <strong>something important</strong> to you</div>
       <div class="option" v-show="option === 'story'">Tell the <strong>story</strong> of this picture</div>
 
+
       <div class="response-table">
           <table class="table table-striped" >
           <tbody>
@@ -36,6 +37,7 @@
           <tr><th>Reaction Time</th><td>{{ this.textData.reaction_time }}</td></tr>
           <tr><th>Response Time</th><td>{{ this.textData.response_time }}</td></tr>
           <tr><th>Mean interkey typing speed</th><td>{{ textDataInterkeyTimeMean }}</td></tr>
+          <tr><th>Min number of keystrokes required</th><td>{{ minKeystrokes }}</td></tr>
           <tr><th>Keystrokes + mouseclicks</th><td>{{ this.textData.keystrokes}} + {{ this.textData.num_mouse_clicks }}</td></tr>
           </tbody>
         </table>
@@ -81,7 +83,8 @@
               textReactionTime: '',
               textKeyTimes: [],
               numWords: 0,
-              numEditedWords: 0
+              numEditedWords: 0,
+              minKeystrokes : 0
             }
         },
         computed : {
@@ -99,6 +102,9 @@
             returnData() {
                this.textData = JSON.parse(localStorage.getItem('responseText'));
                this.textKeyTimes = this.calcInterkeyInterval(this.textData.json_process_response);
+
+               let charArray = Array.from(this.textData.actual_response);
+               this.minKeystrokes = charArray.length;
 
                let responseString = this.textData.actual_response.replace(/,/g, "");
                // replace carriage returns with spaces
@@ -190,6 +196,7 @@
                     this.textData.reaction_time,
                     this.textData.response_time,
                     this.textDataInterkeyTimeMean,
+                    this.minKeystrokes,
                     this.textData.keystrokes,
                     this.textData.num_mouse_clicks,
                     this.textData.processResponse,
