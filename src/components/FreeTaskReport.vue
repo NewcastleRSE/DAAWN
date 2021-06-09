@@ -53,6 +53,7 @@
 
           <div class="buttons-section form-group">
             <button class="button exit-btn" @click=exit()>Exit</button>
+            <button class="button back-btn" @click=back()>Select another DAAWN task</button>
             <button class="button data-btn" @click=createJSON()>Download Raw Data</button>
             <button class="button next-btn" @click=createPDF()>Download PDF</button>
           </div>
@@ -238,6 +239,9 @@
               let date = today.getDate();
               return date + '-' + month + '-' + year;
             },
+            back() {
+              this.$router.push({ path: './select' })
+            },
             exit() {
               this.$router.push({ path: './' });
             }
@@ -287,6 +291,11 @@
   .data-btn {
     width: 220px;
   }
+
+  .back-btn {
+     width: 268px;
+  }
+
 
   .logo {
     float:right;
