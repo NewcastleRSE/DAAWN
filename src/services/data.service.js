@@ -1,5 +1,6 @@
 
 export const dataService = {
+  returnFreeTextOption,
   saveFreeTextOption,
   saveSettings,
   levenshtein,
@@ -14,6 +15,41 @@ function saveFreeTextOption(option) {
   localStorage.setItem('option', option);
 }
 
+function returnFreeTextOption(option){
+  let taskLabel = '';
+  switch(option) {
+    case 'address':
+      taskLabel = "Write your address"
+      break;
+    case 'list':
+      taskLabel = "Write a shopping list"
+      break;
+    case 'names':
+      taskLabel = "Write the names of your family members"
+      break;
+    case 'social-media':
+      taskLabel = "Someone posts this picture on social media. Write your comment"
+      break;
+    case 'text-message':
+      taskLabel = "Reply to this text message"
+      break;
+    case 'diary':
+      taskLabel = "Write a diary entry for yesterday"
+      break;
+    case 'email':
+      taskLabel = "Write an email to a friend to tell them how you are and what you have been doing"
+      break;
+    case 'important':
+      taskLabel = "Write about something important to you"
+      break;
+    case 'story':
+      taskLabel = "Tell the story of this picture"
+      break;
+  default:
+    // code block
+  }
+  return taskLabel;
+}
 
 //algorithm to find levenshtein distance score
 //before it sets the unit in the matrix, it will check what type of error it is and adds to an array
