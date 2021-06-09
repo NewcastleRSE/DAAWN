@@ -32,7 +32,7 @@ export default {
     padding: 40px 0;
   }
 
-  .next-btn, .data-btn {
+  .next-btn, .data-btn, .back-btn {
     background-color: #FFBD68;
     font-size: 1.2em;
   }
