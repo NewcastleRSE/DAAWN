@@ -6,18 +6,19 @@
         <p class="title is-3">Select a DAAWN assessment tool</p>
       </div>
 
-      <p class="title is-5">Choose a Single word picture naming task </p>
+      <div class="main">
+      <p class="title is-5">Single word picture naming task </p>
       <p class="text">Assesses single word typed naming. The SLT can choose from one of four stimulus picture sets.</p>
-      <p><button class="button ct-btn" @click=namingtask()>Image Naming Task</button></p>
+      <p><button class="button ct-btn" @click=namingtask()>Single Word Task</button></p>
 
-      <p class="title is-5">Choose a Copying task (words and non-words) </p>
+      <p class="title is-5">Copying task (words and non-words) </p>
       <p class="text">Assesses typing speed and copying ability using a well-known phrase and non-word sentence.</p>
       <p><button class="button ct-btn" @click=copytask()>Copying Task</button></p>
 
-      <p class="title is-5">Choose a Free text generation task (choice of stimulus prompts: phrase/sentence/narrative) </p>
+      <p class="title is-5">Free text generation task (choice of stimulus prompts: phrase/sentence/narrative)  </p>
       <p class="text">Provides stimuli to elicit everyday written language at phrase, sentence, and narrative level. </p>
       <p><button class="button ct-btn" @click=freetask()>Free Text Task</button></p>
-
+      </div>
       <div class="level" >
 
         <div class="level-item">
@@ -86,6 +87,10 @@
 
   #daawn-logo {
     height: 40px;
+  }
+
+  .main {
+    padding-top: 25px;
   }
 
   .ct-btn {

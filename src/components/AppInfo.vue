@@ -10,7 +10,7 @@
       <div id="task-table">
         <table class="table">
           <thead>
-           <tr><th>Single word typed naming task </th><th>Copying task</th><th>Free text generation (phrase/sentence/narrative) </th></tr>
+           <tr><th>Single word picture naming task</th><th>Copying task (words and non-words) </th><th>Free text generation task (choice of stimulus prompts: phrase/sentence/narrative) </th></tr>
           </thead>
           <tbody>
            <tr>
@@ -19,7 +19,7 @@
              <td>Provides stimuli to elicit everyday written language at phrase, sentence, and narrative level.</td>
            </tr>
            <tr>
-             <td><span class="special">Select-></span> <a href="#" @click=namingtask()>Single Word Naming Task</a></td>
+             <td><span class="special">Select-></span> <a href="#" @click=namingtask()>Single Word Task</a></td>
              <td><span class="special">Select-></span> <a href="#" @click=copytask()>Copying Task</a></td>
              <td><span class="special">Select-></span> <a href="#" @click=freetask()>Free Text Task</a></td>
            </tr>
