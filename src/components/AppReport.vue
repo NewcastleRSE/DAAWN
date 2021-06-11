@@ -181,7 +181,7 @@
             createJSON() {
               let data = JSON.stringify(this.activeSet);
               let datestr = this.getDate();
-              dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
+              dataService.download(data, "JSON-DATA-word-naming-task-" + this.id + '-' + datestr, "text/plain");
             },
             createSummaryData(activeSet) {
                 let totalCorrectWithCue = 0;

@@ -207,7 +207,7 @@
             createJSON() {
               let data = JSON.stringify(this.textData);
               let datestr = this.getDate();
-              dataService.download(data, "JSON-DATA-" + this.id + '-' + datestr, "text/plain");
+              dataService.download(data, "JSON-DATA-free-text-task-" + this.id + '-' + datestr, "text/plain");
             },
             calcPerCategory(num, total){
               if(total !== 0) {
@@ -254,6 +254,7 @@
             }
         },
         mounted() {
+            this.returnID();
             this.returnData();
             this.returnOption();
         }

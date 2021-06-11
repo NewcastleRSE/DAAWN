@@ -164,7 +164,7 @@
 
             // if key is backspace remove previous char
               if(key === 'backspace'){
-                this.interimResponse = this.interimResponse.slice(0, -1);
+                //this.interimResponse = this.interimResponse.slice(0, -1);
                 this.keystroke = "BACKSPACE";
               }
 
