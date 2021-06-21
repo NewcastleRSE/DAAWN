@@ -60,14 +60,14 @@
 
       <div class="level" >
         <div class="level-item">
-
           <div class="buttons-section form-group">
-            <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button back-btn" @click=back()>Select another DAAWN task</button>
             <button class="button data-btn" @click=createJSON()>Download Raw Data</button>
             <button class="button next-btn" @click=createPDF()>Download PDF</button>
           </div>
-
+           <div class="buttons-section form-group">
+            <button class="button exit-btn" @click=exit()>Exit</button>
+            <button class="button back-btn" @click=back()>Select another DAAWN task</button>
+          </div>
         </div>
       </div>
     </div>
