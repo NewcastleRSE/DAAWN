@@ -84,4 +84,8 @@
     width: 170px;
   }
 
+   .exit-btn {
+    font-size: 1.2em;
+  }
+
 </style>

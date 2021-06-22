@@ -63,14 +63,13 @@
           <div class="buttons-section form-group">
             <button class="button data-btn" @click=createJSON()>Download Raw Data</button>
             <button class="button next-btn" @click=createPDF()>Download PDF</button>
-          </div>
-           <div class="buttons-section form-group">
+            <button class="button select-btn" @click=back()>Select task</button>
             <button class="button exit-btn" @click=exit()>Exit</button>
-            <button class="button back-btn" @click=back()>Select another DAAWN task</button>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 
 </template>
@@ -598,8 +597,13 @@
   }
 
   .data-btn {
-    width: 220px;
+    width: 200px;
   }
+
+  .select-btn {
+     width: 100px;
+  }
+
 
   .logo {
     float:right;
@@ -614,9 +618,6 @@
     margin: 30px 0 0 0;
   }
 
-   .back-btn {
-     width: 268px;
-  }
 
   .toptext {
     margin-bottom: 40px;

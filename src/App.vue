@@ -32,21 +32,18 @@ export default {
     padding: 40px 0;
   }
 
-  .next-btn, .data-btn, .back-btn {
+  .next-btn, .data-btn, .back-btn, .select-btn {
     background-color: #FFBD68;
-    font-size: 1.2em;
   }
 
   .exit-btn {
     background-color: #c7c7c7;
-    font-size: 1.2em;
   }
 
   button {
     width: 120px;
     height: 40px;
-    font-size: 1.2em;
-    margin-left: 50px;
+    margin-left: 10px;
   }
 
 
