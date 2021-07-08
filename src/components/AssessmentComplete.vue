@@ -78,7 +78,7 @@
     height: 40px;
   }
 
-   .exit-btn {
+   .exit-btn, .next-btn {
     font-size: 1.2em;
   }
 

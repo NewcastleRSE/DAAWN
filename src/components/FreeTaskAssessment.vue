@@ -113,7 +113,7 @@
               this.keystrokes = numOfKeystrokes - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
-              this.numMouseclicks =  this.processResponse.filter(function(item){ return item === "MOUSECLICK"; }).length;
+              this.numMouseclicks =  this.processResponse.filter(function(item){ return item === "mouseclick"; }).length;
 
               let response = {
                 "timestamp" : newTime,
@@ -201,7 +201,7 @@
               return timePassed;
           },
           mouseclick: function($event) {
-            this.processResponse.push('MOUSECLICK');
+            this.processResponse.push('mouseclick');
           },
           focusInput() {
               this.$refs.text.focus();

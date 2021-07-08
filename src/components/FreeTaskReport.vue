@@ -149,7 +149,7 @@
                 // filter out more items
                 procResponse = procResponse.replace(/,|shift|capslock|backspace|arrowright|arrowleft/g, "");
                  // split the json response on MOUSECLICK
-                let processResponseArray = procResponse.split('MOUSECLICK');
+                let processResponseArray = procResponse.split('mouseclick');
                 // this stops element being bunched together
                 let processResponseString = this.convert(processResponseArray);
                 processResponseArray = this.splitString(processResponseString);

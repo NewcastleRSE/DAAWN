@@ -294,7 +294,7 @@
               return timePassed;
           },
           mouseclick: function($event) {
-            this.processResponse.push('MOUSECLICK');
+            this.processResponse.push('mouseclick');
           },
           focusInput() {
               this.$refs.text.focus();

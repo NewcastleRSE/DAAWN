@@ -158,6 +158,9 @@
                   "interimResponse" : this.interimResponse
                 }
                 this.jsonProcessResponse.push(response);
+
+                //clear 'removed' in local storage
+                this.clearRemovedValue();
             },
             hint() {
                 if(this.responseText === ""){
@@ -205,6 +208,12 @@
                 let newTime = Date.now();
                 this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
                 this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
+
+                let removed = localStorage.getItem('removed');
+                console.log('add removed!' + removed);
+                if(removed !== null){
+                  this.interimResponse = this.interimResponse.concat(removed);
+                }
 
                 let response = {
                     "timestamp" : newTime,
@@ -256,6 +265,12 @@
             endSet() {
                 this.$router.push({ path: '../assessmentComplete' });
             },
+            clearRemovedValue() {
+                let removed = localStorage.getItem('removed');
+                if(removed !== null){
+                    localStorage.removeItem('removed');
+                }
+            },
             keyLogger: function($event) {
 
                 let keystrokeTime = Date.now();
@@ -267,18 +282,31 @@
                 if(key !== 'delete'){
                   this.processResponse.push(key);
                   this.keystrokes++;
-                  this.interimResponse = this.interimResponse.concat(key);
+                  if(key !== 'backspace' && key !== 'arrowleft' && key !== 'arrowright') {
+                       this.interimResponse = this.interimResponse.concat(key);
+                  }
                   this.keystroke = key;
                 }
 
               // if key is backspace remove previous char
                 if(key === 'backspace'){
-                  //this.interimResponse = this.interimResponse.slice(0, -1);
-                  this.keystroke = "BACKSPACE";
+                  this.interimResponse = this.interimResponse.slice(0, -1);
                 }
 
-                // if its a single letter only, add it, ignore other keys
-                if(key.length === 1){
+                if(key === 'arrowleft'){
+                    console.log(this.interimResponse);
+                    let removed = this.interimResponse.charAt(this.interimResponse.length-1);
+                    let lastRemoved = localStorage.getItem('removed');
+                    if(lastRemoved !== null){
+                      removed = removed + lastRemoved;
+                    }
+                    console.log('set removed!' + removed);
+                    localStorage.setItem('removed', removed);
+                    this.interimResponse = this.interimResponse.slice(0, -1);
+                }
+
+                // if its a single letter or backspace, add it, ignore other keys
+                if(key !== 'delete'){
 
                     let response = {
                         "timestamp" : keystrokeTime,
@@ -327,7 +355,7 @@
                 this.$router.push({ path: './' });
             },
             mouseclick: function($event) {
-              this.processResponse.push('MOUSECLICK');
+              this.processResponse.push('mouseclick');
             }
         },
         mounted() {
