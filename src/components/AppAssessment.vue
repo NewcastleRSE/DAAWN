@@ -210,7 +210,6 @@
                 this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
                 let removed = localStorage.getItem('removed');
-                console.log('add removed!' + removed);
                 if(removed !== null){
                   this.interimResponse = this.interimResponse.concat(removed);
                 }
@@ -288,25 +287,25 @@
                   this.keystroke = key;
                 }
 
-              // if key is backspace remove previous char
+                // if key is backspace remove previous char
                 if(key === 'backspace'){
                   this.interimResponse = this.interimResponse.slice(0, -1);
                 }
 
+                // if the key is arrowleft, get the last letter and store it in local storage before slicing it off the array
+                // if there are already existing letters in local storage, append them to the new letter
                 if(key === 'arrowleft'){
-                    console.log(this.interimResponse);
                     let removed = this.interimResponse.charAt(this.interimResponse.length-1);
                     let lastRemoved = localStorage.getItem('removed');
                     if(lastRemoved !== null){
                       removed = removed + lastRemoved;
                     }
-                    console.log('set removed!' + removed);
                     localStorage.setItem('removed', removed);
                     this.interimResponse = this.interimResponse.slice(0, -1);
                 }
 
-                // if its a single letter or backspace, add it, ignore other keys
-                if(key !== 'delete'){
+                // if its a single letter only, add it, ignore other keys
+                if(key.length === 1){
 
                     let response = {
                         "timestamp" : keystrokeTime,
