@@ -120,7 +120,7 @@
               this.jsonProcessResponse.push(response);
 
               //clear 'removed' in local storage
-              this.clearRemovedValue();
+              dataService.clearRemovedValue();
               this.getTextToShow(this.index);
           },
           collectData() {
@@ -146,6 +146,12 @@
               this.keystrokes = numOfKeystrokes - numInserts;
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
+
+              // if part of the string was split off earlier, add it back to the interim response
+              let removed = localStorage.getItem('removed');
+              if(removed !== null){
+                  this.interimResponse = this.interimResponse.concat(removed);
+              }
 
               let response = {
                 "timestamp" : newTime,
@@ -194,12 +200,6 @@
               this.numIncorrectEditedWords = 0;
               this.numCorrectWords = 0;
               this.numIncorrectWords = 0;
-          },
-          clearRemovedValue() {
-              let removed = localStorage.getItem('removed');
-              if(removed !== null){
-                  localStorage.removeItem('removed');
-              }
           },
           compareText(expectedOutcome, actualOutcome, processResponse) {
 
@@ -275,17 +275,29 @@
               // if there are already existing letters in local storage, append them to the new letter
               if(key === 'arrowleft'){
                   let removed = this.interimResponse.charAt(this.interimResponse.length-1);
-                  let lastRemoved = localStorage.getItem('removed');
-                  if(lastRemoved !== null){
-                    removed = removed + lastRemoved;
-                  }
-                  localStorage.setItem('removed', removed);
+                  dataService.appendToRemoved(removed);
                   this.interimResponse = this.interimResponse.slice(0, -1);
               }
 
 
               // if its a single letter only, add it, ignore other keys
               if(key.length === 1){
+
+                 const strToMatch = 'shift';
+                  // check to see if the preceding key is a shift
+                  if(this.interimResponse.match(strToMatch)){
+                     // filter out shift
+                     this.interimResponse = this.interimResponse.replace('shift', '');
+                     // copy the last char and make it uppercase
+                     let removed = this.interimResponse.charAt(this.interimResponse.length-1);
+                     if(removed.match(/[a-z]/)){
+                          removed = removed.toUpperCase();
+                     }
+                     // remove the last char from the string and replace it with the uppercase version
+                     this.interimResponse = this.interimResponse.slice(0, -1);
+                     this.interimResponse = this.interimResponse.concat(removed);
+                  }
+
 
                   let response = {
                       "timestamp" : keystrokeTime,
@@ -317,7 +329,8 @@
               return timePassed;
           },
           mouseclick: function($event) {
-            this.processResponse.push('mouseclick');
+             this.processResponse.push('mouseclick');
+             this.jsonProcessResponse.push('mouseclick');
           },
           focusInput() {
               this.$refs.text.focus();

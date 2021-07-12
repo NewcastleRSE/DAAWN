@@ -160,7 +160,7 @@
                 this.jsonProcessResponse.push(response);
 
                 //clear 'removed' in local storage
-                this.clearRemovedValue();
+                dataService.clearRemovedValue();
             },
             hint() {
                 if(this.responseText === ""){
@@ -209,6 +209,7 @@
                 this.moveOnTime = this.calcTimePassed(this.startTime, newTime);
                 this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
 
+                // if part of the string was split off earlier, add it back to the interim response
                 let removed = localStorage.getItem('removed');
                 if(removed !== null){
                   this.interimResponse = this.interimResponse.concat(removed);
@@ -264,12 +265,6 @@
             endSet() {
                 this.$router.push({ path: '../assessmentComplete' });
             },
-            clearRemovedValue() {
-                let removed = localStorage.getItem('removed');
-                if(removed !== null){
-                    localStorage.removeItem('removed');
-                }
-            },
             keyLogger: function($event) {
 
                 let keystrokeTime = Date.now();
@@ -296,11 +291,7 @@
                 // if there are already existing letters in local storage, append them to the new letter
                 if(key === 'arrowleft'){
                     let removed = this.interimResponse.charAt(this.interimResponse.length-1);
-                    let lastRemoved = localStorage.getItem('removed');
-                    if(lastRemoved !== null){
-                      removed = removed + lastRemoved;
-                    }
-                    localStorage.setItem('removed', removed);
+                    dataService.appendToRemoved(removed);
                     this.interimResponse = this.interimResponse.slice(0, -1);
                 }
 
@@ -354,7 +345,8 @@
                 this.$router.push({ path: './' });
             },
             mouseclick: function($event) {
-              this.processResponse.push('mouseclick');
+                this.processResponse.push('mouseclick');
+                this.jsonProcessResponse.push('mouseclick');
             }
         },
         mounted() {

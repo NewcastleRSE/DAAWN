@@ -1,5 +1,7 @@
 
 export const dataService = {
+  appendToRemoved,
+  clearRemovedValue,
   returnFreeTextOption,
   saveFreeTextOption,
   saveSettings,
@@ -13,6 +15,21 @@ function saveSettings(set) {
 
 function saveFreeTextOption(option) {
   localStorage.setItem('option', option);
+}
+
+function appendToRemoved(removed){
+   let lastRemoved = localStorage.getItem('removed');
+   if(lastRemoved !== null){
+     removed = removed + lastRemoved;
+   }
+   localStorage.setItem('removed', removed);
+}
+
+function clearRemovedValue() {
+   let removed = localStorage.getItem('removed');
+   if(removed !== null){
+      localStorage.removeItem('removed');
+   }
 }
 
 function returnFreeTextOption(option){

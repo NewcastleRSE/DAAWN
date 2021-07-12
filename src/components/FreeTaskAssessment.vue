@@ -93,7 +93,6 @@
           saveData() {
                 // close the modal if its open
               this.showContinueModal= false;
-
               this.collectData();
               this.clearData();
               this.$router.push({ path: '../ftAssessmentComplete' });
@@ -114,6 +113,12 @@
 
               this.numDeletions =  this.processResponse.filter(function(item){ return item === "backspace"; }).length;
               this.numMouseclicks =  this.processResponse.filter(function(item){ return item === "mouseclick"; }).length;
+
+              // if part of the string was split off earlier, add it back to the interim response
+              let removed = localStorage.getItem('removed');
+              if(removed !== null){
+                  this.interimResponse = this.interimResponse.concat(removed);
+              }
 
               let response = {
                 "timestamp" : newTime,
@@ -147,6 +152,9 @@
               this.reactionTime = 0;
               this.responseTime = 0;
               this.numMouseclicks = 0;
+
+              //clear 'removed' in local storage
+              dataService.clearRemovedValue();
           },
           keyLogger: function($event) {
 
@@ -158,18 +166,42 @@
               if(key !== 'delete'){
                 this.processResponse.push(key);
                 this.keystrokes++;
-                this.interimResponse = this.interimResponse.concat(key);
+                if(key !== 'backspace' && key !== 'arrowleft' && key !== 'arrowright') {
+                     this.interimResponse = this.interimResponse.concat(key);
+                }
                 this.keystroke = key;
               }
 
             // if key is backspace remove previous char
               if(key === 'backspace'){
-                //this.interimResponse = this.interimResponse.slice(0, -1);
-                this.keystroke = "BACKSPACE";
+                this.interimResponse = this.interimResponse.slice(0, -1);
+              }
+
+              // if the key is arrowleft, get the last letter and store it in local storage before slicing it off the array
+              // if there are already existing letters in local storage, append them to the new letter
+              if(key === 'arrowleft'){
+                  let removed = this.interimResponse.charAt(this.interimResponse.length-1);
+                  dataService.appendToRemoved(removed);
+                  this.interimResponse = this.interimResponse.slice(0, -1);
               }
 
               // if its a single letter only, add it, ignore other keys
               if(key.length === 1){
+
+                  const strToMatch = 'shift';
+                  // check to see if the preceding key is a shift
+                  if(this.interimResponse.match(strToMatch)){
+                     // filter out shift
+                     this.interimResponse = this.interimResponse.replace('shift', '');
+                     // copy the last char and make it uppercase
+                     let removed = this.interimResponse.charAt(this.interimResponse.length-1);
+                     if(removed.match(/[a-z]/)){
+                          removed = removed.toUpperCase();
+                     }
+                     // remove the last char from the string and replace it with the uppercase version
+                     this.interimResponse = this.interimResponse.slice(0, -1);
+                     this.interimResponse = this.interimResponse.concat(removed);
+                  }
 
                   let response = {
                       "timestamp" : keystrokeTime,
@@ -201,7 +233,8 @@
               return timePassed;
           },
           mouseclick: function($event) {
-            this.processResponse.push('mouseclick');
+             this.processResponse.push('mouseclick');
+             this.jsonProcessResponse.push('mouseclick');
           },
           focusInput() {
               this.$refs.text.focus();
