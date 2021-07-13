@@ -47,7 +47,6 @@
     "cross-env": "^5.0.5",
     "css-loader": "^1.0.1",
     "file-loader": "^1.1.4",
-    "glob-parent": "^5.1.2",
     "html-webpack-plugin": "^4.3.0",
     "html-webpack-root-plugin": "^0.10.0",
     "sass": "^1.26.5",
