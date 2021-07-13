@@ -47,6 +47,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^1.0.1",
     "file-loader": "^1.1.4",
+    "glob-parent": "^5.1.2",
     "html-webpack-plugin": "^4.3.0",
     "html-webpack-root-plugin": "^0.10.0",
     "sass": "^1.26.5",
@@ -55,7 +56,7 @@
     "terser-webpack-plugin": "^3.0.6",
     "vue-loader": "^14.2.2",
     "vue-template-compiler": "^2.4.4",
-    "webpack": "^4.43.0",
+    "webpack": "^5.44.0",
     "webpack-cli": "^3.3.11",
     "webpack-dev-server": "^3.11.0",
     "y18n": "^4.0.1"
