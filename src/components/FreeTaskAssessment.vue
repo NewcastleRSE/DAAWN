@@ -21,7 +21,7 @@
              <label class="label" v-show="taskOption === 'story'">Tell the <strong>story</strong> of this picture</label>
 
             <div class="control">
-              <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="200" v-on:click="mouseclick($event)"></textarea>
+              <textarea ref="text" class="textarea" placeholder="Type here..." v-model="responseText" v-on:keydown="keyLogger($event)" spellcheck="false" autocorrect="off" autocapitalize="none" maxlength="2000" v-on:click="mouseclick($event)"></textarea>
             </div>
           </div>
           <div class="level">
