@@ -182,8 +182,8 @@
             },
             collectData() {
                 this.expectedOutcome = this.name;
-                // get rid of any auto capitalisation
-                this.responseText = this.responseText.toLowerCase();
+                // get rid of any auto capitalisation and any preceding or trailing spaces
+                this.responseText = this.responseText.toLowerCase().trim();
                 this.actualOutcome = this.responseText;
                 if(this.name === this.responseText){
                   this.responseType = 1;
@@ -197,7 +197,6 @@
                 }
 
                 this.numLetters = this.name.length;
-
                 let imageNameLength=this.name.length;
                 if(imageNameLength-this.DLScore > 0 && this.responseText !== ''){
                     this.catScore=imageNameLength-this.DLScore;
@@ -268,12 +267,11 @@
             keyLogger: function($event) {
 
                 let keystrokeTime = Date.now();
-
                 let key = $event.key;
                 key = key.toLowerCase();
-
                 // ignore Delete key
                 if(key !== 'delete'){
+
                   this.processResponse.push(key);
                   this.keystrokes++;
                   if(key !== 'backspace' && key !== 'arrowleft' && key !== 'arrowright') {

@@ -36,7 +36,7 @@
         <tr><th>Median Response Time</th><td>{{ responseTimeMedian }}</td></tr>
       </table>
 
-      <p class="midtext">Items that were completed using the <span class="special">Hint</span> facility are shown in <span id="amber">amber text.</span> A star (*) in the process response indicates where the first letter was provided.</p>
+      <p class="midtext">Items that were completed using the <span class="special">Hint</span> facility are shown in <span id="amber">amber text.</span> A star (*) in the process response indicates where the first letter was provided. NOTE: If the user has entered a <span class="special">space</span> at the beginning, or end of the word, this will not be considered an error when comparing the final response to the given word.</p>
 
       <table class="table table-striped">
         <thead>
