@@ -15,7 +15,10 @@
           <div id="bibtext">
             <xmp>
                 @misc{daawn_2021,
-                    author       = {Menger, Fiona and Forshaw, Matthew and Morris, Julie and Osselton, Rebecca},
+                    author       = {Menger, Fiona and
+                                    Forshaw, Matthew and
+                                    Morris, Julie and
+                                    Osselton, Rebecca},
                     year         = 2021,
                     journal      = {Digitised Assessment for Aphasia of Writing},
                     url          = {https://daawn.ncldata.dev}
@@ -67,7 +70,7 @@
     -webkit-transform: translate(-50%, -50%);
     transform: translate(-50%, -50%);
     width: 80%;
-    height: 70%;
+    height: 80%;
     background: #FFF;
     border-radius: 25px;
   }
