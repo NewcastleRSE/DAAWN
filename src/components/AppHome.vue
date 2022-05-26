@@ -24,6 +24,10 @@
 
        </div>
 
+        <a href="#" @click=citeDaawn()>Cite DAAWN</a>
+
+        <CitationModal v-if="showCitationModal"  @close="showCitationModal = false"  />
+
         <div class="level" >
           <div class="level-item">
             <button class="button start-btn" @click=start()>Start</button>
@@ -38,11 +42,25 @@
 </template>
 
 <script>
+
+  import CitationModal from './CitationModal';
+
     export default {
         name: "AppHome",
+        components: {
+            CitationModal
+        },
+         data() {
+            return {
+              showCitationModal : false
+            }
+        },
         methods: {
           start() {
             this.$router.push({ path: './about' });
+          },
+          citeDaawn() {
+            this.showCitationModal = true;
           }
       },
       created(){
