@@ -6,12 +6,12 @@ DAAWN is an online assessment tool for aphasia, which uses the Comprehensive Aph
 
 ### Project Team
 
-* [Becky Osselton], Newcastle University  ([rebecca.osselton@newcastle.ac.uk](mailto:rebecca.osselton@newcastle.ac.uk))
-* [Fiona Menger], Newcastle University  ([fiona.menger@newcastle.ac.uk](mailto:fiona.menger@newcastle.ac.uk))
+* Becky Osselton, Newcastle University  ([rebecca.osselton@newcastle.ac.uk](mailto:rebecca.osselton@newcastle.ac.uk))
+* Fiona Menger, Newcastle University  ([fiona.menger@newcastle.ac.uk](mailto:fiona.menger@newcastle.ac.uk))
 
 
 ### RSE Contact
-[Becky Osselton], RSE Team, Newcastle University
+Becky Osselton, RSE Team, Newcastle University
 
 
 ### Built With
@@ -42,9 +42,9 @@ Tests to be written at a future date.
 
 ## Roadmap
 
-- [] Initial Research
-- [] Minimum viable product <-- You are Here
-- [] Alpha Release
+- [ ] Initial Research
+- [ ] Minimum viable product
+- [ ] Alpha Release
 - [x] Feature-Complete Release
 
 
@@ -55,10 +55,6 @@ Running the command below builds and minifies code for production. Source code i
 ```npm run build```
 
 Deployment is automated and pushes the dist folder to a 'daawn' storage account on Azure. The application build lives in the $web container.
-
-### Azure registry
-
-Details here.
 
 ## Contributing
 
