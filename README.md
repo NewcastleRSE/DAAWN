@@ -4,7 +4,7 @@
 
 DAAWN is an online assessment tool for aphasia, which uses the Comprehensive Aphasia Test (CAT). It has been developed in conjunction with Dr Fiona Menger in the School of Education, Communication and Language Sciences.
 
-The tool is designed to be used by people with aphasia in conjunction with their speech therapists. The users work through a series of exercises which can be configured in levels of difficulty. A report is available to the therapists after the user has finished which scores levels of word and sentence level accuracy.
+The tool is designed to be used by people with aphasia in conjunction with their speech therapists. The users work through a series of exercises which can be configured in levels of difficulty. A report is available to the therapists after the user has finished which scores levels of word and sentence level accuracy. DAAWN is a client side application only stores data temporarily in localstorage.
 
 Site deployed at: [https://daawn.ncldata.dev/](https://daawn.ncldata.dev/)
 
