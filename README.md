@@ -6,6 +6,8 @@ DAAWN is an online assessment tool for aphasia, which uses the Comprehensive Aph
 
 The tool is designed to be used by people with aphasia in conjunction with their speech therapists. The users work through a series of exercises which can be configured in levels of difficulty. A report is available to the therapists after the user has finished which scores levels of word and sentence level accuracy.
 
+Site deployed at: [https://daawn.ncldata.dev/](https://daawn.ncldata.dev/)
+
 ### Project Team
 
 * Becky Osselton, Newcastle University  ([rebecca.osselton@newcastle.ac.uk](mailto:rebecca.osselton@newcastle.ac.uk))
@@ -32,15 +34,13 @@ Clone the repository and then install dependencies with :
 
 ```npm install```
 
+
 ### Running Locally
 
 ```npm run dev```
 
 The server runs locally with hot reload at localhost:8080
 
-### Running Tests
-
-Tests to be written at a future date.
 
 ## Roadmap
 
@@ -60,18 +60,15 @@ Deployment is automated and pushes the dist folder to a 'daawn' storage account 
 
 ## Contributing
 
-### Main Branch
-Protected and can only be pushed to via pull requests. Should be considered stable and a representation of production code.
+### Branches
 
-### Dev Branch
-Should be considered fragile, code should compile and run but features may be prone to errors.
+Main and dev
 
 ### License
 
 Creative Commons Attribution-NonCommercial 4.0 International License
 
 https://creativecommons.org/licenses/by-nc/4.0/
-
 
 #### Cite
 
